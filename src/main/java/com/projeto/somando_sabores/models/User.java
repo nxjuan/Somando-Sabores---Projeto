@@ -42,7 +42,6 @@ public class User implements Serializable {
 
 
     @OneToMany(mappedBy = "user")
-    @Column(name="sales")
     private List<Sale> sale = new ArrayList<>();
 
 }
