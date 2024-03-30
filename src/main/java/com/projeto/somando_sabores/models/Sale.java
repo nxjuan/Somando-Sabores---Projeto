@@ -19,5 +19,7 @@ public class Sale implements Serializable{
     @NotBlank
     private double value;
 
-
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false, updatable = false)
+    private User user;
 }
