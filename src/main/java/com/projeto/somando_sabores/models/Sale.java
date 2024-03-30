@@ -1,10 +1,16 @@
 package com.projeto.somando_sabores.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Instant;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "sales")
 public class Sale implements Serializable{
@@ -22,4 +28,8 @@ public class Sale implements Serializable{
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false, updatable = false)
     private User user;
+
+    @OneToMany
+    @JoinColumn(name="product_id", nullable = false, updatable = false)
+    private Product product;
 }
