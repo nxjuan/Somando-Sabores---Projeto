@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,5 +33,5 @@ public class Sale implements Serializable{
 
     @OneToMany
     @JoinColumn(name="product_id", nullable = false, updatable = false)
-    private Product product;
+    private List<Product> product = new ArrayList<>();
 }
