@@ -19,7 +19,7 @@ public class Sale implements Serializable{
     @Id
     @Column(name="id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name="date")
     @NotBlank
     private Instant date;
