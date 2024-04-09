@@ -35,7 +35,6 @@ public class SaleService {
     public Sale update(Sale sale){
         Sale newSale = findById(sale.getId());
         newSale.setValue(sale.getValue());
-        newSale.setProduct(sale.getProduct());
         return this.saleRepository.save(newSale);
     }
 
