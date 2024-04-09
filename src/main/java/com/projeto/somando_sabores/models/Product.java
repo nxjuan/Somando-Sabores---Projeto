@@ -6,28 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(name="product_name")
+    @Column(name="name", length = 60, nullable = false, unique = true)
     @NotBlank
     private String name;
 
-
-    @Column(name="price")
-    @NotBlank
+    @Column(name="price", nullable = false)
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name="sale_id")
-    private Sale sale;
 }

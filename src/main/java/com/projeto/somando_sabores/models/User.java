@@ -24,24 +24,20 @@ public class User implements Serializable {
     private Long id;
 
 
-    @Column(name = "username", length = 100, nullable = false, unique = true)
+    @Column(name = "name", length = 100, nullable = false)
     @NotBlank
     @Size(min = 1, max = 255)
     private String name;
-
 
     @Column(name = "email", length = 50, nullable = false, unique = true)
     @NotBlank
     @Size(min = 1, max = 255)
     private String email;
 
-
     @Column(name = "cpf", length = 11, nullable = false, unique = true)
-    @NotBlank
     private String cpf;
 
-
     @OneToMany(mappedBy = "user")
-    private List<Sale> sale = new ArrayList<>();
+    private List<Sale> sales;
 
 }

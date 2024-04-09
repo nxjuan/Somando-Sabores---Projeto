@@ -1,4 +1,6 @@
 package com.projeto.somando_sabores.models;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,18 +22,23 @@ public class Sale implements Serializable{
     @Column(name="id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="date")
-    @NotBlank
+
+    @Column(name="date", nullable = false)
     private Instant date;
-    @Column(name="value")
-    @NotBlank
-    private double value;
+
+    @Column(name="value", nullable = false)
+    private Double value;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
-    @JoinColumn(name="product_id", nullable = false, updatable = false)
-    private List<Product> product = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "sale_product",
+            joinColumns = @JoinColumn(name = "sale_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
+
 }
