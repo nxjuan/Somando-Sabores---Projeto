@@ -16,8 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_user")
+@Table(name = User.TABLE_NAME)
 public class User implements Serializable {
+
+    public static final String TABLE_NAME = "user";
+
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

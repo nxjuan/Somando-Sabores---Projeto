@@ -16,8 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sales")
+@Table(name = Sale.TABLE_NAME)
 public class Sale implements Serializable{
+
+    public static final String TABLE_NAME = "sale";
+
     @Id
     @Column(name="id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
