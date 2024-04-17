@@ -1,7 +1,9 @@
 package com.projeto.somando_sabores.controllers;
 
+import com.projeto.somando_sabores.models.Product;
 import com.projeto.somando_sabores.models.Sale;
 import com.projeto.somando_sabores.repositories.SaleRepository;
+import com.projeto.somando_sabores.services.ProductService;
 import com.projeto.somando_sabores.services.SaleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class SaleController {
 
     @Autowired
     private SaleRepository saleRepository;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Sale> findById(@PathVariable Long id){
@@ -31,14 +35,15 @@ public class SaleController {
     }
 
     @GetMapping("/user/{userId}")
-    private ResponseEntity<List<Sale>> findAllByUserId(Long userId){
+    public ResponseEntity<List<Sale>> findAllByUserId(Long userId){
         List<Sale> sales = this.saleRepository.findByUser_Id(userId);
         return ResponseEntity.ok().body(sales);
     }
 
+
     @PostMapping
     @Validated
-    public ResponseEntity<Void> create(@Valid @RequestBody Sale sale){
+    public ResponseEntity<Void> create(@Valid @RequestBody Sale sale) {
         this.saleService.create(sale);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sale.getId()).toUri();
         return ResponseEntity.created(uri).build();

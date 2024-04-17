@@ -26,6 +26,12 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        List<Product> products = this.productService.findAll();
+        return ResponseEntity.ok(products);
+    }
+
     @PostMapping
     public ResponseEntity<Void> create(@Valid @RequestBody Product product){
         this.productService.create(product);
