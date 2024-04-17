@@ -1,5 +1,6 @@
 package com.projeto.somando_sabores.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -30,5 +31,9 @@ public class Product implements Serializable {
 
     @Column(name="price", nullable = false)
     private Double price;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "products")
+    private List<Sale> sales;
 
 }

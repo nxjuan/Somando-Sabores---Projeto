@@ -1,5 +1,6 @@
 package com.projeto.somando_sabores.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -37,10 +38,11 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     private String email;
 
-    @Column(name = "cpf", length = 11, nullable = false, unique = true)
+    @Column(name = "cpf", length = 16, nullable = false, unique = true)
     private String cpf;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Sale> sales;
 
 }
