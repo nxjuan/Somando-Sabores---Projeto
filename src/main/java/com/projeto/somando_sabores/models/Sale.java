@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = Sale.TABLE_NAME)
-public class Sale implements Serializable{
+public class Sale implements Serializable {
 
     public static final String TABLE_NAME = "sale";
 
@@ -43,5 +42,4 @@ public class Sale implements Serializable{
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
-
 }
