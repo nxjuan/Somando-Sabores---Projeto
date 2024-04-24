@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleService {
@@ -20,6 +22,10 @@ public class SaleService {
 
     @Autowired
     private ProductRepository productRepository;
+
+
+    @Autowired
+    private ProductService productService;
 
 
     public Sale findById(Long id){
@@ -37,7 +43,20 @@ public class SaleService {
 
     @Transactional
     public Sale create(Sale sale){
+
+        List<Long> productIds = sale.getProducts().stream()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        double total = productIds.isEmpty() ? 0.0 : productIds.stream()
+                .mapToDouble(productId -> productService.findById(productId).getPrice())
+                .sum();
+
         sale.setId(null);
+        sale.setDate(Instant.now());
+
+        sale.setValue(total);
+//        sale.setValue();
         sale = this.saleRepository.save(sale);
         return sale;
     }
