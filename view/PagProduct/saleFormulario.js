@@ -9,7 +9,7 @@ async function getAPI(url) {
         const productHTML = 
         `
             <input type="checkbox" id="option1" name="preference" value="option1">
-            <label for="${product.name}">${product.name} : ${product.price}</label><br>
+            <label for="${product.name}">${product.name}: ${product.price}</label><br>
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
     });
