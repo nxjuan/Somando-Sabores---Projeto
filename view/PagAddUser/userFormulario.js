@@ -22,7 +22,7 @@ function postUser(){
 
 }
 
-console.log(localUser)
+
 
 async function getAPI(userData){
     console.log(userData)
