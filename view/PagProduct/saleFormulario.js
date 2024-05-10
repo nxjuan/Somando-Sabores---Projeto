@@ -35,8 +35,6 @@ function viewSelecteds(){
     console.log("Produtos selecionados:", selectedProductIds);
 
     // console.log("345346")
-    
-    jsonDoProduto.innerHTML = "zzzz";
 
     var saleData = {
         user: {
