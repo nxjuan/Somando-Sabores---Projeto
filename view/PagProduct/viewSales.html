@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="saleFormulario.js" defer></script>
     <title>Somando Sabores</title>
 </head>
 <body>
@@ -16,12 +17,25 @@
 
         </div>
     
-        <input type="submit" value="Enviar" onclick="postProduct()">
+        <button onclick="viewSelecteds()">
+            Enviar
+        </button>
+
+        <button onclick="getSelectedProductIdsgetSelectedProductIds()">
+            sla
+        </button>
     </form>
+
+    <div>
+        <p>venda:</p>
+        <div id="Show">
+
+        </div>
+    </div>
 
     <a href="../index.html">voltar</a>
 
-    <script src="saleFormulario.js"></script>
+    
 
 </body>
 </html>

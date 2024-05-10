@@ -1,54 +1,55 @@
 const producturl = "http://localhost:8080/product";
 const saleurl = "http://localhost:8080/sale";
 
-function selectedProducts() {
-    const selectedProducts = [];
-    const checkboxes = document.querySelectorAll('input[name="preference"]:checked');
+const jsonDoProduto = document.getElementById("Show")
 
+
+function getSelectedProductIds() {
+    event.preventDefault();
+    const div = document.getElementById(identificador);
+
+    const elementos = div.children;
+
+    // Itera sobre os elementos e obtém o id de cada um
+    for (let i = 0; i < elementos.length; i++) {
+        const id = elementos[i].id;
+        `
+            <p>${elementos}</p>
+        `
+    }
+}
+// --------------------------------------------------------------
+function viewSelecteds(){
+
+    event.preventDefault();
+
+    event.preventDefault();
+
+    const form = document.getElementById("products");
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedProductIds = [];
     checkboxes.forEach(checkbox => {
-        const productId = parseInt(checkbox.value);
-        const productName = checkbox.getAttribute('id').replace('product_', ''); // Remover o prefixo 'product_' do ID
-        selectedProducts.push({ id: productId, name: productName });
+        selectedProductIds.push(checkbox.value);
     });
 
-    return selectedProducts;
-}
+    console.log("Produtos selecionados:", selectedProductIds);
 
-function postProducts(){
+    // console.log("345346")
+    
+    jsonDoProduto.innerHTML = "zzzz";
 
-    var saledata = {
+    var saleData = {
         user: {
             id: 1
         },
-        products: [
-
-        ]
-    }
-    for (let i = 0; i < selectedProducts.length; i++) {
-        saleData.products.push({ id: selectedProducts[i].id });
+        products: selectedProductIds.map(id => ({ id }))
     }
 
-    var teste = {
-        user: {
-            id: 1
-        },
-        products: [
-            {
-                id: 1
-            },
-            {
-                id: 3
-            }
-        ]
-    }
-
-    console.log(teste)
-    show(teste)
-
-    getAPI(teste)   
+    console.log(saleData)
+    postToAPI(saleData)
+    
 }
-
-
+// --------------------------------------------------------------
 
 async function getProductsForDatabase(url) {
     const response = await fetch(url);
@@ -59,16 +60,14 @@ async function getProductsForDatabase(url) {
         const productHTML = 
         `
             <input type="checkbox" id="product_${product.id}" name="preference" value="${product.id}">
-            <label for="product_${product.id}">${product.name}: ${product.price}</label><br>
+            <label for="product_${product.id}">${product.name} [${product.id}]:  ${product.price}</label><br>
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
     });
 }
-
-
-async function getAPI(userData){
-    console.log(userData)
-
+// --------------------------------------------------------------
+async function postToAPI(saleData){
+    console.log(saleData)
     const response = await fetch(
         saleurl, 
         { 
@@ -77,28 +76,22 @@ async function getAPI(userData){
                 'Accept': 'application/json',
                 'Content-Type':'application/json'
             },
-            body: JSON.stringify(userData)
-        },
-        
+            body: JSON.stringify(saleData)
+        },        
     ).then(response => {
         if (!response.ok) {
-            throw new Error('Failed to add user');
+            throw new Error('Failed to add sale');
         }
         return response.json();
     })
-    .then(data => {
-        // If the user was successfully added, add it to the table
-        addUserToTable(data);
-    })
     .catch(error => {
-        console.error('Error adding user:', error);
+        console.error('Error adding sale:', error);
     });
 
     var data = await response.json();
     console.log(data);
-    if(response) hideLoader();
-    show(data);
+
 }
 
-
 getProductsForDatabase(producturl);
+

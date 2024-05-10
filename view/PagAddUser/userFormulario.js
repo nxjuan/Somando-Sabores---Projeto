@@ -9,7 +9,6 @@ function postUser(){
     cpf = cpf.replace(".", "")
     cpf = cpf.replace("-", "")
 
-
     console.log(name + " | " + email + " | " + cpf);
 
     var userData = {
@@ -17,12 +16,8 @@ function postUser(){
         email: email,
         cpf: cpf
     }
-
     getAPI(userData)
-
 }
-
-
 
 async function getAPI(userData){
     console.log(userData)
@@ -43,18 +38,14 @@ async function getAPI(userData){
         }
         return response.json();
     })
-    .then(data => {
-        // If the user was successfully added, add it to the table
-        addUserToTable(data);
-    })
     .catch(error => {
         console.error('Error adding user:', error);
     });
 
     var data = await response.json();
+    
     console.log(data);
     if(response) hideLoader();
-    show(data);
 }
 
 
