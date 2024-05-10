@@ -4,38 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="saleFormulario.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="layout.css">
     <title>Somando Sabores</title>
 </head>
 <body>
 
+    <!-- Agrupa os elementos que compõe o cabeçalho. -->
+    <header>
 
-    <h2>Reservar</h2>
+        <!-- <h1>Somando Sabores</h1> -->
 
-    <form >
+        <a href="../index/index.html" id="logo">Logo</a>
 
-        <div id="products">
+		<button id="openMenu">&#9776;</button>
 
-        </div>
+		<!-- Agrupa links de navegação no site. -->
+		<nav id="menu">
+
+			<button id="closeMenu">X</button>
+
+			<a href="../index/index.html">Home</a>
+			<a href="#">About</a>
+			<a href="#">Products</a>
+			<a href="">Contact</a>
+		</nav>
+
+    </header>
+
+
+    <main>
+        <h2>Reservar</h2>
+        <form >
+
+            <div id="products"></div>
+        
+            <button onclick="viewSelecteds()">
+                Enviar
+            </button>
+
+        </form>
+        <a href="../index.html">voltar</a>
+    </main>
+
+    <!-- Agrupa informações de autoria, direitos autorais, contato, 
+        mapa do site, links e documento relacionados. -->
+	<footer>Footer</footer>
     
-        <button onclick="viewSelecteds()">
-            Enviar
-        </button>
-
-        <button onclick="getSelectedProductIdsgetSelectedProductIds()">
-            sla
-        </button>
-    </form>
-
-    <div>
-        <p>venda:</p>
-        <div id="Show">
-
-        </div>
-    </div>
-
-    <a href="../index.html">voltar</a>
-
-    
+    <!-- Importação do arquivo JavaScript. -->
+    <script src="userFormulario.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
 </body>
 </html>

@@ -59,8 +59,10 @@ async function getProductsForDatabase(url) {
     data.forEach(product => {
         const productHTML = 
         `
-            <input type="checkbox" id="product_${product.id}" name="preference" value="${product.id}">
-            <label for="product_${product.id}">${product.name} [${product.id}]:  ${product.price}</label><br>
+            <div id="check_produto">
+                <input type="checkbox" id="product_${product.id}" name="preference" value="${product.id}">
+                <label for="product_${product.id}">${product.name}:  ${product.price}</label><br>
+            </div>
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
     });
