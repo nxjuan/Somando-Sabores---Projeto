@@ -2,8 +2,6 @@ package com.projeto.somando_sabores.services;
 
 import com.projeto.somando_sabores.models.Product;
 import com.projeto.somando_sabores.models.Sale;
-import com.projeto.somando_sabores.models.User;
-import com.projeto.somando_sabores.repositories.ProductRepository;
 import com.projeto.somando_sabores.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +17,6 @@ public class SaleService {
 
     @Autowired
     private SaleRepository saleRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
 
     @Autowired
     private ProductService productService;

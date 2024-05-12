@@ -1,9 +1,7 @@
 package com.projeto.somando_sabores.controllers;
 
-import com.projeto.somando_sabores.models.Product;
 import com.projeto.somando_sabores.models.Sale;
 import com.projeto.somando_sabores.repositories.SaleRepository;
-import com.projeto.somando_sabores.services.ProductService;
 import com.projeto.somando_sabores.services.SaleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,6 @@ public class SaleController {
 
     @Autowired
     private SaleRepository saleRepository;
-    @Autowired
-    private ProductService productService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Sale> findById(@PathVariable Long id){
@@ -62,5 +58,4 @@ public class SaleController {
         this.saleService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
