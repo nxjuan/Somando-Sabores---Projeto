@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +33,13 @@ public class Product implements Serializable {
 
     @Column(name="price", nullable = false)
     private Double price;
+
+    @Column(name="description")
+    List<String> descriptions = new ArrayList<>();
+
+    @Lob
+    @Column(name="image")
+    private MultipartFile image;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "products")

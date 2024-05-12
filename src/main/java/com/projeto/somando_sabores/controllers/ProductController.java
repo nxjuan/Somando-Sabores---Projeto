@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -33,7 +34,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody Product product){
+    public ResponseEntity<Void> create(@Valid @RequestBody Product product, @RequestParam("image") MultipartFile image){
+        product.setImage(image);
         this.productService.create(product);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).build();
