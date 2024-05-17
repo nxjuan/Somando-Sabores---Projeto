@@ -34,8 +34,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody Product product, @RequestParam("image") MultipartFile image){
-        product.setImage(image);
+    public ResponseEntity<Void> create(@Valid @RequestBody Product product){
         this.productService.create(product);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).build();

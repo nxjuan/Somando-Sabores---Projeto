@@ -37,10 +37,6 @@ public class Product implements Serializable {
     @Column(name="description")
     List<String> descriptions = new ArrayList<>();
 
-    @Lob
-    @Column(name="image")
-    private MultipartFile image;
-
     @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private List<Sale> sales;
