@@ -5,19 +5,19 @@
 }
 
 body {
+	font-family: Arial, sans-serif;
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 100vw;
     margin: 3px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-	background-color: #d0c45f;
+	background-color: #E4DC9E;
 }
 
 header, nav, main, aside, footer {
     background: #E4DC9E;
     display: flex;
     margin: 3px;
-
 }
 
 header {
@@ -119,33 +119,25 @@ a {
     }
 }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
 .carousel-container {
-    width: 80%;
+    width: 100%;
     overflow: hidden;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #ffffff00;
 }
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
+	width: 23%;
 }
 
 .carousel-item {
     min-width: 100%;
     box-sizing: border-box;
-	padding: 0px 100px 0px 50px;
+	padding: 0% 1% 0% 10%;
+	background-color: #cccccc00;
 }
 
 .carousel-item img {
