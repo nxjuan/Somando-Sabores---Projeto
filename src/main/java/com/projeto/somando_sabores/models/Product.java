@@ -36,7 +36,7 @@ public class Product implements Serializable {
 
     @ElementCollection
     @CollectionTable(
-            name = "description",
+            name = "product_description",
             joinColumns = @JoinColumn(name = "product_id")
     )
     @Column(name="description")
