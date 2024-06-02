@@ -34,6 +34,11 @@ public class Product implements Serializable {
     @Column(name="price", nullable = false)
     private Double price;
 
+    @ElementCollection
+    @CollectionTable(
+            name = "description",
+            joinColumns = @JoinColumn(name = "product_id")
+    )
     @Column(name="description")
     List<String> descriptions = new ArrayList<>();
 
