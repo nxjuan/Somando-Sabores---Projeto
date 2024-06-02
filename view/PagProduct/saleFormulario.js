@@ -55,13 +55,12 @@ async function getProductsForDatabase(url) {
     const productsContainer = document.getElementById("products");
 
     data.forEach(product => {
-        const productHTML =        
+        const productHTML = 
         `
-            <div class="checkbox-wrapper-10">
-                <input class="tgl tgl-flip" id="cb5" type="checkbox" checked />
-                <label class="tgl-btn" data-tg-off="Remover: ${product.name}" data-tg-on="${product.name}" for="cb5"></label>
+            <div id="check_produto">
+                <input type="checkbox" id="product_${product.id}" name="preference" value="${product.id}">
+                <label for="product_${product.id}">${product.name}:  ${product.price}</label><br>
             </div>
-
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
     });
@@ -95,4 +94,3 @@ async function postToAPI(saleData){
 }
 
 getProductsForDatabase(producturl);
-
