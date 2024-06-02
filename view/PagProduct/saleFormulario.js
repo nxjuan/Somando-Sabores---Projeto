@@ -55,11 +55,23 @@ async function getProductsForDatabase(url) {
     const productsContainer = document.getElementById("products");
 
     data.forEach(product => {
+
+        let descriptionsHTML = '';
+                    
+        if (Array.isArray(product.descriptions)) {
+            product.descriptions.forEach(descricao => {
+                descriptionsHTML += `<li>${descricao}</li>`;
+            });
+        }
+
         const productHTML = 
         `
             <div id="check_produto">
                 <input type="checkbox" id="product_${product.id}" name="preference" value="${product.id}">
                 <label for="product_${product.id}">${product.name}:  ${product.price}</label><br>
+                    <ul>
+                        ${descriptionsHTML}
+                    </ul>
             </div>
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
