@@ -130,7 +130,7 @@ a {
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
-	width: 23%;
+	width: 15%;
 }
 
 .carousel-item {
@@ -159,4 +159,144 @@ a {
 .rolada {
 	display: flex;
 	flex-direction: column;
+}
+
+
+.container {
+    padding-top: 7%;
+    text-align: center;
+    color: #2d2d2d;
+    font-family: 'IM FELL English', serif;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+hr {
+    width: 30%;
+    margin: 2% auto;
+    border: 1px solid #2d2d2d;
+}
+
+.icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.icon img {
+    width: 40px;
+    height: 40px;
+   
+}
+.icon{
+    padding-left:2%;
+    padding-right: 2%;
+}
+.container_qns {
+    padding-top: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+   
+}
+.image-container img {
+    width: 80%;
+    border-radius: 10px;
+}
+
+.content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.content h2 {
+    color: #4CAF50;
+}
+
+#text_qns {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    word-break: break-word;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #a19068;
+    font-family: 'IM FELL English', serif;
+}
+
+.container_h {
+    padding-top: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.content_h {
+    
+    padding: 20px;
+    flex: 1;
+}
+
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    margin-top: 0;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    padding-left: 10%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    font-size: 1em;
+}
+
+th {
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+
+.image-container_h {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#hr_fim{
+    width: 80%;
+    margin: 2% auto;
+    border: 1px solid #2d2d2d;
 }
