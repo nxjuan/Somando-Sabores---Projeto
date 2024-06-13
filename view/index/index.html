@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" type="text/css" href="layout.css">
     <title>Somando Sabores</title>
 </head>
@@ -24,8 +23,7 @@
 			<button id="closeMenu">X</button>
 
             <a href="../PagAddUser/userFormulario.html"><strong>Reservar Refeição</strong></a>
-			<a href="../index/index.html"><strong>Home</strong></a>
-			<a href="#"><strong>About</strong></a>
+			<a href="#" onclick="scrollToAbout()"><strong>Sobre</strong></a>
 			<a href="#"><strong>Products</strong></a>
 			<a href=""><strong>Contact</strong></a>
 		</nav>
@@ -56,7 +54,7 @@
 				</div>
 			</div>
 
-			<div class="container">
+			<div class="container" id="about">
 				<h1>SOBRE</h1>
 				<p>nosso restaurante</p>
 				<hr>
@@ -150,7 +148,7 @@
 	
 	</main>
 
-	<footer>SE lASQ</footer>
+	<footer></footer>
 
 	<!-- Importação do arquivo JavaScript. -->
 	<script type="text/javascript" src="script.js"></script>
