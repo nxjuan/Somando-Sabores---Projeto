@@ -1,50 +1,27 @@
 @charset "UTF-8";
 
-/* Propriedades que se aplicam a todos os elementos da página. */
 * {
-	/* Remove a margem externa de todos os lados do elemento. */
-	margin: 0;
-
-	/* Remove o espaçamento interno de todos os lados do elemento. */
-	padding: 0;
-
-	/* Inclui o preenchimento e a borda na largura e altura. */
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-	/* Exibição flexível.                          */
-	/* Torna o elemento um flex container          */
-	/* e os seus elementos internos em flex-itens. */
-	display: flex;
-
-	/* Quebra de linha quando os itens não couberem na largura da tela. */
-	flex-wrap: wrap;
-
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 1 1 100vw;
-
-	/* Margem de todos os lados. */
-	margin: 3px;
-
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 100vw;
+    margin: 3px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-color: #E4DC9E;
 }
+
 
 /* Formatação comum entre os elementos. */
 header, nav, main, aside, footer {
-	/* Cor do fundo. */
-	background: #a1a1a1;
-
-	/* Exibição flexível.                          */
-	/* Torna o elemento um flex container          */
-	/* e os seus elementos internos em flex-itens. */
-	display: flex;
-
-	/* Margem externa de todos os lados. */
-	margin: 3px;
+    background: #E4DC9E;
+    display: flex;
+    margin: 3px;
 }
 
 /* Seletores para formatação individual. */
@@ -58,26 +35,12 @@ header {
 	flex: 1 1 100vw;
 }
 
-header #logo {
-	/* Exibição flexível.                          */
-	/* Torna o elemento um flex container          */
-	/* e os seus elementos internos em flex-itens. */
-	display: flex;
-
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 0 1 200px;
-
-	/* Cor do fundo. */
-	background: #c9c9c9;
-
-	/* Alinha os itens na vertical. */
-	justify-content: center;
-
-	/* Alinha os itens na horizontal. */
-	align-items: center;
+#imageLogo {
+    width: 150%;
+    height: auto;
+    max-width: 180px;
+    max-height: 110px;
+    object-fit: contain;
 }
 
 #openMenu, #closeMenu {
@@ -137,12 +100,31 @@ main {
     align-items: center;
 }
 
-label, input, button {
+label, input{
     margin-bottom: 10px;
 }
 
-input, button {
+input {
     width: 100%;
+    height: 15%;
+    box-sizing: border-box; /* Ensure padding and borders are included in the width and height */
+	border-radius: 8px;
+	padding: 2%;
+	background-color: whitesmoke;
+}
+
+button {
+    width: 25%; /* Set the button width to 50% of the parent container */
+    height: 15% ; /* Adjust height as needed */
+    margin: 10px auto; /* Center the button and add space between them */
+    display: block; /* Ensure the button is displayed as a block element */
+    border-bottom: #E4DC9E;
+    border-radius: 10px;
+}
+
+
+#next {
+    margin-bottom: 10px; /* Add space between the two buttons */
 }
 
 aside {

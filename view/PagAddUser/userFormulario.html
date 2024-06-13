@@ -13,7 +13,7 @@
 
         <!-- <h1>Somando Sabores</h1> -->
 
-        <a href="../index/index.html" id="logo">Logo</a>
+        <a href="../index/index.html" id="logo"><img src = "/view/images/logo.png" id="imageLogo"></a>
 
 		<button id="openMenu">&#9776;</button>
 
@@ -22,10 +22,10 @@
 
 			<button id="closeMenu">X</button>
 
-			<a href="../index/index.html">Home</a>
-			<a href="#">About</a>
-			<a href="#">Products</a>
-			<a href="">Contact</a>
+			<a href="../index/index.html"><strong>Home</strong></a>
+			<a href="#"><strong>About</strong></a>
+			<a href="#"><strong>Products</strong></a>
+			<a href=""><strong>Contact</strong></a>
 		</nav>
 
     </header>
@@ -39,21 +39,16 @@
             <input type="email" id="email" name="email">
             <label for="cpf">CPF:</label>
             <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="123.456.789-00">
-            <button type="button" onclick="postUser()" href="saleFormulario.html">Add User</button>
+            <a href="../PagProduct/viewSales.html" id="next"><button type="button" onclick="postUser()" href="../PagProduct/viewSales.html">Próximo</button></a>
+            <button type="button" onclick="window.location.href='../index/index.html'" id="voltar">Voltar</button>
+            
         </form>
 
-        <div>
-            <a href="../index/index.html" id="voltar">Voltar</a>
-        </div>
-        
-        <div>
-            <a href="../PagProduct/viewSales.html" id="next">Next</a>
-        </div>
     </main>
 
     <!-- Agrupa informações de autoria, direitos autorais, contato, 
         mapa do site, links e documento relacionados. -->
-	<footer>Footer</footer>
+	
     
     <!-- Importação do arquivo JavaScript. -->
     <script src="userFormulario.js"></script>
