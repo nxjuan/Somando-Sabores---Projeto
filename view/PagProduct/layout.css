@@ -6,13 +6,13 @@
 }
 
 body {
-	font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 100vw;
     margin: 3px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-	background-color: #E4DC9E;
+    background-color: #E4DC9E;
 }
 
 header, nav, main, aside, footer {
@@ -34,7 +34,6 @@ header {
 }
 
 header #logo {
-
     display: flex;
     flex: 90px 1 90px;
     background: #4f494900;
@@ -43,168 +42,164 @@ header #logo {
 }
 
 #openMenu, #closeMenu {
-	/* Remove a borda. */
-	border: none;
-
-	/* Remove a cor de fundo. */
-	background: none;
-
-	/* Tamanho da fonte. */
-	font-size: 30px;
-
-	/* Espessura da forte. */
-	font-weight: bold;
-
-	/* Margem ao redor do elemento              */
-	/* (superior, direito, inferior e esquerdo) */
-	padding: 0px 5px 0px 5px;
-
-	/* Muda o cursor do mouse para ponteiro.*/
-	cursor: pointer;
-
-	/* Oculta o elemento. */
-	display: none;
+    border: none;
+    background: none;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0px 5px;
+    cursor: pointer;
+    display: none;
 }
 
 nav {
-	/* Alinha os itens na vertical. */
-	justify-content: flex-end;
-
-	/* Alinha os itens na horizontal. */
-	align-items: center;
-
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 1 1 200px;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1 1 200px;
 }
 
 nav a {
-	/* Margem de todos os lados. */
-	margin: 0 3%;
-
-	/* Tamanho da fonte. */
-	font-size: 15pt;
+    margin: 0 3%;
+    font-size: 15pt;
 }
 
 main {
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 20 1 500px;
-	display: flex;
+    flex: 20 1 500px;
+    display: flex;
     flex-direction: column;
     align-items: center;
-	
+}
+h2{
+	font-weight: bold;
+	margin-bottom: 5%;
 }
 
 #check_produto {
-	background-color: rgba(128, 128, 128, 0.8); /* Cor cinza com 80% de transparência */
-	margin: 10px; /* Adiciona uma margem de 10 pixels ao redor da div */
-	padding: 20px; /* Adiciona um preenchimento de 20 pixels dentro da div */
-	/* Outros estilos, se necessário */
-	
+    background-color: rgba(128, 128, 128, 0.8);
+    margin: 10px;
+    padding: 20px;
 }
 
 #check_produto label {
-	display: inline-block; /* Torna o elemento de bloco em linha para que possa ser alinhado verticalmente */
-	vertical-align: middle; /* Alinha verticalmente com a caixa de seleção */
+    display: inline-block;
+    vertical-align: middle;
 }
 
 button {
     width: 100%;
-	margin-bottom: 3px;
+    margin-bottom: 3px;
 }
 
 aside {
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 1 1 200px;
+    flex: 1 1 200px;
 }
 
 footer {
-
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
-	flex: 1 1 100vw;
+    flex: 1 1 100vw;
 }
 
 a {
-	/* Remove a decoração padrão do elemento. */
-	text-decoration: none;
-
-	/* Definir a cor da fonte para o padrão do elemento pai. */
-	color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
-/* Altera o estilo dos elementos para serem apresentados */ 
-/* em telas menores que 717px. */
 @media only screen and (max-width: 717px) {
-	#openMenu, #closeMenu {
-		/* Retorna a visibilidade padrão. */
-		display: block;
-	}
+    #openMenu, #closeMenu {
+        display: block;
+    }
 
-	#openMenu {
-		/* Espaço a esquerda será preenchido automaticamente
-		   colocando os itens a direita. */
-		margin-left: auto;
-	}
+    #openMenu {
+        margin-left: auto;
+    }
 
-	#closeMenu {
-		/* Torna a posição do elemento fixa. */
-		position: fixed;
+    #closeMenu {
+        position: fixed;
+        right: 15px;
+        top: 15px;
+    }
 
-		/* Dispõe o elemento a 15px da esquerda. */
-		right: 15px;
+    nav {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.8);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        display: none;
+        opacity: 0;
+        transition: 0.3s;
+    }
 
-		/* Dispõe o elemento a 15px do topo. */
-		top: 15px;
-	}
+    nav a {
+        margin: 3%;
+    }
+}
 
-	nav {
-		/* Torna a posição do elemento fixa. */
-		position: fixed;
+/* Estilos dos botões de incremento e decremento */
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
 
-		/* Ocupa 100% da largura da tela de exibição. */
-		width: 100vw;
+.product-info {
+    display: flex;
+	font-weight: bold;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
 
-		/* Ocupa 100% da altura da tela de exibição. */
-		height: 100vh;
+.product-info label {
+    flex: 1;
+    text-align: left;
+    margin-left: 1em;
+}
 
-		/* Cor em RGB, mais transparência. */
-		background: rgba(255, 255, 255, 0.8);
+.quantity-controls {
+    display: flex;
+    align-items: center;
+	
+}
 
-		/* Dispõe os itens em coluna. */
-		flex-direction: column;
+.quantity-controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #00000059;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    color: rgb(0, 0, 0);
+}
 
-		/* Alinha os itens na horizontal. */
-		align-items: center;
+.quantity-controls input {
+    width: 50px;
+	height: 30px;
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
 
-		/* Alinha os itens na vertical. */
-		justify-content: center;
+button#voltar {
+    display: block;
+    margin: 2em auto;
+    padding: 10px 20px;
+    background-color: #e3d18a;
+    border: none;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    cursor: pointer;
+}
 
-		/* Remove a margem externa de todos os lados do elemento. */
-		margin: 0;
-
-		/* Oculta o elemento. */
-		display: none;
-
-		/* Invisivel */
-		opacity: 0;
-
-		/* Velocidade de transição de um estado para outro. */
-		transition: 0.3s;
-	}
-
-	nav a {
-		/* Margem de todos os lados. */
-		margin: 3%;
-	}
+button#voltar:hover {
+    background-color: #d1c17d;
 }
