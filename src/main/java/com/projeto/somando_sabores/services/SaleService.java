@@ -3,6 +3,8 @@ package com.projeto.somando_sabores.services;
 import com.projeto.somando_sabores.models.Product;
 import com.projeto.somando_sabores.models.Sale;
 import com.projeto.somando_sabores.repositories.SaleRepository;
+import com.projeto.somando_sabores.services.exceptions.DataBindingViolationException;
+import com.projeto.somando_sabores.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class SaleService {
     public Sale findById(Long id){
         Optional<Sale> sale = this.saleRepository.findById(id);
         return sale.orElseThrow(
-            () -> new RuntimeException(
+            () -> new ObjectNotFoundException(
                 "Venda não encontrada! id: " + id + ", tipo: " + Sale.class.getName()
             )
         );
@@ -68,7 +70,7 @@ public class SaleService {
             this.saleRepository.deleteById(id);
         }
         catch(Exception e){
-            throw new RuntimeException(
+            throw new DataBindingViolationException(
                     "Não é possivel excluir pois há entidades relacionadas!"
             );
         }
