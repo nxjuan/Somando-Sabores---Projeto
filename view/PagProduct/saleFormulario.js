@@ -25,8 +25,11 @@ async function getProductsForDatabase(url) {
                         <button type="button" onclick="increaseQuantity(${product.id})">+</button>
                     </div>
                     <label for="product_${product.id}">${product.name}: R$ ${product.price}</label>
+                    <button type="button" class="toggle-button" onclick="toggleDescription(${product.id})">&#9660;</button>
                 </div>
-                <ul>${descriptionsHTML}</ul>
+                <div id="description_${product.id}" class="dropdown-content">
+                    <ul>${descriptionsHTML}</ul>
+                </div>
             </div>
         `;
         productsContainer.insertAdjacentHTML("beforeend", productHTML);
@@ -47,6 +50,12 @@ function decreaseQuantity(productId) {
     if (quantity > 0) {
         quantityInput.value = quantity - 1;
     }
+}
+
+// Função para mostrar/esconder a descrição do produto
+function toggleDescription(productId) {
+    const descriptionDiv = document.getElementById(`description_${productId}`);
+    descriptionDiv.classList.toggle("show");
 }
 
 // Enviar o pedido com as quantidades selecionadas
