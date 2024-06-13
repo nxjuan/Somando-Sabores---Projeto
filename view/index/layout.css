@@ -221,7 +221,8 @@ hr {
 }
 
 .content h2 {
-    color: #4CAF50;
+    color: #080808;
+    margin-bottom: 20px;
 }
 
 #text_qns {
@@ -232,22 +233,26 @@ hr {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #848484;
+    margin-top: 20px;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    font-family: 'IM FELL English', serif;
 }
 
 button:hover {
-    background-color: #a19068;
+    background-color: #c7c7c7;
+    color: #080808;
     font-family: 'IM FELL English', serif;
 }
 
 .container_h {
     padding-top: 5%;
+    padding-left: 15%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -257,7 +262,6 @@ button:hover {
 }
 
 .content_h {
-    
     padding: 20px;
     flex: 1;
 }
@@ -293,6 +297,10 @@ th {
     align-items: center;
     justify-content: center;
     padding: 20px;
+}
+.image-container_h img{
+    width: 78%;
+    border-radius: 10px;
 }
 
 #hr_fim{
