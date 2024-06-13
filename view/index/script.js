@@ -46,3 +46,13 @@ closeMenu.addEventListener('click', () => {
 		openMenu.removeAttribute('style')
 	}, 200);
 })
+function scrollToAbout() {
+    var aboutSection = document.getElementById('about');
+    var offset = 100; // Ajuste a quantidade de rolagem aqui (em pixels)
+    var aboutPos = aboutSection.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({
+        top: aboutPos,
+        behavior: 'smooth' // Rolagem suave
+    });
+}
