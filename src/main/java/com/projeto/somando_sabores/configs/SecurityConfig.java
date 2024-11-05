@@ -20,12 +20,13 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final String[] PUBLIC_MATCHERS = {
-            "/"
+            "/",
+            "/sale/**"
     };
 
     private final String[] PUBLIC_MATCHERS_POST = {
-            "/user",
-            "/login"
+            "/user/",
+            "/user/login"
     };
 
     @Bean
