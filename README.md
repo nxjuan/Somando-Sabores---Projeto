@@ -9,3 +9,35 @@
 > **Redes sociais do restaurante**
 > `@somandosaboreslr`
 `https://www.instagram.com/somandosaboreslr/`
+
+# Projeto Somando Sabores
+
+Bem-vindo ao repositório do projeto **Somando Sabores**! Aqui estão as instruções para rodar o projeto localmente.
+
+---
+
+## Pré-requisitos
+
+Certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
+
+- **Java JDK** (versão 21 ou superior)
+- **Maven**
+- **Docker Desktop**
+
+---
+
+## Como rodar o projeto na sua máquina
+
+### 1. Criar o container Docker
+
+Antes de tudo, precisamos criar o container Docker. Execute o seguinte comando no terminal da raiz do projeto:
+
+```bash
+docker-compose up -d
+```
+certifique-se de estar com o programa docker-desktop aberto
+
+## 2. Rodar o Back end
+
+```bash
+mvn spring-boot:run
