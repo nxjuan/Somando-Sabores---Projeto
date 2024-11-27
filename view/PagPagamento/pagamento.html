@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+		<img src="/view/images/logo.png" alt="Logo Imagem">
+		<nav>
+			<ul>
+                <li><a href="/view/index/index.html">Home</a></li>
+                <li><a href="/view/PagReservas/reservas.html">Reservas</a></li>
+                <li><a href="/view/PagPacotes/pacotes.html">Pacotes</a></li>
+                <li><a href="/view/PagCardapio/cardapio.html">Cardápio</a></li>
+                <li><a href="/view/PagEventos/eventos.html">Eventos</a></li>
+            </ul>
+		</nav>
+	</header>
+
+
+    <main>
+        <section class="pagamento">
+            <h1>Pagamento</h1>
+            <div class="container">
+                <!-- Escolha da Forma de Pagamento -->
+                <div class="form-pagamento">
+                    <h2>Selecione a forma de pagamento</h2>
+                    <div>
+                        <input type="radio" id="credito" name="pagamento" value="credito" checked>
+                        <label for="credito">Cartão de crédito</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="debito" name="pagamento" value="debito">
+                        <label for="debito">Cartão de débito</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="pix" name="pagamento" value="pix">
+                        <label for="pix">Pix</label>
+                    </div>
+                </div>
+
+                <!-- Detalhes de Pagamento -->
+                <div class="detalhes-pagamento" id="detalhes-pagamento">
+                    <!-- Os campos são renderizados dinamicamente com JavaScript -->
+                </div>
+            </div>
+            <button class="botao-concluir">Concluir</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

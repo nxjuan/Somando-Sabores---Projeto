@@ -18,38 +18,49 @@
 ::-webkit-scrollbar-thumb {
     background: #FE011D;
     border-radius: 10px;
-}
+}   
 
 body {
-    background-color: #ffffff;
-    color: #fff;
-    font-size: 16px;
+    font-family: "IM Fell English", serif;
+    background-color: #F3EAAF;
+    color: #000;
+    min-height: 100vh;
 }
-
 header {
     position: fixed;
-    background-color: #730001;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 10px;
-
-    & nav {
-        & ul {
-            display: grid;
-            grid-template-columns: repeat(5, 100px);
-            justify-content: end;
-            font-family: "IM Fell English", serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-    }
-
-    & img {
-        width: 150px;
-    }
+    height: 70px;
+    background-color: #730001;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
 }
+
+header img {
+    width: 150px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #F3EAAF;
+}
+
 
 .banner {
     & img {
@@ -72,7 +83,7 @@ header {
     & hr {
         width: 30%;
         height: 1px;
-        background-color: #FE011D;
+        background-color: #730001;
         border: none;
         margin: 5px auto 30px;
 
@@ -99,9 +110,10 @@ header {
                     width: 100%;
                     display: block;
                     border-radius: 10px;
-                }
+                    transition: transform 0.3s;
+                }    
             }
-        }
+        }   
     }
 }
 
@@ -119,7 +131,7 @@ header {
     & hr {
         width: 30%;
         height: 1px;
-        background-color: #FE011D;
+        background-color: #730001;
         border: none;
         margin: 5px auto 30px;
 
@@ -191,6 +203,7 @@ footer{
         text-align: center;
     }
     & .content{
+        color: #fff;
         display: flex;
         justify-content: space-evenly ;
         & .info{

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IM+Fell+English:wght@400&display=swap"
+        rel="stylesheet">
+    <title>Pacote para Estudantes</title>
+</head>
+
+<body>
+    <header>
+        <img src="/view/images/logo.png" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="/view/index/index.html">Home</a></li>
+                <li><a href="/view/PagReservas/reservas.html">Reservas</a></li>
+                <li><a href="/view/PagPacotes/pacotes.html">Pacotes</a></li>
+                <li><a href="/view/PagCardapio/cardapio.html">Cardápio</a></li>
+                <li><a href="/view/PagEventos/eventos.html">Eventos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="pacote-estudantes">
+        <div class="image-container">
+            <img src="/view/images/estudantes.png" alt="Imagem de estudantes">
+        </div>
+        <div class="form-container">
+            <h2>Pacote para estudantes</h2>
+            <hr>
+            <p>Preencha o formulário abaixo e garanta refeições balanceadas nutritivas e saborosas de segunda a sábado com nosso pacote mensal de almoço.</p>
+            <p><strong>Apenas R$516 por mês</strong> (cada almoço sai por <strong>R$21,50</strong>!).</p>
+            <form action="#" method="POST">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" required>
+                
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="ra">R.A.</label>
+                <input class="imput-ra" type="text" id="ra" name="ra" required>
+                <hr>
+                
+                <button onclick="window.location.href='/view/PagCompraPacote/compraPacote.html'">Garanta já</button>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

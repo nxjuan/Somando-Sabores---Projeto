@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Pedido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+		<img src="/view/images/logo.png" alt="Logo Imagem">
+		<nav>
+			<ul>
+                <li><a href="/view/index/index.html">Home</a></li>
+                <li><a href="/view/PagReservas/reservas.html">Reservas</a></li>
+                <li><a href="/view/PagPacotes/pacotes.html">Pacotes</a></li>
+                <li><a href="/view/PagCardapio/cardapio.html">Cardápio</a></li>
+                <li><a href="/view/PagEventos/eventos.html">Eventos</a></li>
+            </ul>
+		</nav>
+	</header>
+    <main>
+        <div class="container">
+            <!-- Meu Pedido -->
+            <section class="pedido">
+                <h2>Meu pedido</h2>
+                <div class="pedido-item">
+                    <img src="/view/images/pacoteMensal.png" alt="Pacote mensal">
+                    <div class="info">
+                        <p class="titulo">Pacote mensal - estudante</p>
+                        <p class="preco">R$ 516,00</p>
+                    </div>
+                    <div class="quantidade">
+                        <button>-</button>
+                        <input type="text" value="1">
+                        <button>+</button>
+                    </div>
+                    <button class="delete">🗑️</button>
+                </div>
+            </section>
+
+            <!-- Resumo do Pedido -->
+            <section class="resumo">
+                <h2>Resumo do pedido</h2>
+                <div class="resumo-item">
+                    <p>Subtotal</p>
+                    <p>R$ 516,00</p>
+                </div>
+                <div class="resumo-item total">
+                    <p>Total</p>
+                    <p>R$ 516,00</p>
+                </div>
+                <button class="prosseguir" onclick="window.location.href='/view/PagPagamento/pagamento.html'">Prosseguir para pagamento</button>
+                <button class="voltar">Voltar</button>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
