@@ -50,18 +50,26 @@ No navegador, insira:
 http://localhost:15432/
 ```
 senha: admin
+
 user: admin@admin.com
 
 clicando com o botão direito em 'Servers'
+
 Register -> Server
 
 Na aba inicial Generals: 
+
   No campo nome, insira 'db'
 
 na aba conection:
+
   no campo 'Host name/address': insira 'db'
+  
   na 'port', insira: 5432
+  
   no campo Maintenace database: postgres
+  
   no campo username: admin
+  
   no campo senha: admin
 
