@@ -3,15 +3,13 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: restaurante
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
     ports:
       - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql/data
-#    networks:
-#      - restaurantenetwork
 
   pgadmin:
     image: dpage/pgadmin4
@@ -23,23 +21,17 @@ services:
       - '15432:80'
     depends_on:
       - db
-#    networks:
-#      - restaurantenetwork
 
-#  sbootapp:
-#    build:
-#      dockerfile: Dockerfile
-#    container_name: restaurante
-#    restart: on-failure
-#    depends_on:
-#      - db
-#    ports:
-#      - '8080:8080'
-#    networks:
-#      - restaurantenetwork
-#    environment:
-#      - "POSTGRES_HOST=db"
-#
-#networks:
-#  restaurantenetwork:
-#    driver: bridge
+  api:
+    build:
+      dockerfile: Dockerfile
+    container_name: api-spring
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+    ports:
+      - '8080:8080'

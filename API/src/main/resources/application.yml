@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/restaurante
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/db
+    username: user
+    password: password
   jpa:
     database: POSTGRESQL
     hibernate:
@@ -21,4 +21,4 @@ spring:
     activate:
       on-profile: production
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:5433/restaurante
+    url: jdbc:postgresql://${POSTGRES_HOST}:5433/db
