@@ -1,12 +1,27 @@
-<mat-toolbar>
-  <span class="logo" >Nome ou Logo</span>
-  <span cllass></span>
+<mat-toolbar class="custom-toolbar">
+  <div class="logo-content">
+    <img src="/Logo-3.png" alt="Gato" class="logo" >
+  </div>
 
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>  Home
-  </button>
-  <button mat-button routerLink="/"><mat-icon>list_alt_check</mat-icon> Reservas</button>
-  <button mat-button routerLink="/"><mat-icon>package_2</mat-icon> Pacotes</button>
-  <button mat-button routerLink="/"><mat-icon>assignment</mat-icon>  Cardápio</button>
-  <button mat-button routerLink="/"><mat-icon>confirmation_number</mat-icon> Eventos</button>
+  <div class="buttons-nav">
+    <button mat-button c class="toolbar-button">
+      <mat-icon>home</mat-icon> Home
+    </button>
+
+    <button mat-button routerLink="/" class="toolbar-button">
+      <mat-icon>list_alt_check</mat-icon> Reservas
+    </button>
+
+    <button mat-button routerLink="/" class="toolbar-button">
+      <mat-icon>inventory</mat-icon> Pacotes
+    </button>
+
+    <button mat-button routerLink="/" class="toolbar-button">
+      <mat-icon>assignment</mat-icon> Cardápio
+    </button>
+
+    <button mat-button routerLink="/" class="toolbar-button">
+      <mat-icon>confirmation_number</mat-icon> Eventos
+    </button>
+  </div>
 </mat-toolbar>

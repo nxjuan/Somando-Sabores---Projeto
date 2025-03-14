@@ -11,5 +11,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './header-bar.component.scss'
 })
 export class HeaderBarComponent {
-
+  imageUrl:string = "src/assets/images/Logo-3.png";
 }

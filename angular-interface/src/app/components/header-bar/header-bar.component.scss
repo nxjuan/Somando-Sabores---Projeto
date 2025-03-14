@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica:ital,wght@0,400;1,400&display=swap');
+
+button{
+  font-family: 'IM Fell Double Pica', serif; 
+}
+
+.custom-toolbar {
+    background: linear-gradient(135deg, #730001, #550102);
+    color: white;
+    padding: 0 20px; /* Espaçamento interno */
+    display: flex;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    height: 60px; /* Altura maior para um visual mais robusto */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Garante que o toolbar fique acima de outros elementos */
+}  
+  
+.logo {
+  margin-right: auto;
+  cursor: pointer;  
+}
+
+.buttons-nav{
+  color: white;
+  margin-left: auto;
+  display: flex;
+  gap: 15px;
+}
+
+.toolbar-button {
+  color: white;
+  font-size: 16px;
+  font-weight: 500; 
+  margin: 03px 10px; 
+  padding: 05px 10px; 
+  border-radius: 25px; 
+  transition: all 0.3s ease; 
+  display: flex;
+  align-items: center;
+}
+  
+.toolbar-button mat-icon {
+  margin-right: 8px; /* Espaçamento entre ícone e texto */
+  color: white;
+}
+
+::ng-deep .toolbar-button {
+  color: white !important; /* Garante que o texto dos botões seja branco */
+}
+  
+.toolbar-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente ao passar o mouse */
+  transform: translateY(-2px); /* Efeito de levantar o botão */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+}
+  
+.toolbar-button:active {
+  transform: translateY(0); /* Efeito de pressionar o botão */
+}
+
+  
+  
+/* Efeito de sublinhado ao passar o mouse */
+.toolbar-button::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.3s;
+} 
+  
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .custom-toolbar {
+    height: 60px; /* Altura menor para telas pequenas */
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 20px; /* Tamanho menor para o logo */
+  }
+
+  .toolbar-button {
+    font-size: 14px; /* Tamanho menor para os botões */
+    padding: 8px 15px;
+    margin: 0 5px;
+  }
+}
