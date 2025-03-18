@@ -1,27 +1,30 @@
 <mat-toolbar class="custom-toolbar">
-  <div class="logo-content">
+  <div class="logo-content" (click)="mudaPagina('home')">
     <img src="/Logo-3.png" alt="Gato" class="logo" >
   </div>
-
   <div class="buttons-nav">
-    <button mat-button c class="toolbar-button">
+    <button mat-button class="toolbar-button" routerLink="home">
       <mat-icon>home</mat-icon> Home
     </button>
 
-    <button mat-button routerLink="/" class="toolbar-button">
+    <button mat-button class="toolbar-button" routerLink="/reservas">
       <mat-icon>list_alt_check</mat-icon> Reservas
     </button>
 
-    <button mat-button routerLink="/" class="toolbar-button">
+    <button mat-button class="toolbar-button" routerLink="/pacotes">
       <mat-icon>inventory</mat-icon> Pacotes
     </button>
 
-    <button mat-button routerLink="/" class="toolbar-button">
+    <button mat-button class="toolbar-button" routerLink="/cardapio">
       <mat-icon>assignment</mat-icon> Cardápio
     </button>
 
-    <button mat-button routerLink="/" class="toolbar-button">
+    <button mat-button class="toolbar-button"  routerLink="/eventos">
       <mat-icon>confirmation_number</mat-icon> Eventos
+    </button>
+
+    <button mat-button class="toolbar-button"  routerLink="/home">
+      <mat-icon>star</mat-icon> teste
     </button>
   </div>
 </mat-toolbar>
