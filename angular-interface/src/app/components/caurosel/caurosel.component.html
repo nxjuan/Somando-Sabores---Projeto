@@ -1,1 +1,5 @@
-<p>caurosel works!</p>
+<p-carousel [value]="images" [numVisible]="1" [numScroll]="1" [circular]="true">
+    <ng-template pTemplate="item" let-image>
+        <img [src]="image" alt="Imagem" style="width: 100%; height: auto;" />
+    </ng-template>
+</p-carousel>
