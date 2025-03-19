@@ -10,14 +10,14 @@ import { CarouselModule } from 'primeng/carousel';
 })
 export class CauroselComponent {
   images = [
-    'caurosel images/IMG - 1.PNG',
-    'caurosel images/IMG - 2.PNG',
-    'caurosel images/IMG - 3.PNG',
-    'caurosel images/IMG - 4.PNG',
-    'caurosel images/IMG - 5.PNG',
-    'caurosel images/IMG - 6.PNG',
-    'caurosel images/IMG - 7.PNG',
-    'caurosel images/IMG - 8.PNG',
-    'caurosel images/IMG - 9.PNG'    
+    'caurosel images/IMG - 1.png',
+    'caurosel images/IMG - 2.png',
+    'caurosel images/IMG - 3.png',
+    'caurosel images/IMG - 4.png',
+    'caurosel images/IMG - 5.png',
+    'caurosel images/IMG - 6.png',
+    'caurosel images/IMG - 7.png',
+    'caurosel images/IMG - 8.png',
+    'caurosel images/IMG - 9.png'    
   ]
 }
