@@ -1,0 +1,26 @@
+swiper-container {
+    width: 100vw; // ocupa 90% da largura da tela
+    max-width: 6500px; // limite máximo
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+swiper-slide img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+    color: #ffffff; // muda a cor da seta
+    font-size: 20px;
+}

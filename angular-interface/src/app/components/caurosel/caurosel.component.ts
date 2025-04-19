@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
-import { CarouselModule } from 'primeng/carousel';
+import { Component, OnInit } from '@angular/core';
+import { register } from 'swiper/element/bundle';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-caurosel',
-  imports: [CarouselModule],
+  imports: [ CommonModule ],
   templateUrl: './caurosel.component.html',
-  styleUrl: './caurosel.component.scss'
+  styleUrl: './caurosel.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CauroselComponent {
+export class CauroselComponent implements OnInit{
   images = [
     'caurosel images/IMG - 1.png',
     'caurosel images/IMG - 2.png',
@@ -20,4 +23,12 @@ export class CauroselComponent {
     'caurosel images/IMG - 8.png',
     'caurosel images/IMG - 9.png'    
   ]
+
+  ngOnInit(): void {
+    register();
+  }
+
+  onSwiperInit(swiper: any) {
+    setTimeout(() => swiper.update(), 200);
+  }
 }
