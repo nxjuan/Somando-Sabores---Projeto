@@ -24,3 +24,18 @@ swiper-container::part(button-next) {
     color: #ffffff; // muda a cor da seta
     font-size: 20px;
 }
+
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4); // fundo escuro com transparência
+  border-radius: 30%;
+  padding: 8px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+swiper-container::part(button-prev):hover,
+swiper-container::part(button-next):hover {
+  background-color: rgba(0, 0, 0, 0.6); // um pouco mais escuro ao passar o mouse
+}
