@@ -1,2 +1,35 @@
 <app-header-bar/>
-<p>reservas works!</p>
+
+<div class="reservas-container">
+  <h2>Gerenciar Pagamento</h2>
+
+  <!-- Formulário para inserir dados -->
+  <div class="form-container">
+    <div class="form-group">
+      <label for="cpfCnpj">CPF/CNPJ:</label>
+      <input id="cpfCnpj" type="text" [(ngModel)]="cpfCnpj" placeholder="Digite o CPF/CNPJ" />
+    </div>
+    <div class="form-group">
+      <label for="name">Nome Completo:</label>
+      <input id="name" type="text" [(ngModel)]="name" placeholder="Digite o nome completo" />
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail:</label>
+      <input id="email" type="email" [(ngModel)]="email" placeholder="Digite o e-mail" />
+    </div>
+    <div class="form-group">
+      <label for="value">Valor (R$):</label>
+      <input id="value" type="number" [(ngModel)]="value" placeholder="Digite o valor" />
+    </div>
+    <div class="form-group">
+      <label for="dueDate">Data de Vencimento:</label>
+      <input id="dueDate" type="date" [(ngModel)]="dueDate" />
+    </div>
+    <button (click)="handleSubmit()">Enviar</button>
+  </div>
+
+  <!-- Mensagens de feedback -->
+  <div *ngIf="message" class="message">
+    <p>{{ message }}</p>
+  </div>
+</div>
