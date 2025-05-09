@@ -1,10 +1,10 @@
 {
-    "/api": {
-      "target": "https://api-sandbox.asaas.com",
-      "secure": false,
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/api": ""
-      }
+  "/api": {
+    "target": "https://api-sandbox.asaas.com",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
     }
+  }
 }
