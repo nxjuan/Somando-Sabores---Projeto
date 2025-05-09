@@ -43,3 +43,7 @@ npm install
 ng serve
 ```
 3. EXTRA: Caso receba um erro ao rodar o ng serve, considere rodar no terminal, já que o powershell do vscode pode precisar de permissões adicionais para executar certos comandos. Fique à vontade para executar o codigo que libera o powershell no vscode, fica até mais facil.
+   ```bash
+   Set-ExecutionPolicy RemoteSigned
+   ```
+
