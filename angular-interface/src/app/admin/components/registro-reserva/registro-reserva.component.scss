@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+.registro{
+    display: flex;
+    background-color: #eee;
+    max-width: 95%;
+    margin: auto;
+    border-radius: 5px;
+    height: 9.75vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status{
+    width: 3.125vw;
+    height: 9.75vh;
+    background-color: #F4BB60;
+    border-radius: 5px;
+}
+
+.titulos, .data{
+    width: 68vw;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 2vw;
+}
+
+.titulos{
+    font-size: 1.2em;
+}
+
+.data {
+    font-size: 0.7em;
+}
+
+span{
+    font-family: "IM Fell English", "serif";
+    font-weight: 400;
+}
+
+.icons{
+    display: flex;
+    justify-content: space-between;
+    width: 3.5vw;
+    margin-inline: 1.56vw;
+}
+
+mat-icon{
+    font-size: 1.5em;
+}
+
+mat-icon:hover{
+    cursor: pointer;
+}
+
+#delete{
+    color: #C50B05;
+}

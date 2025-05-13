@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+.main{
+    display: flex;
+}
+
+.margem{
+    width: 85.62vw;
+}
+
+header{
+    max-width: 95%;
+    margin-inline: auto;
+    margin-block: 7vh;
+}
+
+h1 {
+    font-family: "IM Fell English", serif;
+    font-weight: 400;
+    color: #730001;
+    font-size: 2.25em;
+    margin-bottom: 0;
+}
+
+hr{
+    background-color: #961718;
+    height: 1.5px;
+    border: none;
+}
+
+.descricao{
+    display: flex;
+    justify-content: space-between;
+    margin-block: 2.5vh;
+    margin-inline: 3vw;
+}
+
+.descricao span{
+    font-family: "IM Fell English", serif;
+    font-weight: 400;
+    color: #000;
+}

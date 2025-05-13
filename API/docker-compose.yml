@@ -24,6 +24,7 @@ services:
 
   api:
     build:
+      context: .
       dockerfile: Dockerfile
     container_name: api-spring
     restart: on-failure
