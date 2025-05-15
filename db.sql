@@ -65,11 +65,12 @@ CREATE TABLE TB_CONVIDADOS(
 CREATE TABLE TB_PAGAMENTOS(
     id_pagamento UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     cliente_id UUID NOT NULL,
-    reserva_id UUID NOT NULL,
-    pacote_id UUID NOT NULL,
+    reserva_id UUID,
+    pacote_id UUID,
     forma_pagamento tipo_pagamento NOT NULL,
     valor_total NUMERIC(10, 2) NOT NULL CHECK(valor_total > 0), 
     data_pagamento DATE NOT NULL,
+    asaas_id NOT NULL UNIQUE
 
     FOREIGN KEY (cliente_id) REFERENCES TB_CLIENTES(id_cliente),
     FOREIGN KEY (reserva_id) REFERENCES TB_RESERVAS(id_reserva),
