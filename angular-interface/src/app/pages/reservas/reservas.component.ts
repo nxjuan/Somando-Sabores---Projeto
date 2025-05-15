@@ -126,7 +126,7 @@ export class ReservasComponent implements OnInit {
 
         if (searchResponse.data.length === 0) {
           const registerUrl = `${this.apiUrl}/customers`;
-          const customerPayload = { name: this.name, cpfCnpj: this.cpfCnpj, email: this.email };
+          const customerPayload = { name: this.name, cpfCnpj: this.cpfCnpj, email: this.email, notificationDisabled: true};
 
           this.http.post<any>(registerUrl, customerPayload, { headers: this.getHeaders() }).subscribe({
             next: (customerResponse) => {
@@ -153,11 +153,11 @@ export class ReservasComponent implements OnInit {
   private createPayment(customerId: string): void {
     const paymentUrl = `${this.apiUrl}/payments`;
     const paymentPayload = {
-      billingType: 'BOLETO',
+      billingType: 'UNDEFINED',
       customer: customerId,
       value: this.total,
       dueDate: this.dueDate,
-      description: 'Pagamento de reserva para buffet',
+      description: 'Pagamento de reserva para buffet - ' + this.nextSaturdayDate,
       successUrl: 'https://webhook.site/#!/<seu-id>'
     };
 
