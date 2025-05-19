@@ -9,13 +9,7 @@
     height: 9.75vh;
     justify-content: space-between;
     align-items: center;
-}
-
-.status{
-    width: 3.125vw;
-    height: 9.75vh;
-    background-color: #F4BB60;
-    border-radius: 5px;
+    margin-top: 5vh;
 }
 
 .titulos, .data{
@@ -55,4 +49,13 @@ mat-icon:hover{
 
 #delete{
     color: #C50B05;
+}
+
+.circle{
+    background-color: #0F2614;
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    color: #F3EAAF;
+    font-size:1.5em;
 }

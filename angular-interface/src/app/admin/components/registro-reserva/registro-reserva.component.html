@@ -1,5 +1,5 @@
 <div class="registro">
-    <div class="status"></div>
+    <mat-icon class="icons circle">expand_more</mat-icon>
     <section class="texto">
         <div class="titulos">
             <span>Responsável</span>
@@ -8,10 +8,10 @@
             <span>Data</span>
         </div>
         <div class="data">
-            <span>[NOME]</span>
-            <span>[E-MAIL]</span>
-            <span>[QTD. CONVIDADOS]</span>
-            <span>[DATA]</span>
+            <span [innerText]="responsavel">[NOME]</span>
+            <span [innerText]="email">[E-MAIL]</span>
+            <span [innerText]="qtd_convidados">[QTD. CONVIDADOS]</span>
+            <span [innerText]="data_reserva">[DATA]</span>
         </div>
     </section>
     <div class="icons">

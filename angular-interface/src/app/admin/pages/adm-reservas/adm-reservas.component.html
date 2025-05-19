@@ -2,25 +2,16 @@
     <app-side-bar></app-side-bar>
     <div class="margem">
         <header>
-            <h1>Reservas</h1>
-            <hr/>
-            <div class="status">
-                <div class="legenda">
-                    <div class="status-cor" id="verde"></div>
-                    <span>Concluído</span>
-                </div>
-                <div class="legenda">
-                    <div class="status-cor" id="amarelo"></div>
-                    <span>Em andamento</span>
-                </div>
-                <div class="legenda">
-                    <div class="status-cor" id="vermelho"></div>
-                    <span>Cancelado</span>
-                </div>
+            <div class="title">
+                <h1>Reservas</h1>
+                <mat-icon>download</mat-icon>
             </div>
             <hr/>
         </header>
+        <app-filter-button></app-filter-button>
+        <app-filter></app-filter>
         <app-registro-reserva></app-registro-reserva>
+        <app-convidados></app-convidados>
     </div>
 </div>
 

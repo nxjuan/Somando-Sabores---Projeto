@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistroEventoComponent } from './registro-evento.component';
+import { FilterButtonComponent } from './filter-button.component';
 
-describe('RegistroEventoComponent', () => {
-  let component: RegistroEventoComponent;
-  let fixture: ComponentFixture<RegistroEventoComponent>;
+describe('FilterButtonComponent', () => {
+  let component: FilterButtonComponent;
+  let fixture: ComponentFixture<FilterButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegistroEventoComponent]
+      imports: [FilterButtonComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistroEventoComponent);
+    fixture = TestBed.createComponent(FilterButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

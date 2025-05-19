@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './registro-reserva.component.scss'
 })
 export class RegistroReservaComponent {
-
+  responsavel = "Michele Melo";
+  email = "michele@email.com";
+  qtd_convidados = 2;
+  data_reserva = "22/05/2025";
 }

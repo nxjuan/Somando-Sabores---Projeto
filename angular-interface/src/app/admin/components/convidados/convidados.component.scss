@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
 
-.box-pagamentos{
+.convidados-area{
     max-width: 95%;
     margin-inline: auto;
+    background-color: #D9D9D9;
 }
 
-.registro-pagamento{
+.convidados-data{
+    height: 50px;
+    width: 47vw;
+    margin-inline: 7.8vw;
     display: flex;
-    padding-inline: 1vw;
-    align-items: center;
     justify-content: space-between;
-    margin-block: 3vh;
+    align-items: center;
 }
 
-.registro-pagamento span{
-    font-family: 'IM FELL English', 'serif';
+span{
+    font-family: "IM FELL English", "serif";
     font-size: 0.9em;
 }

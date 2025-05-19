@@ -12,62 +12,36 @@ header{
     max-width: 95%;
     margin-inline: auto;
     margin-top: 7vh;
-    margin-bottom: 5vh;
+    margin-bottom: 4vh;
 }
 
 h1 {
     font-family: "IM Fell English", serif;
     font-weight: 400;
-    color: #730001;
+    color: #0F2614;
     font-size: 2.25em;
     margin-bottom: 0;
 }
 
 hr{
-    background-color: #961718;
+    background-color: #1C4D26;
     height: 1.5px;
     border: none;
 }
 
-.status{
+.title{
     display: flex;
     justify-content: space-between;
-    margin-block: 2.5vh;
+    align-items:flex-end;
 }
 
-.legenda, .status-cor{
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 0.5px;
+mat-icon{
+    color: #0F2614;
+    font-size: 2em;
+    width: 2vw;
+    height: 4vh;
 }
 
-.legenda{
-    border-color:#000;
-    height: 20px;
-    width: 150px;
-    display: flex;
-}
-
-.legenda span{
-    font-family: "IM Fell English", serif;
-    font-weight: 400; 
-    font-size: 0.8em;
-    margin: auto;
-}
-
-.status-cor{
-    width: 50px;
-    border-left: #000;
-}
-
-#verde{
-    background-color: #BEE29A;
-}
-
-#amarelo{
-    background-color: #F4BB60;
-}
-
-#vermelho {
-    background-color: #F39C9C;
+mat-icon:hover{
+    cursor:pointer
 }
