@@ -1,0 +1,285 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FE011D;
+  border-radius: 10px;
+}
+
+body {
+  font-family: "IM Fell English", serif;
+  background-color: #F3EAAF;
+  color: #000;
+  min-height: 100vh;
+}
+
+/* Container Principal */
+.reserva-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 120px auto 20px;
+  max-width: 90%;
+  height: 100%;
+  gap: 40px;
+  padding: 20px;
+}
+
+/* Lado esquerdo: Minha reserva */
+.reserva-lateral {
+  background-color: #730001;
+  color: #fff;
+  border-radius: 3px;
+  height: 504px;
+  padding: 10px 10px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reserva-lateral h3 {
+  font-size: 22px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.reserva-item {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  align-items: center;
+}
+
+.reserva-item img {
+  width: 80px;
+  height: 150px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.reserva-descricao {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+/* Lado direito: Formulário */
+.reserva-form {
+  flex: 1;
+}
+
+.reserva-form h2 {
+  font-size: 24px;
+  color: #730001;
+  margin-bottom: 10px;
+}
+
+.reserva-form hr {
+  border: 0;
+  border-top: 1px solid #730001;
+  margin: 20px 0 20px;
+}
+
+.reserva-form p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#guest-fields p {
+  margin-top: 10px;
+}
+
+#guest-fields div {
+  display: flex;
+  flex-direction: column;
+}
+
+#guest-fields input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#guest-fields label {
+  margin-top: 10px;
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+#guest-fields hr {
+  border: 0;
+  border-top: 1px solid #730001;
+  margin: 20px 0 20px;
+}
+
+/* Botão */
+.reserva-form button {
+  background-color: #730001;
+  color: #fff;
+  font-family: "IM Fell English", serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: flex-start;
+}
+
+.reserva-form button:hover {
+  background-color: #F3EAAF;
+  color: #730001;
+}
+
+/* Botões de controle */
+.reserva-controle {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.reserva-controle button {
+  background-color: #fff;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bolder;
+  border: none;
+  color: #730001;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.reserva-controle input {
+  text-align: center;
+  width: 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Estilo do Modal */
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #F3EAAF;
+  width: 350px;
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px 0 0 10px;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-bottom: 2px;
+  color: #730001;
+  font-size: 22px;
+}
+
+.modal-content p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.modal-content hr {
+  width: 100%;
+  height: 1px;
+  background-color: #730001;
+  border: none;
+  margin: 5px auto 50px;
+}
+
+.modal-content .modal-button {
+  background-color: #730001;
+  color: #fff;
+  font-family: "IM Fell English", serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.modal-content .modal-button:hover {
+  background-color: #F3EAAF;
+  color: #730001;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #730001;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #F00;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
