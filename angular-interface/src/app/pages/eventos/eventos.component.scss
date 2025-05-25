@@ -46,7 +46,7 @@ main {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
-    border-bottom: 2px solid #8b0000;
+    border-bottom: 2px solid #1C4D26;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -62,7 +62,7 @@ main {
     font-size: 20px;
     margin: 20px 0;
     font-weight: bold;
-    border-bottom: 2px solid #8b0000;
+    border-bottom: 2px solid #1C4D26;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -93,7 +93,7 @@ textarea {
 }
 
 .botao-enviar {
-    background-color: #8b0000;
+    background-color: #1C4D26;
     color: white;
     border: none;
     padding: 10px;
@@ -103,5 +103,6 @@ textarea {
 }
 
 .botao-enviar:hover {
-    background-color: #5a0000;
+    color: #F3EAAF;
+    background-color: #0B6623;
 }

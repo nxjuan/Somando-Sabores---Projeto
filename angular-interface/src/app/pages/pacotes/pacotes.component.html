@@ -1,27 +1,26 @@
 <app-header-bar />
 
- <section class="pacote-estudantes">
-        <div class="image-container">
-            <img src="assets/estudantes.png" alt="Imagem de estudantes">
-        </div>
-        <div class="form-container">
-            <h2>Pacote para estudantes</h2>
-            <hr>
-            <p>Preencha o formulário abaixo e garanta refeições balanceadas nutritivas e saborosas de segunda a sábado com nosso pacote mensal de almoço.</p>
-            <p><strong>Apenas R$516 por mês</strong> (cada almoço sai por <strong>R$21,50</strong>!).</p>
-            <form action="#" method="POST">
-                <label for="nome">Nome completo</label>
-                <input type="text" id="nome" name="nome" required>
-                
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="ra">R.A.</label>
-                <input class="imput-ra" type="text" id="ra" name="ra" required> 
-                <hr>
-                
-               <button type="button" [routerLink]="['/resumo-pacote']">Garanta já</button>
-            </form>
-             
-        </div>
-    </section>
+<section class="pacote-estudantes">
+  <div class="image-container">
+    <img src="assets/estudantes.png" alt="Imagem de estudantes">
+  </div>
+  <div class="form-container">
+    <h2>Pacote para estudantes</h2>
+    <hr>
+    <p>Preencha o formulário abaixo e garanta refeições balanceadas nutritivas e saborosas de segunda a sábado com nosso pacote mensal de almoço.</p>
+    <p><strong>Apenas R$516 por mês</strong> (cada almoço sai por <strong>R$21,50</strong>!).</p>
+    <form #form="ngForm">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" required [(ngModel)]="nome" #nomeRef="ngModel">
+      <div *ngIf="nomeRef.invalid && nomeRef.touched" style="color:red;">Nome é obrigatório.</div>
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" required [(ngModel)]="email" #emailRef="ngModel">
+      <div *ngIf="emailRef.invalid && emailRef.touched" style="color:red;">E-mail é obrigatório.</div>
+      <label for="ra">R.A.</label>
+      <input class="imput-ra" type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel">
+      <div *ngIf="raRef.invalid && raRef.touched" style="color:red;">R.A. é obrigatório.</div>
+      <hr>
+      <button type="button" (click)="onSubmit(form)">Garanta já</button>
+    </form>
+  </div>
+</section>
