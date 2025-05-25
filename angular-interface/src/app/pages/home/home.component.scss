@@ -14,7 +14,7 @@ h1, h2, h3 {
 hr {
   width: 30%;
   height: 1px;
-  background-color: #730001;
+  background-color: #1C4D26;
   border: none;
   margin: 5px auto 30px;
 }
@@ -82,7 +82,7 @@ hr {
 
 .sobre .comtainer_textoQs .texto_quemSomos button {
   margin-top: 30px;
-  background-color: #8b0000;
+  background-color: #1C4D26;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -93,7 +93,8 @@ hr {
 }
 
 .sobre .comtainer_textoQs .texto_quemSomos button:hover {
-  background-color: #a80000;
+  color: #F3EAAF;
+  background-color: #0B6623;
 }
 
 .sobre .comtainer_textoQs img {
@@ -105,7 +106,7 @@ hr {
 
 /* Rodapé */
 footer {
-  background-color: #730001;
+  background-color: #1C4D26;
 }
 
 footer h2 {
@@ -163,7 +164,6 @@ footer .content .location iframe {
   }
 
   .sobre .comtainer_textoQs .texto_quemSomos {
-   
     padding-left: 0;
     max-width: 90%;
     text-align: center; 

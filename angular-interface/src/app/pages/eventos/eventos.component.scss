@@ -1,0 +1,108 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: "IM Fell English", serif;
+    background-color: #F3EAAF;
+    color: #000;
+}
+
+/* Scrollbar estilizado */
+::-webkit-scrollbar {
+    width: 1px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FE011D;
+    border-radius: 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+.eventos {
+    max-width: 800px;
+    margin: 100px auto;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.eventos h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #1C4D26;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.eventos .descricao {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 20px 0;
+    color: #333;
+}
+
+.eventos h2 {
+    font-size: 20px;
+    margin: 20px 0;
+    font-weight: bold;
+    border-bottom: 2px solid #1C4D26;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: left;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.botao-enviar {
+    background-color: #1C4D26;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.botao-enviar:hover {
+    color: #F3EAAF;
+    background-color: #0B6623;
+}
