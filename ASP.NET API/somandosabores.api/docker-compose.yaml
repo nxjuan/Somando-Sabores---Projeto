@@ -1,0 +1,37 @@
+﻿services:
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: restaurantuser
+      POSTGRES_PASSWORD: '$0M@ND0'
+      POSTGRES_DB: ssdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '15432:80'
+    depends_on:
+      - db
+
+  api:
+    image: sua-imagem-aspnet
+    build:
+      context: ..
+      dockerfile: somandosabores.api/Dockerfile
+    ports:
+      - '5000:8080'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=ssdb;Username=restaurantuser;Password=$0M@ND0
+    depends_on:
+      - db
