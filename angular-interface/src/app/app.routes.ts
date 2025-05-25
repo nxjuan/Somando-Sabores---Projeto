@@ -4,7 +4,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { PacotesComponent } from './pages/pacotes/pacotes.component';
 import { ReservasComponent } from './pages/reservas/reservas.component';
-
+import { ConfirmacaoComponent } from './pages/confirmacao/confirmacao.component';
+import { ResumoPacoteComponent } from './pages/resumo-pacote/resumo-pacote.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -12,7 +13,8 @@ export const routes: Routes = [
   { path: 'eventos', component: EventosComponent },
   { path: 'pacotes', component: PacotesComponent },
   { path: 'reservas', component: ReservasComponent },
-
+  { path: 'confirmacao', component: ConfirmacaoComponent },
+  { path: 'resumo-pacote', component: ResumoPacoteComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent }
 ];

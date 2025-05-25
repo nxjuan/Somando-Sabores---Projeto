@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    background: linear-gradient(to right, #F3EAAF 25%, #fff 25%, #fff 75%, #F3EAAF 75%);
+    background-size: 100% 100%;
+    color: #fff;
+    font-size: 16px;
+    font-family: "IM Fell English", serif;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 1px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FE011D;
+    border-radius: 10px;
+}
+
+/* Estilo do cardápio */
+.cardapio {
+    margin: auto;
+    max-width: 80%;
+    background-color: #fff;
+    padding: 120px 50px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardapio h1 {
+    font-size: 40px;
+    color: #730001;
+    text-align: center;
+    margin: 40px 0 20px;
+    font-weight: lighter;
+}
+
+.cardapio h2 {
+    color: #000;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.cardapio hr {
+    width: 50%;
+    height: 1px;
+    background-color: #730001;
+    border: none;
+    margin: 10px auto 20px;
+}
+
+.cardapio .lanches {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cardapio .lanches .lanche_item img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.cardapio .lanches .lanche_item img:hover {
+    transform: scale(1.1);
+}
+
+.cardapio .lanches .lanche_item p {
+    color: #000;
+    text-align: center;
+    font-weight: lighter;
+    margin-top: 10px;
+}
+
+.cardapio .almoco {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.cardapio .almoco h2 {
+    font-size: 30px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.cardapio .almoco hr {
+    width: 50%;
+    height: 1px;
+    background-color: #730001;
+    border: none;
+    margin: 10px auto 20px;
+}
+
+.cardapio .almoco .conteudo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.cardapio .almoco .conteudo #img_principal {
+    width: 200px;
+    height: 340px;
+    border-radius: 10px;
+}
+
+.cardapio .almoco .descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+}
+
+.cardapio .almoco .descricao p {
+    color: #000;
+    font-family: "IM Fell English", serif;
+    font-weight: lighter;
+    font-size: 18px;
+    margin: 10px 1px 10px;
+}
+
+.cardapio .almoco .descricao a {
+    color: #730001;
+    text-decoration: underline;
+}
+
+.cardapio .almoco .descricao .img_descricao {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.cardapio .almoco .descricao .img_descricao img {
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.cardapio .almoco .botao {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cardapio .almoco .botao button {
+    background-color: #730001;
+    color: #fff;
+    font-family: "IM Fell English", serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cardapio .almoco .botao button:hover {
+    background-color: #F3EAAF;
+    color: #730001;
+}
