@@ -8,7 +8,6 @@ import { AdminPanelComponent } from './admin/pages/admin-panel/admin-panel.compo
 import { AdmRelatoriosComponent } from './admin/pages/adm-relatorios/adm-relatorios.component';
 import { AdmReservasComponent } from './admin/pages/adm-reservas/adm-reservas.component';
 import { AdmPacotesComponent } from './admin/pages/adm-pacotes/adm-pacotes.component';
-import { AdmEventosComponent } from './admin/pages/adm-eventos/adm-eventos.component';
 import { AdmPagamentosComponent } from './admin/pages/adm-pagamentos/adm-pagamentos.component';
 
 
@@ -22,7 +21,6 @@ export const routes: Routes = [
   { path: 'admin-panel/relatorios', component: AdmRelatoriosComponent},
   { path: 'admin-panel/reservas', component: AdmReservasComponent},
   { path: 'admin-panel/pacotes', component: AdmPacotesComponent},
-  { path: 'admin-panel/eventos', component: AdmEventosComponent},
   { path: 'admin-panel/pagamentos', component: AdmPagamentosComponent},
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },

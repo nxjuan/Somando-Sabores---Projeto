@@ -1,25 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
 
-.filter-box{
-    display: flex;
-    max-width: 95%;
+mat-accordion{
+    width: 95%;
     margin-inline: auto;
+    display: flex;
     justify-content: end;
-
 }
 
-.border-box{
-    background-color: #fff;
+mat-expansion-panel{
+    width: 12.35vw;
     border-style: solid;
     border-color: #1C4D26;
     border-width: 0.5px;
+    background-color: #fff;
+}
+
+.filter-section{ 
+    background-color: #eee;
+    font-family: 'IM FEEL English', 'serif';
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 3vh;
+    border-width: 0.5px;
+    align-items: center;
+    padding-inline: 0.75vw;
+}
+
+.filter-section mat-icon {
+    margin-left: 2vw;
+}
+
+.filter-box{
     border-top: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 10.5vw;
-    height: 21vh;
-    z-index: 10;
-    position: absolute;
 }
 
 .label-input span{

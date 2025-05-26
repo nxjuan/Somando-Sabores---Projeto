@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+// Definição do tamanho da box do painel que expande
+mat-accordion{
+    width: 95%;
+    margin-inline: auto;
+    margin-top: 5vh;
+    display: block;
+}
+
+// Container que tem o título e os dados da reserva (a parte que realmente aparece)
+mat-expansion-panel{
+    background-color: #e5e5e5;
+}
+
+.registro{
+    height: 9.75vh;
+    background-color: #f5f5f5;
+}
+
+.titulos, .data{
+    width: 68vw;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 2vw;
+    font-family: 'IM Fell English', 'serif';
+}
+
+.titulos{
+    font-size: 1.2em;
+}
+
+.data{
+    font-size: 0.8em;   
+}
+
+// Estilização dos ícones
+#delete{
+    color: #C50B05;
+}
+
+.circle{
+    background-color: #0F2614;
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    color: #F3EAAF;
+    font-size:1.5em;   
+}
+
+.circle-box{
+    display: flex;
+    align-items: center;
+}
+
+.icons{
+    width: 3.5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Estilização da seção do convidado (a que é expandida)
+.convidados-data{
+    width: 65%;
+    height: 7.5vh;
+    margin-inline: 2vw;
+    margin-top: 2.5vh;
+    padding-inline: 3.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.convidados-data span{
+    font-family: 'IM Fell English', 'serif';
+    font-size: 1.1em;
+}
