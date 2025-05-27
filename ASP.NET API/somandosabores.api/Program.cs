@@ -1,5 +1,7 @@
+using domain.IServices;
 using infra.DbContext;
 using Microsoft.EntityFrameworkCore;
+using somandosabores.api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+
+builder.Services.AddScoped<IEventoService, EventoService>();
+builder.Services.AddScoped<IReservaService, ReserveService>();
+builder.Services.AddScoped<IAlunoService, AlunoService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 var app = builder.Build();
 

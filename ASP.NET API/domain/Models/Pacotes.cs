@@ -14,7 +14,7 @@ public class Pacotes
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     [Required]
-    public DateOnly? DataInicio { get; set; }
+    public DateOnly DataInicio { get; set; }
     [Required]
     public DateOnly DataFim { get; set; }
     public int QtdDias { get; set; } = 0;

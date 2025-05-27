@@ -31,7 +31,7 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao cadastrar reserva";
+            serviceResponse.Message = "Erro ao cadastrar reserva: " + e.Message;
             serviceResponse.Success = false;
             
             return serviceResponse;
@@ -59,7 +59,7 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro na busca!";
+            serviceResponse.Message = "Erro na busca: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }
@@ -99,15 +99,45 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao atualizar reserva";
+            serviceResponse.Message = "Erro ao atualizar reserva: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }
     }
 
-    public Task<ServiceResponse<string>> DeleteReserva(int id)
+    public async Task<ServiceResponse<string>> DeleteReserva(int id)
     {
-        throw new NotImplementedException();
+        var serviceRespose = new ServiceResponse<string>();
+        try
+        {
+            if(id < 1 || id == null){
+                serviceRespose.Data = null;
+                serviceRespose.Message = "Id invalido";
+                serviceRespose.Success = false;
+            }
+
+            var reserva = await context.Reservas.FindAsync(id);
+            if(reserva == null){
+                serviceRespose.Data = null;
+                serviceRespose.Message = "Id invalido";
+                serviceRespose.Success = false;
+            }
+
+            context.Remove(reserva);
+            context.SaveChangesAsync();
+
+            serviceRespose.Success = true;
+            serviceRespose.Message = "deletado com sucesso";
+            serviceRespose.Data = null;
+            return serviceRespose;
+        }
+        catch(Exception e)
+        {
+            serviceRespose.Data = null;
+            serviceRespose.Message = "Erro durante deleção: " + e.Message;
+            serviceRespose.Success = false;
+            return serviceRespose;
+        }
     }
 
     public async Task<ServiceResponse<List<Reserva>>> ListReservas()
@@ -123,7 +153,7 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao listar reservas";
+            serviceResponse.Message = "Erro ao listar reservas: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }

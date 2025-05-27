@@ -14,9 +14,9 @@ public class Reserva
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
-    public DateTime DataReserva { get; set; } = DateTime.Now;
-    public int? EventoId { get; set; }
-    public Evento? Evento { get; set; } = new Evento();
+    public DateTime DataReserva { get; set; } = DateTime.UtcNow;
+    public int? EventoId { get; set; } = null;
+    public Evento? Evento { get; set; }= null;
     public Double Valor { get; set; } = 0.0;
     public ReservaStatus ReservaStatus { get; set; } = ReservaStatus.Pendente;
 }
