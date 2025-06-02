@@ -70,9 +70,9 @@ CREATE TABLE TB_PAGAMENTOS(
     forma_pagamento tipo_pagamento NOT NULL,
     valor_total NUMERIC(10, 2) NOT NULL CHECK(valor_total > 0), 
     data_pagamento DATE NOT NULL,
-    asaas_id NOT NULL UNIQUE
+    asaas_id VARCHAR(40) NOT NULL UNIQUE,
 
     FOREIGN KEY (cliente_id) REFERENCES TB_CLIENTES(id_cliente),
     FOREIGN KEY (reserva_id) REFERENCES TB_RESERVAS(id_reserva),
-    FOREIGN KEY (pacote_id) REFERENCES TB_PACOTES(id_pacote),
-)
+    FOREIGN KEY (pacote_id) REFERENCES TB_PACOTES(id_pacote)
+);
