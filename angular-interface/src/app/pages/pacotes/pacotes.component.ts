@@ -26,10 +26,10 @@ export class PacotesComponent {
       Object.values(form.controls).forEach(control => control.markAsTouched());
     } else {
       const dadosAluno: Aluno = form.value;
-      console.log("Dados do aluno a serem enviados: ", dadosAluno);
+      //console.log("Dados do aluno a serem enviados: ", dadosAluno);
       this.alunosService.create(dadosAluno).subscribe({
-        next: (dadosAluno) => {
-          alert(` Aluno ${dadosAluno.nome} cadastrado com sucesso! `);
+        next: (response) => {
+          alert(` Aluno(a) '${dadosAluno.nome}' cadastrado(a) com sucesso! `);
           this.router.navigate(['/resumo-pacote']);
         },
         error: (msgErro) => {
