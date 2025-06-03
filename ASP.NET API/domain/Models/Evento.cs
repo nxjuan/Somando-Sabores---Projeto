@@ -12,7 +12,7 @@ public class Evento
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; init; }
+    public Guid Id { get; init; }
 
     public string Titulo { get; set; } = string.Empty;
     public string? Descricao { get; set; } = string.Empty;

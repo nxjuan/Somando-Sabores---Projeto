@@ -9,7 +9,7 @@
     <hr>
     <p>Preencha o formulário abaixo e garanta refeições balanceadas nutritivas e saborosas de segunda a sábado com nosso pacote mensal de almoço.</p>
     <p><strong>Apenas R$516 por mês</strong> (cada almoço sai por <strong>R$21,50</strong>!).</p>
-    <form #form="ngForm">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <label for="nome">Nome completo</label>
       <input type="text" id="nome" name="nome" required [(ngModel)]="nome" #nomeRef="ngModel">
       <div *ngIf="nomeRef.invalid && nomeRef.touched" style="color:red;">Nome é obrigatório.</div>
@@ -20,7 +20,7 @@
       <input class="imput-ra" type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel">
       <div *ngIf="raRef.invalid && raRef.touched" style="color:red;">R.A. é obrigatório.</div>
       <hr>
-      <button type="button" (click)="onSubmit(form)">Garanta já</button>
+      <button type="button" type="submit">Garanta já</button>
     </form>
   </div>
 </section>

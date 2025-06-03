@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { HeaderBarComponent } from '../../components/header-bar/header-bar.component';
 import { RouterModule, Router } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Aluno } from '../../models/AlunoModel';
+import { AlunosService } from '../../services/alunos/alunos.service';
 
 @Component({
   standalone: true,
@@ -12,16 +14,30 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pacotes.component.scss'
 })
 export class PacotesComponent {
-  constructor(private router: Router) { }
-  nome: string = '';
-  email: string = '';
-  ra: string = '';
+  constructor(private router: Router, private alunosService: AlunosService) { }
+
+  id: number = 0;
+  nome: string = "";
+  email: string = "";
+  ra: string = "";
+
   onSubmit(form: NgForm) {
     if (form.invalid) {
       Object.values(form.controls).forEach(control => control.markAsTouched());
     } else {
-      this.router.navigate(['/resumo-pacote']);
+      const dadosAluno: Aluno = form.value;
+      console.log("Dados do aluno a serem enviados: ", dadosAluno);
+      this.alunosService.create(dadosAluno).subscribe({
+        next: (dadosAluno) => {
+          alert(` Aluno ${dadosAluno.nome} cadastrado com sucesso! `);
+          this.router.navigate(['/resumo-pacote']);
+        },
+        error: (msgErro) => {
+          alert(`Erro no cadastro de aluno: ${msgErro}`)
+        }
+      });
     }
   }
+
 }
 

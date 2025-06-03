@@ -38,12 +38,12 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         }
     }
 
-    public async Task<ServiceResponse<Reserva>> GetReserva(int id)
+    public async Task<ServiceResponse<Reserva>> GetReserva(Guid id)
     {
         var serviceResponse = new ServiceResponse<Reserva>();
         try
         {
-            if (id < 1)
+            if (id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Id invalido";
@@ -105,12 +105,12 @@ public class ReserveService(ApplicationDbContext context) : IReservaService
         }
     }
 
-    public async Task<ServiceResponse<string>> DeleteReserva(int id)
+    public async Task<ServiceResponse<string>> DeleteReserva(Guid id)
     {
         var serviceRespose = new ServiceResponse<string>();
         try
         {
-            if(id < 1 || id == null){
+            if(id == null){
                 serviceRespose.Data = null;
                 serviceRespose.Message = "Id invalido";
                 serviceRespose.Success = false;

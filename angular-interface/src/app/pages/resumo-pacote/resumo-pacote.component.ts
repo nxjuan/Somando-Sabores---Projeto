@@ -1,9 +1,10 @@
 import { Component, NgModule } from '@angular/core';
 import { HeaderBarComponent } from '../../components/header-bar/header-bar.component';
-import { RouterModule,} from '@angular/router'; 
+import { MatIcon } from '@angular/material/icon';
+import { RouterModule} from '@angular/router'; 
 @Component({
   selector: 'app-resumo-pacote',
-  imports: [HeaderBarComponent,RouterModule],
+  imports: [HeaderBarComponent, RouterModule, MatIcon],
   standalone: true,
   templateUrl: './resumo-pacote.component.html',
   styleUrl: './resumo-pacote.component.scss'

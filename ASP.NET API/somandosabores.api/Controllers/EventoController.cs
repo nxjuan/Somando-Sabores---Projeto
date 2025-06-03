@@ -38,7 +38,7 @@ public class EventoController(IEventoService service) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<Evento>>> GetById(int id)
+    public async Task<ActionResult<ServiceResponse<Evento>>> GetById(Guid id)
     {
         var resposta = await service.GetEvento(id);
         if (resposta.Success)
@@ -66,7 +66,7 @@ public class EventoController(IEventoService service) : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<ActionResult<ServiceResponse<string>>> Delete(int id)
+    public async Task<ActionResult<ServiceResponse<string>>> Delete(Guid id)
     {
         var resposta = await service.DeleteEvento(id);
         if (resposta.Success)

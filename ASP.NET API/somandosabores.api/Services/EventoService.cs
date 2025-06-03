@@ -38,7 +38,7 @@ public class EventoService(ApplicationDbContext context) : IEventoService
         }
     }
 
-    public async Task<ServiceResponse<string>> DeleteEvento(int id)
+    public async Task<ServiceResponse<string>> DeleteEvento(Guid id)
     {
         var serviceResponse = new ServiceResponse<string>();
 
@@ -71,7 +71,7 @@ public class EventoService(ApplicationDbContext context) : IEventoService
         }
     }
 
-    public async Task<ServiceResponse<Evento>> GetEvento(int id)
+    public async Task<ServiceResponse<Evento>> GetEvento(Guid id)
     {
         var serviceResponse = new ServiceResponse<Evento>();
         try

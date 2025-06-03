@@ -1,17 +1,18 @@
-﻿using domain.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using domain.IServices;
 using domain.Models;
 using infra.DbContext;
 
 namespace somandosabores.api.Services;
 
-public class AlunoService(ApplicationDbContext context) : IAlunoService
+public class AlunoService(ApplicationDbContext context, IClienteService clienteService) : IAlunoService
 {
-    public async Task<ServiceResponse<Aluno>> GetAlunoById(int id)
+    public async Task<ServiceResponse<AlunoDTO>> GetAlunoById(Guid id)
     {
-        var serviceResponse = new ServiceResponse<Aluno>();
+        var serviceResponse = new ServiceResponse<AlunoDTO>();
         try
         {
-            if (id < 1 || id == null)
+            if (id == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Id invalido";
@@ -19,11 +20,22 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
                 return serviceResponse;
             }
             
-            serviceResponse.Data = await context.Alunos.FindAsync(id);
+            var aluno = await context.Alunos
+                                    .Include(a => a.Cliente)
+                                    .FirstOrDefaultAsync(a => a.Id == id);
             serviceResponse.Success = true;
             serviceResponse.Message = "Aluno encontrado";
             
+            serviceResponse.Data = new AlunoDTO
+            {
+                Id = aluno.Id,
+                RA = aluno.RA,
+                Nome = aluno.Cliente?.Nome,
+                Email = aluno.Cliente?.Email
+            };
+
             return serviceResponse;
+
         }
         catch (Exception e)
         {
@@ -34,14 +46,25 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
         }
     }
 
-    public async Task<ServiceResponse<List<Aluno>>> GetAlunos()
+    public async Task<ServiceResponse<List<AlunoDTO>>> GetAlunos()
     {
-        var serviceResponse = new ServiceResponse<List<Aluno>>();
+        var serviceResponse = new ServiceResponse<List<AlunoDTO>>();
         try
         {
+            var alunos = await context.Alunos
+                                    .Include(a => a.Cliente)
+                                    .ToListAsync();
+
+            serviceResponse.Data = alunos.Select(aluno => new AlunoDTO
+            {
+                Id = aluno.Id,
+                RA = aluno.RA,
+                Nome = aluno.Cliente?.Nome,
+                Email = aluno.Cliente?.Email
+            }).ToList();
+
             serviceResponse.Success = true;
-            serviceResponse.Data = context.Alunos.ToList();
-            serviceResponse.Message = "Alunos encontrado";
+            serviceResponse.Message = "Alunos encontrados";
             return serviceResponse;
         }
         catch (Exception e)
@@ -53,34 +76,63 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
         }
     }
 
-    public async Task<ServiceResponse<Aluno>> CreateAluno(Aluno aluno)
+    public async Task<ServiceResponse<AlunoDTO>> CreateAluno(AlunoDTO alunoDTO)
     {
-        var serviceResponse = new ServiceResponse<Aluno>();
+        var serviceResponse = new ServiceResponse<AlunoDTO>();
         try
         {
-            if (aluno == null)
+            if (alunoDTO == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Informe os dados do aluno";
                 serviceResponse.Data = null;
                 return serviceResponse;
-            }
+            };
 
             if (
-                (aluno.Nome == null || aluno.Nome == "")
-                || (aluno.RA == null || aluno.RA == "")
-                || (aluno.Email == null || aluno.Email == "")
-            )
+                string.IsNullOrWhiteSpace(alunoDTO.Nome) ||
+                string.IsNullOrWhiteSpace(alunoDTO.Email) ||
+                string.IsNullOrWhiteSpace(alunoDTO.RA))
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Informe os dados do aluno";
                 serviceResponse.Data = null;
                 return serviceResponse;
-            }
+            };
+
+            var cliente = new Cliente
+            {
+                Nome = alunoDTO.Nome,
+                Email = alunoDTO.Email
+            };
             
+            var clienteServiceResponse = await clienteService.CreateCliente(cliente);
+
+            if (!clienteServiceResponse.Success)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"Falha ao criar o cliente: {clienteServiceResponse.Message}";
+                return serviceResponse;
+            };
+
+            var novoCliente = clienteServiceResponse.Data;
+
+            var aluno = new Aluno
+            {
+                RA = alunoDTO.RA,
+                ClienteId = novoCliente.Id
+            };
+
             await context.Alunos.AddAsync(aluno);
             await context.SaveChangesAsync();
-            serviceResponse.Data = aluno;
+
+            serviceResponse.Data = new AlunoDTO
+            {
+                Id = aluno.Id,
+                RA = aluno.RA,
+                Nome = novoCliente.Nome,
+                Email = novoCliente.Email
+            };
             serviceResponse.Success = true;
             serviceResponse.Message = "Aluno criado com sucesso";
             return serviceResponse;
@@ -89,33 +141,54 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
         catch (Exception e)
         {
             serviceResponse.Success = false;
-            serviceResponse.Message = "Erro ao salvar: " +  e.Message;
+            string errormsg = e.InnerException?.Message ?? e.Message;
+            serviceResponse.Message = "Erro ao salvar: " +  errormsg;
             serviceResponse.Data = null;
             return serviceResponse;
         }
     }
 
-    public async Task<ServiceResponse<Aluno>> UpdateAluno(Aluno aluno)
+    public async Task<ServiceResponse<AlunoDTO>> UpdateAluno(AlunoDTO alunoDTO)
     {
-        var serviceResponse = new ServiceResponse<Aluno>();
+        var serviceResponse = new ServiceResponse<AlunoDTO>();
         try
         {
-            var alunoExists = await context.Alunos.FindAsync(aluno.Id);
+            var alunoExists = await context.Alunos.FindAsync(alunoDTO.Id);
             if (alunoExists == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Aluno não encontrado";
                 serviceResponse.Data = null;
                 return serviceResponse;
-            }
+            };
             
-            alunoExists.Nome = aluno.Nome ?? alunoExists.Nome;
-            alunoExists.RA = aluno.RA ??  alunoExists.RA;
-            alunoExists.Email = aluno.Email  ?? alunoExists.Email;
+            alunoExists.RA = alunoDTO.RA ?? alunoExists.RA;
+
+            var clienteAtualizado = new Cliente
+            {
+                Id = alunoExists.ClienteId,
+                Nome = alunoDTO.Nome,
+                Email = alunoDTO.Email
+            };
+
+            var clienteServiceResponse = await clienteService.UpdateCliente(clienteAtualizado);
+            if (!clienteServiceResponse.Success || clienteServiceResponse.Data == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Cliente não encontrado";
+                serviceResponse.Data = null;
+                return serviceResponse;
+            };
+
+            //await context.SaveChangesAsync();
             
-            await context.SaveChangesAsync();
-            
-            serviceResponse.Data = alunoExists;
+            serviceResponse.Data = new AlunoDTO
+            {
+                Id = alunoExists.Id,
+                RA = alunoExists.RA,
+                Nome = clienteServiceResponse.Data.Nome,
+                Email = clienteServiceResponse.Data.Email
+            };
             serviceResponse.Success = true;
             serviceResponse.Message = "Aluno atualizado com sucesso";
             
@@ -130,12 +203,12 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
         }
     }
 
-    public async Task<ServiceResponse<string>> DeleteAluno(int id)
+    public async Task<ServiceResponse<string>> DeleteAluno(Guid id)
     {
         var serviceResponse = new ServiceResponse<string>();
         try
         {
-            var  aluno = await context.Alunos.FindAsync(id);
+            var aluno = await context.Alunos.FindAsync(id);
             if (aluno == null)
             {
                 serviceResponse.Success = false;
@@ -143,8 +216,20 @@ public class AlunoService(ApplicationDbContext context) : IAlunoService
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
+
+            var clienteId = aluno.ClienteId;
+
             context.Alunos.Remove(aluno);
             await context.SaveChangesAsync();
+
+            var clienteDeleteResponse = await clienteService.DeleteCliente(clienteId);
+            if (!clienteDeleteResponse.Success)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"Aluno removido, mas falha ao remover Cliente associado: {clienteDeleteResponse.Message}";
+                serviceResponse.Data = null;
+                return serviceResponse;
+            };
             
             serviceResponse.Data = null;
             serviceResponse.Success = true;

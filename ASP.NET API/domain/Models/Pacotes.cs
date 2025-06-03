@@ -12,7 +12,7 @@ public class Pacotes
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     [Required]
     public DateOnly DataInicio { get; set; }
     [Required]

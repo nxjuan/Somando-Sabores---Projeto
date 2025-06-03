@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 
 namespace domain.Models;
 
-public  class Aluno
+public class Aluno
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
+    public Guid Id { get; set; }
+
+    public Guid ClienteId { get; set; }
+    
+    public Cliente Cliente { get; set; }
+    
     public string RA { get; set; } = string.Empty;
 }

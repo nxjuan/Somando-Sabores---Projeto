@@ -15,6 +15,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
 
+// builder.Services.AddCors(options => {
+//     options.AddPolicy("AllowSpecifiOrigin", 
+//     builder => {
+//         builder.WithOrigins("http://localhost:4200")
+//         .WithHeaders("Content-Type", "Authorization")
+//         // CORS header ‘Access-Control-Allow-Origin’
+//         .WithMethods("GET", "POST");});
+// });
 
 builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<IReservaService, ReserveService>();
@@ -33,6 +41,8 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 }
+
+// app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 

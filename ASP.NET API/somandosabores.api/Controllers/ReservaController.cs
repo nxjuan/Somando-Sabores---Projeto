@@ -9,7 +9,7 @@ namespace somandosabores.api.Controllers;
 public class ReservaController(IReservaService reservaService) : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> GetById(int id)
+    public async Task<ActionResult<ServiceResponse<Reserva>>> GetById(Guid id)
     {
         var resposta = await reservaService.GetReserva(id);
         if (resposta.Success)
@@ -51,7 +51,7 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<ServiceResponse<string>>> Delete(int id)
+    public async Task<ActionResult<ServiceResponse<string>>> Delete(Guid id)
     {
         var  resposta = await reservaService.DeleteReserva(id);
         if (resposta.Success)

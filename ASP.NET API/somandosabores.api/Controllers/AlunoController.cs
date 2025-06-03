@@ -9,7 +9,7 @@ namespace somandosabores.api.Controllers;
 public class AlunoController(IAlunoService service) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ServiceResponse<IEnumerable<Aluno>>>> GetAll()
+    public async Task<ActionResult<ServiceResponse<IEnumerable<AlunoDTO>>>> GetAll()
     {
         var retorno = await service.GetAlunos();
         if (retorno.Success)
@@ -23,7 +23,7 @@ public class AlunoController(IAlunoService service) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> GetById(int id)
+    public async Task<ActionResult<ServiceResponse<AlunoDTO>>> GetById(Guid id)
     {
         var retorno = await service.GetAlunoById(id);
         if (retorno.Success)
@@ -37,9 +37,9 @@ public class AlunoController(IAlunoService service) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> Post(Aluno aluno)
+    public async Task<ActionResult<ServiceResponse<AlunoDTO>>> Post(AlunoDTO alunoDTO)
     {
-        var retorno = await service.CreateAluno(aluno);
+        var retorno = await service.CreateAluno(alunoDTO);
         if (retorno.Success)
         {
             return Ok(retorno);
@@ -51,9 +51,9 @@ public class AlunoController(IAlunoService service) : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> Put(Aluno aluno)
+    public async Task<ActionResult<ServiceResponse<AlunoDTO>>> Put(AlunoDTO alunoDTO)
     {
-        var retorno = await service.UpdateAluno(aluno);
+        var retorno = await service.UpdateAluno(alunoDTO);
         if (retorno.Success)
         {
             return Ok(retorno);
@@ -65,7 +65,7 @@ public class AlunoController(IAlunoService service) : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<ServiceResponse<string>>> Delete(int id)
+    public async Task<ActionResult<ServiceResponse<string>>> Delete(Guid id)
     {
         var retorno = await service.DeleteAluno(id);
         if (retorno.Success)

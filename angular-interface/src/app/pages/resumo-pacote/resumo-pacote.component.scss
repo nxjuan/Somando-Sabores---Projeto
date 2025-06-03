@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
 /* Configurações gerais */
 * {
     margin: 0;
@@ -7,9 +9,7 @@
 }
 
 body {
-    font-family: "IM Fell English", serif;
     background-color: #F3EAAF;
-    color: #000;
 }
 
 main {
@@ -35,6 +35,7 @@ main {
 }
 
 .pedido h2 {
+    font-family: 'IM Fell English', 'serif';
     margin-bottom: 15px;
     border-bottom: 2px solid #1C4D26;
     padding-bottom: 5px;
@@ -45,7 +46,8 @@ main {
     align-items: center;
     gap: 15px;
     padding: 15px 0;
-    border-top: 1px solid #ddd;
+    padding-bottom: 35px;
+    border-bottom: 2px solid #1C4D26;
 }
 
 .pedido-item:first-child {
@@ -60,34 +62,55 @@ main {
 }
 
 .pedido-item .info {
+    font-family: 'IM Fell English', 'serif';
     flex: 1;
 }
 
 .pedido-item .info .titulo {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .pedido-item .info .preco {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 5px;
 }
 
 .pedido-item .quantidade {
+    background-color: #F3EAAF;
+    height: 30px;
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
 .pedido-item .quantidade input {
-    width: 40px;
+    font-family: 'IM Fell English', 'serif';
+    font-size: 14px;
+    width: 20px;
     text-align: center;
+
+    // Estilos para não parecer input
+    background-color: #F3EAAF;
+    outline: none;
+    border-style: none;
+}
+
+// Estilos para personalizar o botão
+.pedido-item .quantidade button{
+    background-color: #F3EAAF;
+    border-style: none;
+    width: 35px;
+}
+
+.pedido-item .quantidade button:hover{
+    cursor:pointer
 }
 
 .pedido-item .delete {
     background: none;
     border: none;
-    color: #1C4D26;
+    color: #C50B05;
     cursor: pointer;
     font-size: 20px;
 }
@@ -101,12 +124,14 @@ main {
 }
 
 .resumo h2 {
-    margin-bottom: 20px;
+    font-family: "IM Fell English", serif;
+    margin-bottom: 25px;
     border-bottom: 2px solid #1C4D26;
     padding-bottom: 5px;
 }
 
 .resumo-item {
+    font-family: "IM Fell English", serif;
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
@@ -114,6 +139,7 @@ main {
 }
 
 .resumo-item.total {
+    margin-top: 15px;
     font-weight: bold;
     font-size: 18px;
 }
@@ -130,6 +156,10 @@ main {
     margin-top: 20px;
 }
 
+.resumo .prosseguir:hover {
+    color: #F3EAAF;
+}
+
 .resumo .voltar {
     width: 100%;
     background-color: white;
@@ -144,5 +174,5 @@ main {
 
 /* Estilo geral de botões */
 button {
-    font-family: Arial, sans-serif;
+    font-family: "IM Fell English", serif;
 }

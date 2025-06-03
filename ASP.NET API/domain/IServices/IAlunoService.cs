@@ -4,9 +4,9 @@ namespace domain.IServices;
 
 public interface IAlunoService
 {
-    Task<ServiceResponse<Aluno>> GetAlunoById(int id);
-    Task<ServiceResponse<List<Aluno>>> GetAlunos();
-    Task<ServiceResponse<Aluno>> CreateAluno(Aluno aluno);
-    Task<ServiceResponse<Aluno>> UpdateAluno(Aluno aluno);
-    Task<ServiceResponse<string>> DeleteAluno(int id);
+    Task<ServiceResponse<AlunoDTO>> GetAlunoById(Guid id);
+    Task<ServiceResponse<List<AlunoDTO>>> GetAlunos();
+    Task<ServiceResponse<AlunoDTO>> CreateAluno(AlunoDTO alunoDTO);
+    Task<ServiceResponse<AlunoDTO>> UpdateAluno(AlunoDTO alunoDTO);
+    Task<ServiceResponse<string>> DeleteAluno(Guid id);
 }

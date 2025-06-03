@@ -6,12 +6,12 @@ namespace somandosabores.api.Services;
 
 public class PacoteService(ApplicationDbContext context) : IPacoteService
 {
-    public async Task<ServiceResponse<Pacotes>> GetPacoteById(int id)
+    public async Task<ServiceResponse<Pacotes>> GetPacoteById(Guid id)
     {
         var serviceResponse = new ServiceResponse<Pacotes>();
         try
         {
-            if (id < 1 || id == null)
+            if (id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Id inváido";
@@ -83,7 +83,7 @@ public class PacoteService(ApplicationDbContext context) : IPacoteService
         }
     }
 
-    public async Task<ServiceResponse<string>> DeletePacote(int id)
+    public async Task<ServiceResponse<string>> DeletePacote(Guid id)
     {
         var serviceResponse = new ServiceResponse<string>();
         try

@@ -6,12 +6,12 @@ namespace somandosabores.api.Services;
 
 public class ClienteService(ApplicationDbContext context) : IClienteService
 {
-    public async Task<ServiceResponse<Cliente>> GetCliente(int id)
+    public async Task<ServiceResponse<Cliente>> GetCliente(Guid id)
     {
         var serviceResponse = new ServiceResponse<Cliente>();
         try
         {
-            if (id < 1 || id == null)
+            if (id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Id invalido";
@@ -67,7 +67,6 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
             }
             clienteExiste.Nome = cliente.Nome ?? clienteExiste.Nome;
             clienteExiste.Email = cliente.Email ?? clienteExiste.Email;
-            clienteExiste.Telefone = cliente.Telefone ?? clienteExiste.Telefone;
 
             context.SaveChangesAsync();
             serviceResponse.Data = clienteExiste;
@@ -85,7 +84,7 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
         }
     }
 
-    public async Task<ServiceResponse<string>> DeleteCliente(int id)
+    public async Task<ServiceResponse<string>> DeleteCliente(Guid id)
     {
         var serviceResponse = new ServiceResponse<string>();
         try
@@ -124,7 +123,6 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
             if (
                 (cliente.Nome == null || cliente.Nome == "")
                 || (cliente.Email == null || cliente.Email == "")
-                || (cliente.Telefone == null || cliente.Telefone == "")
             )
             {
                 serviceResponse.Data = null;

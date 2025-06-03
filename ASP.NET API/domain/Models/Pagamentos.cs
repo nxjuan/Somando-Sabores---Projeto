@@ -12,22 +12,22 @@ public class Pagamentos
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; } = 0;
+    public Guid Id { get; set; }
     public DateTime DataPagamento { get; set; } = DateTime.Now;
     public Double Valor { get; set; } = 0.0;
     public string? FormaPagamento { get; set; } = string.Empty;
 
     
-    public int ReservaId { get; set; } = 0;
-    [ForeignKey("reserva_id")]
-    public Reserva? Reserva { get; set; } = new Reserva();
+    public Guid ReservaId { get; set; } 
+    
+    public Reserva? Reserva { get; set; }
 
     
-    public int ClienteId { get; set; } = 0;
-    [ForeignKey("cliente_id")]
-    public Cliente Cliente { get; set; } = new Cliente();
+    public Guid ClienteId { get; set; }
+   
+    public Cliente Cliente { get; set; } 
 
-    public int AlunoId { get; set; } = 0;
-    [ForeignKey("cliente_id")]
-    public Aluno Aluno { get; set; } = new Aluno();
+    public Guid AlunoId { get; set; } 
+
+    public Aluno Aluno { get; set; } 
 }

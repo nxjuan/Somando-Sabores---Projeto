@@ -15,7 +15,7 @@ public class ApplicationDbContext(DbContextOptions options ) : DbContext(options
     {
         modelBuilder.Entity<Pagamentos>(entity =>
         {
-            entity.ToTable("pagamentos");
+            entity.ToTable("tb_pagamentos");
             entity.HasKey(p => p.Id);
 
             entity.HasKey(p => p.Id);
@@ -63,6 +63,48 @@ public class ApplicationDbContext(DbContextOptions options ) : DbContext(options
                 .WithMany()
                 .HasForeignKey(p => p.AlunoId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+
+
+        modelBuilder.Entity<Cliente>(entity =>
+        {
+            entity.ToTable("tb_clientes");
+            entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.Id)
+                .HasColumnName("id_cliente")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(p => p.Nome)
+                .HasColumnName("nome_completo")
+                .IsRequired();
+
+            entity.Property(p => p.Email)
+                .HasColumnName("email")
+                .IsRequired();
+        });
+
+        modelBuilder.Entity<Aluno>(entity =>
+        {
+            entity.ToTable("tb_alunos");
+            entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.Id)
+                .HasColumnName("id_aluno")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(p => p.ClienteId)
+                .HasColumnName("cliente_id")
+                .IsRequired();
+
+            entity.HasOne(p => p.Cliente)
+                .WithMany()
+                .HasForeignKey(p => p.ClienteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(p => p.RA)
+                .HasColumnName("ra")
+                .IsRequired();
         });
     }
 }
