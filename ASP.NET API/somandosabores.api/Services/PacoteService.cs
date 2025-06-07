@@ -1,4 +1,5 @@
-﻿using domain.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using domain.IServices;
 using domain.Models;
 using infra.DbContext;
 
@@ -6,9 +7,9 @@ namespace somandosabores.api.Services;
 
 public class PacoteService(ApplicationDbContext context) : IPacoteService
 {
-    public async Task<ServiceResponse<Pacotes>> GetPacoteById(Guid id)
+    public async Task<ServiceResponse<Pacote>> GetPacoteById(Guid id)
     {
-        var serviceResponse = new ServiceResponse<Pacotes>();
+        var serviceResponse = new ServiceResponse<Pacote>();
         try
         {
             if (id == null)
@@ -33,9 +34,9 @@ public class PacoteService(ApplicationDbContext context) : IPacoteService
         }
     }
 
-    public async Task<ServiceResponse<List<Pacotes>>> ListPacotes()
+    public async Task<ServiceResponse<List<Pacote>>> ListPacotes()
     {
-        var serviceResponse = new ServiceResponse<List<Pacotes>>();
+        var serviceResponse = new ServiceResponse<List<Pacote>>();
         try
         {
             serviceResponse.Data = context.Pacotes.ToList();
@@ -52,19 +53,18 @@ public class PacoteService(ApplicationDbContext context) : IPacoteService
         }
     }
 
-    public async Task<ServiceResponse<Pacotes>> CreatePacote(Pacotes pacote)
+    public async Task<ServiceResponse<Pacote>> CreatePacote(Pacote pacote)
     {
-        var serviceResponse = new ServiceResponse<Pacotes>();
+        var serviceResponse = new ServiceResponse<Pacote>();
         try
         {
-            if (pacote.DataInicio == null || pacote.DataFim == null)
+            if (pacote == null)
             {
                 serviceResponse.Data = null;
-                serviceResponse.Message = "Adicione as datas de inicio e fim";
+                serviceResponse.Message = "Preencha os dados do pacote";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            pacote.QtdDias = (pacote.DataFim.DayNumber - pacote.DataInicio.DayNumber);
 
             await context.Pacotes.AddAsync(pacote);
             await context.SaveChangesAsync();
@@ -114,9 +114,9 @@ public class PacoteService(ApplicationDbContext context) : IPacoteService
         }
     }
 
-    public async Task<ServiceResponse<Pacotes>> UpdatePacote(Pacotes pacote)
+    public async Task<ServiceResponse<Pacote>> UpdatePacote(Pacote pacote)
     {
-        var serviceResponse = new ServiceResponse<Pacotes>();
+        var serviceResponse = new ServiceResponse<Pacote>();
         try
         {
             var pacoteExiste = await context.Pacotes.FindAsync(pacote.Id);
@@ -127,8 +127,6 @@ public class PacoteService(ApplicationDbContext context) : IPacoteService
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            pacoteExiste.DataInicio = pacote.DataInicio;
-            pacoteExiste.DataFim =  pacote.DataFim;
             
             serviceResponse.Data = pacote;
             serviceResponse.Success = true;

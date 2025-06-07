@@ -1,4 +1,5 @@
-﻿using domain.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using domain.IServices;
 using domain.Models;
 using infra.DbContext;
 

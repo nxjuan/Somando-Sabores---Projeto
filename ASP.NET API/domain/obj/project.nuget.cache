@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "df+xpkOiMgs=",
+  "dgSpecHash": "ZwUgP1UpTb0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\juann\\OneDrive\\Área de Trabalho\\Nova pasta\\Somando-Sabores---Projeto\\ASP.NET API\\domain\\domain.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\juann\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.12\\microsoft.netcore.app.ref.8.0.12.nupkg.sha512",
-    "C:\\Users\\juann\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.12\\microsoft.windowsdesktop.app.ref.8.0.12.nupkg.sha512",
-    "C:\\Users\\juann\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.12\\microsoft.aspnetcore.app.ref.8.0.12.nupkg.sha512"
-  ],
+  "projectFilePath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

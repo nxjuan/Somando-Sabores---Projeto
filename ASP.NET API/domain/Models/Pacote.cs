@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace domain.Models;
 
-public class Pacotes
+public class Pacote
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
-    [Required]
-    public DateOnly DataInicio { get; set; }
-    [Required]
-    public DateOnly DataFim { get; set; }
-    public int QtdDias { get; set; } = 0;
+    public Guid AlunoId { get; set; }
+    public Aluno Aluno { get; set; }
+    public Guid PrecificacaoId { get; set; }
+    public Precificacao Precificacao { get; set; }
 }

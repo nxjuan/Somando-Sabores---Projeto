@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\juann\\.nuget\\packages\\": {}
+    "/home/kali/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\juann\\OneDrive\\Área de Trabalho\\Nova pasta\\Somando-Sabores---Projeto\\ASP.NET API\\domain\\domain.csproj",
+      "projectUniqueName": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
       "projectName": "domain",
-      "projectPath": "C:\\Users\\juann\\OneDrive\\Área de Trabalho\\Nova pasta\\Somando-Sabores---Projeto\\ASP.NET API\\domain\\domain.csproj",
-      "packagesPath": "C:\\Users\\juann\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\juann\\OneDrive\\Área de Trabalho\\Nova pasta\\Somando-Sabores---Projeto\\ASP.NET API\\domain\\obj\\",
+      "projectPath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
+      "packagesPath": "/home/kali/.nuget/packages/",
+      "outputPath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\juann\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/kali/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -43,8 +43,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -60,26 +59,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.12, 8.0.12]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.12, 8.0.12]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.12, 8.0.12]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

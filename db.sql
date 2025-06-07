@@ -1,7 +1,7 @@
 CREATE TYPE tipo_pagamento AS ENUM ('debito', 'credito', 'pix');
 CREATE TYPE opcoes_servico AS ENUM ('pacote', 'reserva');
 CREATE TYPE status_evento AS ENUM ('em andamento', 'cancelado', 'concluido');
-
+CREATE TYPE status_pagamento AS ENUM ('pendente', 'confirmado', 'cancelado', 'concluida', 'atrasada', 'reembolsada');
 
 CREATE TABLE TB_CLIENTES(
     id_cliente UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -31,7 +31,9 @@ CREATE TABLE TB_PRECIFICACAO(
     id_precificacao UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     tipo_servico opcoes_servico NOT NULL,
     quantidade INT NOT NULL,
-    preco_unitario NUMERIC(10, 2) NOT NULL CHECK(preco_unitario > 0)
+    preco_unitario NUMERIC(10, 2) NOT NULL CHECK(preco_unitario > 0),
+    status_precificacao status_pagamento NOT NULL,
+    emitir_nf BOOLEAN NOT NULL
 );
 
 CREATE TABLE TB_PACOTES(
@@ -43,6 +45,14 @@ CREATE TABLE TB_PACOTES(
     FOREIGN KEY (precificacao_id) REFERENCES TB_PRECIFICACAO(id_precificacao)
 );
 
+CREATE TABLE TB_CONVIDADOS(
+    id_convidado UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    nome_completo VARCHAR(255) NOT NULL,
+    reserva_id UUID NOT NULL,
+
+    FOREIGN KEY (reserva_id) REFERENCES TB_RESERVAS(id_reserva)
+);
+
 CREATE TABLE TB_RESERVAS(
     id_reserva UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     cliente_id UUID NOT NULL,
@@ -52,14 +62,6 @@ CREATE TABLE TB_RESERVAS(
 
     FOREIGN KEY (cliente_id) REFERENCES TB_CLIENTES(id_cliente),
     FOREIGN KEY (precificacao_id) REFERENCES TB_PRECIFICACAO(id_precificacao)
-);
-
-CREATE TABLE TB_CONVIDADOS(
-    id_convidado UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    reserva_id UUID NOT NULL,
-    nome_completo VARCHAR(255) NOT NULL,
-
-    FOREIGN KEY (reserva_id) REFERENCES TB_RESERVAS(id_reserva)
 );
 
 CREATE TABLE TB_PAGAMENTOS(

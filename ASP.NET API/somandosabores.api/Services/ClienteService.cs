@@ -1,4 +1,5 @@
-﻿using domain.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using domain.IServices;
 using domain.Models;
 using infra.DbContext;
 
@@ -120,10 +121,7 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
         var serviceResponse = new ServiceResponse<Cliente>();
         try
         {
-            if (
-                (cliente.Nome == null || cliente.Nome == "")
-                || (cliente.Email == null || cliente.Email == "")
-            )
+            if (cliente == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Campos obrigatorios não preenchidos!";
@@ -132,6 +130,8 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
             }
             
             await context.Clientes.AddAsync(cliente);
+            await context.SaveChangesAsync();
+            
             serviceResponse.Data = cliente;
             serviceResponse.Message = "Cliente Criado com sucesso";
             serviceResponse.Success = true;

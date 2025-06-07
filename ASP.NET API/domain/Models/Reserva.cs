@@ -1,4 +1,4 @@
-﻿using domain.Exceptions;
+﻿using domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,8 +15,13 @@ public class Reserva
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; init; }
     public DateTime DataReserva { get; set; } = DateTime.UtcNow;
-    public Guid? EventoId { get; set; } = null;
-    public Evento? Evento { get; set; }= null;
-    public Double Valor { get; set; } = 0.0;
-    public ReservaStatus ReservaStatus { get; set; } = ReservaStatus.Pendente;
+    public int QtdConvidados { get; set; }
+
+    public Guid ClienteId { get; set; }
+    public Cliente Cliente { get; set; }
+
+    public List<Convidado> Convidados { get; set; }
+
+    public Guid PrecificacaoId { get; set; }
+    public Precificacao Precificacao { get; set; }
 }

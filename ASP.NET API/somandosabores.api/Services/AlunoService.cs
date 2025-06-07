@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using domain.IServices;
 using domain.Models;
+using domain.Models.DTO;
 using infra.DbContext;
 
 namespace somandosabores.api.Services;
@@ -76,19 +77,41 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
         }
     }
 
-    public async Task<ServiceResponse<AlunoDTO>> CreateAluno(AlunoDTO alunoDTO)
+    public async Task<ServiceResponse<Aluno>> CreateAluno(Aluno aluno)
+    {
+        var serviceResponse = new ServiceResponse<Aluno>();
+        try
+        {
+            if (aluno == null)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Campos obrigatórios não preenchidos!";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            
+            await context.Alunos.AddAsync(aluno);
+            await context.SaveChangesAsync();
+            
+            serviceResponse.Data = aluno;
+            serviceResponse.Message = "Aluno criado com sucesso";
+            serviceResponse.Success = true;
+            return serviceResponse;
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Data = null;
+            serviceResponse.Message = "Erro ao salvar: "  + e.Message;
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+    }
+
+    public async Task<ServiceResponse<AlunoDTO>> CreateAlunoDTO(AlunoDTO alunoDTO)
     {
         var serviceResponse = new ServiceResponse<AlunoDTO>();
         try
         {
-            if (alunoDTO == null)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = "Informe os dados do aluno";
-                serviceResponse.Data = null;
-                return serviceResponse;
-            };
-
             if (
                 string.IsNullOrWhiteSpace(alunoDTO.Nome) ||
                 string.IsNullOrWhiteSpace(alunoDTO.Email) ||
@@ -105,7 +128,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                 Nome = alunoDTO.Nome,
                 Email = alunoDTO.Email
             };
-            
+
             var clienteServiceResponse = await clienteService.CreateCliente(cliente);
 
             if (!clienteServiceResponse.Success)
@@ -123,13 +146,12 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                 ClienteId = novoCliente.Id
             };
 
-            await context.Alunos.AddAsync(aluno);
-            await context.SaveChangesAsync();
+            var alunoResponse = await CreateAluno(aluno);
 
             serviceResponse.Data = new AlunoDTO
             {
-                Id = aluno.Id,
-                RA = aluno.RA,
+                Id = alunoResponse.Data.Id,
+                RA = alunoResponse.Data.RA,
                 Nome = novoCliente.Nome,
                 Email = novoCliente.Email
             };
@@ -142,7 +164,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
         {
             serviceResponse.Success = false;
             string errormsg = e.InnerException?.Message ?? e.Message;
-            serviceResponse.Message = "Erro ao salvar: " +  errormsg;
+            serviceResponse.Message = "Erro ao salvar: " + errormsg;
             serviceResponse.Data = null;
             return serviceResponse;
         }

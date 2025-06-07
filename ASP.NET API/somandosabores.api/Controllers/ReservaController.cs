@@ -1,5 +1,6 @@
 ﻿using domain.IServices;
 using domain.Models;
+using domain.Models.DTO;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,9 @@ namespace somandosabores.api.Controllers;
 public class ReservaController(IReservaService reservaService) : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> GetById(Guid id)
+    public async Task<ActionResult<ServiceResponse<ReservaDTO>>> GetById(Guid id)
     {
-        var resposta = await reservaService.GetReserva(id);
+        var resposta = await reservaService.GetReservaDTO(id);
         if (resposta.Success)
         {
             return Ok(resposta);
@@ -23,9 +24,9 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> Post(Reserva reserva)
+    public async Task<ActionResult<ServiceResponse<ReservaDTO>>> Post(ReservaDTO reservaDTO)
     {
-        var resposta = await reservaService.CreateReserva(reserva);
+        var resposta = await reservaService.CreateReservaDTO(reservaDTO);
         if (resposta.Success)
         {
             return Ok(resposta);
@@ -37,9 +38,9 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult<ServiceResponse<Reserva>>> Put(Reserva reserva)
+    public async Task<ActionResult<ServiceResponse<ReservaDTO>>> Put(ReservaDTO reservaDTO)
     {
-        var resposta = await reservaService.UpdateReserva(reserva);
+        var resposta = await reservaService.UpdateReserva(reservaDTO);
         if (resposta.Success)
         {
             return Ok(resposta);
@@ -65,7 +66,7 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Reserva>>> GetReserva()
+    public async Task<ActionResult<ICollection<ReservaDTO>>> GetReserva()
     {
         var resposta = await reservaService.ListReservas();
         if (resposta.Success)

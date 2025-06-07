@@ -1,5 +1,6 @@
 ﻿using domain.IServices;
 using domain.Models;
+using domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace somandosabores.api.Controllers;
@@ -39,7 +40,7 @@ public class AlunoController(IAlunoService service) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<AlunoDTO>>> Post(AlunoDTO alunoDTO)
     {
-        var retorno = await service.CreateAluno(alunoDTO);
+        var retorno = await service.CreateAlunoDTO(alunoDTO);
         if (retorno.Success)
         {
             return Ok(retorno);

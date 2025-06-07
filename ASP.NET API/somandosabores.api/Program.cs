@@ -1,7 +1,9 @@
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using domain.IServices;
 using infra.DbContext;
 using Microsoft.EntityFrameworkCore;
 using somandosabores.api.Services;
+using domain.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsqlOptions =>
+        {
+            npgsqlOptions.MapEnum<StatusPrecificacao>("status_pagamento");
+            npgsqlOptions.MapEnum<OpcoesServico>("opcoes_servico");
+        });
+});
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowSpecificOrigin", 
@@ -24,10 +33,14 @@ builder.Services.AddCors(options => {
         .WithMethods("GET", "POST");});
 });
 
-builder.Services.AddScoped<IEventoService, EventoService>();
-builder.Services.AddScoped<IReservaService, ReserveService>();
+//builder.Services.AddScoped<IEventoService, EventoService>();
+builder.Services.AddScoped<IReservaService, ReservaService>();
 builder.Services.AddScoped<IAlunoService, AlunoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IConvidadoService, ConvidadoService>();
+builder.Services.AddScoped<IPacoteService, PacoteService>();
+// builder.Services.AddScoped<IPagamentoService, PagamentoService>();
+builder.Services.AddScoped<IPrecificacaoService, PrecificacaoService>();
 
 var app = builder.Build();
 

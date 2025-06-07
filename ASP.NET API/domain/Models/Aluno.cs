@@ -18,5 +18,5 @@ public class Aluno
     
     public Cliente Cliente { get; set; }
     
-    public string RA { get; set; } = string.Empty;
+    public string RA { get; set; }
 }
