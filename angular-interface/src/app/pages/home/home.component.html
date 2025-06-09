@@ -1,4 +1,72 @@
-<app-header-bar/>
-<img src="Main-banner.png" alt="Banner principal" class="main-banner">
+<app-header-bar></app-header-bar>
+
+<!-- Banner principal -->
+<section class="banner-section">
+  <div class="banner-content">
+    <img src="assets/Main-banner.png" alt="Banner principal" class="main-banner">
+  </div>
+</section>
+
+<!-- Destaques -->
 <h1>Destaques</h1>
+<hr>
 <app-caurosel></app-caurosel>
+
+
+
+<!-- Sobre -->
+<section class="sobre">
+  <h2>Sobre Nós</h2>
+  <hr>
+  <div class="comtainer_textoQs">
+    <img src="assets/tortas.png" alt="imagem de tortas">
+    <div class="texto_quemSomos">
+      <h3>QUEM SOMOS?</h3>
+      <p>
+        Nós somos o restaurante Somando Sabores localizado dentro do campus do UNASP. O
+        regime alimentar do nosso restaurante é exclusivamente ovolactovegetariano e, agora,
+        você pode reservar
+        suas refeições de fim de semana por aqui de maneira mais prática.Conferindo de
+        antemão nosso cardápio,
+        nossos valores e o que está incluso no pacote de refeições. Lembrando que não fazemos
+        vendas de refeições
+        no sábado, portanto, caso queira nos visitar este dia terá que fazer sua reserva de
+        domingo até quinta-
+        feira às 12h. Esperamos vocês!
+      </p>
+      <button type="button" [routerLink]="['/reservas']">Faça sua reserva</button> 
+    </div>
+  </div>
+</section>
+
+<!-- Rodapé -->
+<footer>
+  <h2>VENHA NOS VISITAR!</h2>
+  <div class="content">
+    <div class="info">
+      <p>Estrada de Itapecerica, 5859(dentro do Unasp) <br>
+        São Paulo, SP - 05890-020 <br> <br>
+
+        Segunda à Sexta - 11:30 às 14:00 <br>
+        Sábado e Domingo - 11:30 às 13:15
+      </p>
+      <div class="icons">
+        <a href="https://www.instagram.com/somandosaboreslr/">
+          <img src="assets/instagram.png" alt="Instagram">
+        </a>
+        <img src="assets/telefone.png" alt="Phone">
+        <a
+          href="https://www.google.com/maps?ll=-23.666593,-46.781011&z=16&t=m&hl=pt-BR&gl=BR&mapclient=embed&cid=16976861473247886070">
+          <img src="assets/localizacao.png" alt="Location">
+        </a>
+        <p>© {{ anoAtual }} por Somando Sabores</p>
+      </div>
+    </div>
+    <div class="location">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.26196298873!2d-46.783585925433826!3d-23.666588065465053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce53af46420527%3A0xeb99ed9009f47af6!2sUNASP%20SP!5e0!3m2!1spt-BR!2sbr!4v1732120138103!5m2!1spt-BR!2sbr"
+        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</footer>

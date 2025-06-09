@@ -6,12 +6,69 @@ Esta documentação orienta como configurar e rodar a API utilizando o Docker.
 - Windows: Baixe o Docker Desktop [aqui](https://www.docker.com/products/docker-desktop/) e siga as instruções de instalação.
   
 ## 2. Rodar a API
-- Abra o terminal no doretório 'API
+- Abra o terminal no diretório 'ASP.NET API/somandosabores.api'
 - Cole o seguinte comando no terminal: `docker-compose up --build`
+
 ## 3. Acessar a API via Swagger
 - Após o container estar em execução, você pode acessar a interface Swagger da API no seguinte endereço:
-- http://localhost:8080/swagger-ui/index.html
+- http://localhost:5000/
 - Essa interface permitirá que você visualize e interaja com os endpoints da API sem a necessidade de postman.
+- *OBS:* Para que os endpoints funcionem direito, é necessário configurar o banco de dados.
+
+
+
+# 💾 Como configurar o banco de dados para testar os endpoints
+
+## 1. Acesse o PgAdmin
+- Abra a seguinte URL no navegador: http://localhost:15432/
+- Em "Email Address / Username" digite:
+```
+admin@admin.com
+```
+- Em "Password", digite:
+```
+admin
+```
+
+## 2. Registrando o BD
+- No menu esquerdo, em "Servers", clique com o botão direito do mouse
+
+- Vá em "Register" e clique em "Server..."
+
+- No campo "Name" da primeira aba (General), digite:
+```
+ssdb
+```
+
+- Na aba "Connection", em "Host name / address", digite:
+```
+db
+```
+
+- Em "Username", digite:
+```
+restaurantuser
+```
+
+- Em "Password", digite:
+```
+s0M@ND0
+```
+
+- Clique em "Save"
+
+
+## 3. Criando as tabelas (provisório)
+
+- No menu esquerdo, expanda os conteúdos de "ssdb"
+
+- Siga a ordem: "Databases" > "ssdb" > "Schemas" > "Public"
+
+- Em "Tables", clique com o botão direito e vá em "Query Tool"
+
+- No campo de "Query", cole o script "db.sql" e clique no símbolo de play (ou F5).
+
+
 
 # 🚀 Como Rodar a Aplicação Angular Localmente
 

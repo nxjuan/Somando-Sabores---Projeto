@@ -1,0 +1,38 @@
+<app-header-bar></app-header-bar>
+
+<main>
+    <div class="container">
+        <!-- Meu Pedido -->
+        <section class="pedido">
+            <h2>Meu pedido</h2>
+            <div class="pedido-item">
+                <img src="assets/pacoteMensal.png" alt="Pacote mensal">
+                <div class="info">
+                    <p class="titulo">Pacote mensal - estudante</p>
+                    <p class="preco">R$ {{ precoFixo.toFixed(2) }}</p>
+                </div>
+                <div class="quantidade">
+                    <button (click)="diminuirQuantidade()">-</button>
+                    <input type="text" [value]="quantidade" readonly>
+                    <button (click)="aumentarQuantidade()">+</button>
+                </div>
+                <button class="delete" (click)="resetarQuantidade()"><mat-icon>delete</mat-icon></button>
+            </div>
+        </section>
+
+        <!-- Resumo do Pedido -->
+        <section class="resumo">
+            <h2>Resumo do pedido</h2>
+            <div class="resumo-item">
+                <p>Subtotal</p>
+                <p>R$ {{ subtotal.toFixed(2) }}</p> 
+            </div>
+            <div class="resumo-item total">
+                <p>Total</p>
+                <p>R$ {{ total.toFixed(2) }}</p> 
+            </div>
+            <button class="prosseguir" (click)="prosseguirParaPagamento()">Prosseguir para pagamento</button>
+            <button [routerLink]="['/pacotes']" class="voltar">Voltar</button> 
+        </section>
+    </div>
+</main>

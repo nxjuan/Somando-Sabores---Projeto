@@ -9,7 +9,8 @@ import { AdmRelatoriosComponent } from './admin/pages/adm-relatorios/adm-relator
 import { AdmReservasComponent } from './admin/pages/adm-reservas/adm-reservas.component';
 import { AdmPacotesComponent } from './admin/pages/adm-pacotes/adm-pacotes.component';
 import { AdmPagamentosComponent } from './admin/pages/adm-pagamentos/adm-pagamentos.component';
-
+import { ConfirmacaoComponent } from './pages/confirmacao/confirmacao.component';
+import { ResumoPacoteComponent } from './pages/resumo-pacote/resumo-pacote.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,7 +23,8 @@ export const routes: Routes = [
   { path: 'admin-panel/reservas', component: AdmReservasComponent},
   { path: 'admin-panel/pacotes', component: AdmPacotesComponent},
   { path: 'admin-panel/pagamentos', component: AdmPagamentosComponent},
-
+  { path: 'confirmacao', component: ConfirmacaoComponent },
+  { path: 'resumo-pacote', component: ResumoPacoteComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent }
 ];

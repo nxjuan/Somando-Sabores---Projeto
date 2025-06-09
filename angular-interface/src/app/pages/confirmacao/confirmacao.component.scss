@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "IM Fell English", serif;
+    background-color: #F3EAAF;
+    color: #000;
+    min-height: 100vh;
+}
+
+.main-content {
+    margin: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.voltar {
+    margin-right: 10px;
+    background-color: #ffffff;
+    color: #1C4D26;
+    font-family: "IM Fell English", serif;
+    padding: 10px 20px;
+    border: 1px solid #1C4D26;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+}
+
+.reserva-novo {
+    margin-left: 10px;
+    background-color: #1C4D26;
+    color: #fff;
+    font-family: "IM Fell English", serif;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+}
+
+.img-confirmacao {
+    margin: 100px auto;
+    max-width: 100px;
+    height: auto;
+}
+
+hr {
+    width: 30%;
+    height: 1px;
+    background-color: #1C4D26;
+    border: none;
+    margin: 5px auto 30px;
+}
