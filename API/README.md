@@ -69,7 +69,7 @@ na aba conection:
   
   no campo Maintenace database: postgres
   
-  no campo username: admin
+  no campo username: user
   
-  no campo senha: admin
+  no campo senha: password
 

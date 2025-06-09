@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+.box-pagamentos{
+    max-width: 95%;
+    margin-inline: auto;
+}
+
+.registro-pagamento{
+    display: flex;
+    padding-inline: 1vw;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 3vh;
+}
+
+.registro-pagamento span{
+    font-family: 'IM FELL English', 'serif';
+    font-size: 0.9em;
+}

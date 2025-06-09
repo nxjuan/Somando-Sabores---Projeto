@@ -1,0 +1,32 @@
+<mat-accordion>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header class="registro">
+            <div class="circle-box">
+                <mat-icon class="circle">expand_more</mat-icon>
+            </div>
+            <section class="texto">
+                <div class="titulos">
+                    <span>Responsável</span>
+                    <span>E-mail</span>
+                    <span>Qtd. Convidados</span>
+                    <span>Data</span>
+                </div>
+                <div class="data">
+                    <span [innerText]="responsavel">[NOME]</span>
+                    <span [innerText]="email">[E-MAIL]</span>
+                    <span [innerText]="qtd_convidados">[QTD. CONVIDADOS]</span>
+                    <span [innerText]="data_reserva">[DATA]</span>
+                </div>
+            </section>
+            <div class="icons">
+                <mat-icon>edit</mat-icon>
+                <mat-icon id="delete">delete_outline</mat-icon>
+            </div>
+        </mat-expansion-panel-header>
+    <div class="convidados-data">
+        <mat-icon>person</mat-icon>
+        <span>Convidado(a)</span>
+        <span [innerText]="nome_convidado">[NOME]</span>
+    </div>
+    </mat-expansion-panel>
+</mat-accordion>

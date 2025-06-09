@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+#bg{
+    width: 100%;
+    height: auto;
+    position: fixed;
+    filter: brightness(30%)
+}
+
+.admin-bg{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.login-form{
+    width: 55vw;
+    height: 68vh;
+    background-color: rgba(15, 38, 20, 85%);    
+    position:relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+#bg-container{
+    filter: brightness(85%)
+}
+
+.form{
+    height: 90%;
+    margin: auto;
+}
+
+h1{
+    color:#fff;
+    font-family: 'IM Fell English', 'serif';
+    font-size: 1.9em;
+    margin-bottom: 5.75vh;
+    text-align: center;
+}
+
+.texto{
+    color:#fff;
+    font-family: 'IM Fell English', 'serif';
+    font-size: 0.9em;
+    margin-bottom: 1vh;
+}
+
+#e-senha{
+    color:#fff;
+    font-family: 'IM Fell English', 'serif';
+    font-size: 0.8em;
+    text-align: right;
+    margin:0;
+    padding: 0;
+    display: block;
+    text-decoration: none;
+}
+
+/* INPUT */
+.input-box{
+    display: block;
+}
+
+#usuario{
+    margin-bottom: 1.5vh;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    border-style: none;
+    background-color: #fff !important;
+    border-radius: 10px !important;
+    height: 4.5vh !important;
+    width: 100% !important;
+    padding:0 !important;
+}
+
+::ng-deep .mat-mdc-input-element, .mat-mdc-form-field-input-control, .mdc-text-field__input, .cdk-text-field-autofill-monitored{
+    padding: 0 !important;
+    height: 4.5vh !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix{
+    padding: 0 !important;
+}
+
+mat-icon{
+    padding: 0 !important;
+    margin-bottom: 70% !important;
+    margin-left: 20% !important;
+}
+
+#entrar-btn{
+    background-color: #0F2614;
+    width: 15vw;
+    height: 5.5vh;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #fff;
+    border-radius: 10px;
+    color: #fff;
+    margin-top: 7.5vh;
+    font-family: 'IM Fell English', 'serif';
+    font-size: 0.9em;
+}
