@@ -1,67 +1,70 @@
 <app-header-bar />
-
-<div class="reserva-container">
-  <div class="reserva-lateral">
-    <h3>Minha reserva</h3>
-    <div class="reserva-item">
-      <img src="assets/evento.png" alt="Imagem do evento">
-      <div class="reserva-descricao">
-        <p>Buffet de sábado<br>({{ nextSaturdayDate }})</p>
-        <p><br>R$ 39,90</p>
-        <div class="reserva-controle">
-          <button id="btn-remove" (click)="removeGuest()"><strong>-</strong></button>
-          <input id="guest-count" type="number" [value]="guestCount" readonly>
-          <button id="btn-add" (click)="addGuest()"><strong>+</strong></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="reserva-form">
-    <h2>Preencha os dados da reserva</h2>
-    <hr>
-    <p><strong>Responsável</strong></p>
-    <form id="reservation-form">
-      <div class="form-group">
-        <label for="cpfCnpj">CPF/CNPJ</label>
-        <input type="text" id="cpfCnpj" [(ngModel)]="cpfCnpj" name="cpfCnpj" required placeholder="Digite o CPF/CNPJ">
-        <span *ngIf="!cpfCnpj && submitted" class="error-message">Por favor, preencha este campo.</span>
-      </div>
-      <div class="form-group">
-        <label for="name">Nome completo</label>
-        <input type="text" id="name" [(ngModel)]="name" name="name" required placeholder="Digite o nome completo">
-        <span *ngIf="!name && submitted" class="error-message">Por favor, preencha este campo.</span>
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required placeholder="Digite o e-mail">
-        <span *ngIf="!email && submitted" class="error-message">Por favor, preencha este campo.</span>
-      </div>
-      <hr>
-      <div id="guest-fields">
-        <div *ngFor="let guest of guests; let i = index" class="guest-field">
-          <p>👤 Convidado {{ i + 1 }}</p>
-          <div>
-            <label for="guest-{{ i + 1 }}">Nome completo</label>
-            <input type="text" id="guest-{{ i + 1 }}" [(ngModel)]="guest.name" name="guest-{{ i + 1 }}" required>
-            <span *ngIf="!guest.name && submitted" class="error-message">Por favor, preencha este campo.</span>
-            <hr>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="reserva-container">
+    <div class="reserva-lateral">
+      <h3>Minha reserva</h3>
+      <div class="reserva-item">
+        <img src="assets/evento.png" alt="Imagem do evento">
+        <div class="reserva-descricao">
+          <p>Buffet de sábado<br>({{ nextSaturdayDate }})</p>
+          <p><br>R$ 39,90</p>
+          <div class="reserva-controle">
+            <button id="btn-remove" type="button" (click)="removeGuest()"><strong>-</strong></button>
+            <input id="guest-count" type="text" name="qtdConvidados" [(ngModel)]="qtdConvidados" [value]="guestCount" readonly>
+            <button id="btn-add" type="button" (click)="addGuest()"><strong>+</strong></button>
           </div>
         </div>
       </div>
-      <button type="button" (click)="acessarResumo()">Acessar resumo</button>
-    </form>
-  </div>
-  <!-- Modal do Resumo -->
-  <div id="modal-resumo" class="modal" *ngIf="showModal">
-    <div class="modal-content">
-      <span class="close-button" (click)="fecharResumo()">×</span>
-      <h3>Resumo da reserva</h3>
+    </div>
+    <div class="reserva-form">
+      <h2>Preencha os dados da reserva</h2>
       <hr>
-      <p id="resumo-detalhes">{{ guestCount }} reservas</p>
-      <p>Subtotal <strong id="subtotal">R$ {{ subtotal.toFixed(2) }}</strong></p>
-      <hr>
-      <p>Total <strong id="total">R$ {{ total.toFixed(2) }}</strong></p>
-      <button class="modal-button" (click)="prosseguirPagamento()">Prosseguir para pagamento</button>
+      <p><strong>Responsável</strong></p>
+      <div id="reservation-form">
+        <div class="form-group">
+          <label for="cpfCnpj">CPF/CNPJ</label>
+          <input type="text" id="cpfCnpj" [(ngModel)]="cpfOuCnpj" name="cpfOuCnpj" required placeholder="Digite o CPF/CNPJ">
+          <span *ngIf="!cpfOuCnpj && submitted" class="error-message">Por favor, preencha este campo.</span>
+        </div>
+        <div class="form-group">
+          <label for="name">Nome completo</label>
+          <input type="text" id="name" [(ngModel)]="nome" name="nome" required placeholder="Digite o nome completo">
+          <span *ngIf="!nome && submitted" class="error-message">Por favor, preencha este campo.</span>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" required placeholder="Digite o e-mail">
+          <span *ngIf="!email && submitted" class="error-message">Por favor, preencha este campo.</span>
+        </div>
+        <hr>
+        <div id="guest-fields">
+          <div *ngFor="let guest of guests; let i = index" class="guest-field">
+            <div class="guest-title">
+              <mat-icon>person</mat-icon> <span>Convidado {{ i + 1 }}</span>
+            </div>
+            <div class="guest-data">
+              <label for="guest-{{ i + 1 }}">Nome completo</label>
+              <input type="text" id="guest-{{ i + 1 }}" [(ngModel)]="guest.nome" name="guest-{{ i + 1 }}" [value]="" required>
+              <span *ngIf="!guest.nome" class="error-message">Por favor, preencha este campo.</span>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <button type="button" (click)="acessarResumo()">Acessar resumo</button>
+        </div>
+    </div>
+    <!-- Modal do Resumo -->
+    <div id="modal-resumo" class="modal" *ngIf="showModal">
+      <div class="modal-content">
+        <span class="close-button" (click)="fecharResumo()">×</span>
+        <h3>Resumo da reserva</h3>
+        <hr>
+        <p id="resumo-detalhes">{{ guestCount }} reservas</p>
+        <p>Subtotal <strong id="subtotal">R$ {{ subtotal.toFixed(2) }}</strong></p>
+        <hr>
+        <p>Total <strong id="total">R$ {{ total.toFixed(2) }}</strong></p>
+        <button class="modal-button" type="submit">Prosseguir para pagamento</button>
+      </div>
     </div>
   </div>
-</div>
+</form>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IeeGlEnlyyM=",
+  "dgSpecHash": "9XcfiPL8VQ0=",
   "success": true,
-  "projectFilePath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/somandosabores.api/somandosabores.api.csproj",
+  "projectFilePath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/somandosabores.api/somandosabores.api.csproj",
   "expectedPackageFiles": [
     "/home/kali/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/kali/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

@@ -77,7 +77,7 @@ public class ReservaService(ApplicationDbContext context,
             {
                 TipoServico = OpcoesServico.Reserva,
                 Quantidade = reservaDTO.Quantidade,
-                PrecoUnitario = 39.90M,
+                Total = reservaDTO.Total,
                 Status = StatusPrecificacao.Pendente,
                 EmitirNF = reservaDTO.EmitirNF
             };
@@ -133,7 +133,7 @@ public class ReservaService(ApplicationDbContext context,
                 NomesConvidados = reservaDTO.NomesConvidados,
 
                 Quantidade = precificacaoResponse.Data.Quantidade,
-                Preco = precificacaoResponse.Data.PrecoUnitario,
+                Total = precificacaoResponse.Data.Total,
                 Status = precificacaoResponse.Data.Status,
                 TipoServico = precificacaoResponse.Data.TipoServico,
                 EmitirNF = precificacaoResponse.Data.EmitirNF
@@ -186,7 +186,58 @@ public class ReservaService(ApplicationDbContext context,
                 NomesConvidados = reserva.Convidados?.Select(c => c.Nome).ToList(),
 
                 Quantidade = reserva.Precificacao.Quantidade,
-                Preco = reserva.Precificacao.PrecoUnitario,
+                Total = reserva.Precificacao.Total,
+                Status = reserva.Precificacao.Status,
+                TipoServico = reserva.Precificacao.TipoServico,
+                EmitirNF = reserva.Precificacao.EmitirNF
+            };
+
+            serviceResponse.Message = "Reserva encontrada com sucesso";
+            serviceResponse.Success = true;
+            return serviceResponse;
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Data = null;
+            serviceResponse.Message = "Erro na busca: " + e.Message;
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+    }
+
+    public async Task<ServiceResponse<ReservaDTO>> GetReservaDTOByEmail(string email)
+    {
+        var serviceResponse = new ServiceResponse<ReservaDTO>();
+        try
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Email não cadastrado";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+
+            var reserva = await context.Reservas
+                                    .Include(r => r.Cliente)
+                                    .Include(r => r.Precificacao)
+                                    .Include(r => r.Convidados)
+                                    .FirstOrDefaultAsync(a => a.Cliente.Email == email);
+
+            serviceResponse.Data = new ReservaDTO
+            {
+                Id = reserva.Id,
+                //CpfOuCnpj = reserva.CpfOuCnpj,
+                DataReserva = reserva.DataReserva,
+                QtdConvidados = reserva.QtdConvidados,
+
+                Nome = reserva.Cliente.Nome,
+                Email = reserva.Cliente.Email,
+
+                NomesConvidados = reserva.Convidados?.Select(c => c.Nome).ToList(),
+
+                Quantidade = reserva.Precificacao.Quantidade,
+                Total = reserva.Precificacao.Total,
                 Status = reserva.Precificacao.Status,
                 TipoServico = reserva.Precificacao.TipoServico,
                 EmitirNF = reserva.Precificacao.EmitirNF
@@ -240,7 +291,7 @@ public class ReservaService(ApplicationDbContext context,
 
             // Precificação
             reservaExistente.Precificacao.Quantidade = reservaDTO.Quantidade;
-            reservaExistente.Precificacao.PrecoUnitario = reservaDTO.Preco; 
+            reservaExistente.Precificacao.Total = reservaDTO.Total;
             reservaExistente.Precificacao.Status = reservaDTO.Status;
             reservaExistente.Precificacao.TipoServico = reservaDTO.TipoServico;
             reservaExistente.Precificacao.EmitirNF = reservaDTO.EmitirNF;
@@ -253,7 +304,7 @@ public class ReservaService(ApplicationDbContext context,
 
             if (reservaDTO.QtdConvidados > 0)
             {
-                var nomesNoDto = reservaDTO.NomesConvidados ?? new List<string>(); 
+                var nomesNoDto = reservaDTO.NomesConvidados ?? new List<string>();
                 var convidadosParaRemover = reservaExistente.Convidados
                                                         .Where(c => !nomesNoDto.Contains(c.Nome))
                                                         .ToList();
@@ -271,7 +322,7 @@ public class ReservaService(ApplicationDbContext context,
                     var novoConvidado = new Convidado
                     {
                         Nome = nomeNovo,
-                        ReservaId = reservaExistente.Id 
+                        ReservaId = reservaExistente.Id
                     };
                     await convidadoService.CreateConvidado(novoConvidado);
                 }
@@ -298,7 +349,7 @@ public class ReservaService(ApplicationDbContext context,
                 NomesConvidados = reservaAtualizada.Convidados?.Select(c => c.Nome).ToList(),
 
                 Quantidade = reservaAtualizada.Precificacao.Quantidade,
-                Preco = reservaAtualizada.Precificacao.PrecoUnitario,
+                Total = reservaAtualizada.Precificacao.Total,
                 Status = reservaAtualizada.Precificacao.Status,
                 TipoServico = reservaAtualizada.Precificacao.TipoServico,
                 EmitirNF = reservaAtualizada.Precificacao.EmitirNF
@@ -372,7 +423,7 @@ public class ReservaService(ApplicationDbContext context,
                 NomesConvidados = reserva.Convidados?.Select(c => c.Nome).ToList(),
 
                 Quantidade = reserva.Precificacao.Quantidade,
-                Preco = reserva.Precificacao.PrecoUnitario,
+                Total = reserva.Precificacao.Total,
                 Status = reserva.Precificacao.Status,
                 TipoServico = reserva.Precificacao.TipoServico,
                 EmitirNF = reserva.Precificacao.EmitirNF

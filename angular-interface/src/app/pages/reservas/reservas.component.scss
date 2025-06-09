@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
 /* Reset CSS */
 * {
   margin: 0;
@@ -21,7 +23,6 @@
 }
 
 body {
-  font-family: "IM Fell English", serif;
   background-color: #F3EAAF;
   color: #000;
   min-height: 100vh;
@@ -53,16 +54,20 @@ body {
 }
 
 .reserva-lateral h3 {
-  font-size: 22px;
-  border-bottom: 1px solid #fff;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  font-family: 'IM Feel English', 'serif';
+  font-size: 26px;
+  margin-top: 3vh;
   text-align: center;
   font-weight: lighter;
 }
 
 .reserva-item {
-  margin-top: 70px;
+  border-style: solid;
+  border-color: #F3EAAF;
+  border-width: 1px 0px 1px 0px;
+  width: 90%;
+  margin-inline: auto;
+  padding-block: 9vh;
   display: flex;
   justify-content: space-evenly;
   gap: 10px;
@@ -70,13 +75,14 @@ body {
 }
 
 .reserva-item img {
-  width: 80px;
-  height: 150px;
+  max-width: 100%;
+  height: auto;
   border-radius: 5px;
   object-fit: cover;
 }
 
 .reserva-descricao {
+  font-family: 'IM Fell English', 'serif';
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -85,13 +91,19 @@ body {
   font-size: 15px;
 }
 
+#guest-count{
+  outline: none;
+  
+}
+
 /* Lado direito: Formulário */
 .reserva-form {
   flex: 1;
 }
 
 .reserva-form h2 {
-  font-size: 24px;
+  font-family: "IM Fell English", serif;
+  font-size: 28px;
   color: #1C4D26;
   margin-bottom: 10px;
 }
@@ -103,7 +115,8 @@ body {
 }
 
 .reserva-form p {
-  font-size: 16px;
+  font-family: "IM Fell English", serif;
+  font-size: 18px;
   margin-bottom: 20px;
 }
 
@@ -112,6 +125,7 @@ body {
 }
 
 .form-group label {
+  font-family: "IM Fell English", serif;
   display: block;
   font-weight: bold;
   font-size: 14px;
@@ -126,11 +140,12 @@ body {
   font-size: 16px;
 }
 
-#guest-fields p {
+#guest-fields span{
+  font-family: "IM Fell English", serif;
   margin-top: 10px;
 }
 
-#guest-fields div {
+#guest-fields .guest-field, #guest-fields .guest-data {
   display: flex;
   flex-direction: column;
 }
@@ -143,6 +158,7 @@ body {
 }
 
 #guest-fields label {
+  font-family: "IM Fell English", serif;
   margin-top: 10px;
   font-weight: lighter;
   font-size: 14px;
@@ -152,6 +168,16 @@ body {
   border: 0;
   border-top: 1px solid #1C4D26;
   margin: 20px 0 20px;
+}
+
+.guest-title{
+  display: flex;
+  align-items: center;
+}
+
+.guest-title mat-icon{
+  color:#1C4D26;
+  margin-right: 0.3vw;
 }
 
 /* Botão */
@@ -227,12 +253,14 @@ body {
 }
 
 .modal-content h3 {
+  font-family: "IM Fell English", serif;
   margin-bottom: 2px;
   color: #1C4D26;
   font-size: 22px;
 }
 
 .modal-content p {
+  font-family: "IM Fell English", serif;
   font-size: 20px;
   margin-bottom: 10px;
   color: #000;
@@ -261,7 +289,7 @@ body {
 }
 
 .modal-content .modal-button:hover {
-    color: #F3EAAF;
+  color: #F3EAAF;
   background-color: #1C4D26;
 }
 

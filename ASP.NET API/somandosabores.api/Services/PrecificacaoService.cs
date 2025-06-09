@@ -69,7 +69,7 @@ public class PrecificacaoService(ApplicationDbContext context) : IPrecificacaoSe
 
             precificacaoExiste.TipoServico = precificacao.TipoServico;
             precificacaoExiste.Quantidade = precificacao.Quantidade;
-            precificacaoExiste.PrecoUnitario = precificacao.PrecoUnitario;
+            precificacaoExiste.Total = precificacao.Total;
             precificacaoExiste.Status = precificacao.Status;
             precificacaoExiste.EmitirNF = precificacao.EmitirNF;
 

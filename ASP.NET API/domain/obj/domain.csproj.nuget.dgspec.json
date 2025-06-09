@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {}
+    "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {}
   },
   "projects": {
-    "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {
+    "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
+        "projectUniqueName": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
         "projectName": "domain",
-        "projectPath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
+        "projectPath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj",
         "packagesPath": "/home/kali/.nuget/packages/",
-        "outputPath": "/home/kali/PI-main/Somando-Sabores---Projeto/ASP.NET API/domain/obj/",
+        "outputPath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kali/.nuget/NuGet/NuGet.Config"

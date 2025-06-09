@@ -201,12 +201,12 @@ public class ApplicationDbContext(DbContextOptions options ) : DbContext(options
                 .HasColumnName("quantidade")
                 .IsRequired();
 
-            entity.Property(p => p.PrecoUnitario)
-                .HasColumnName("preco_unitario")
-                .IsRequired();
-
             entity.Property(p => p.Status)
                 .HasColumnName("status_precificacao")
+                .IsRequired();
+
+            entity.Property(p => p.Total)
+                .HasColumnName("total")
                 .IsRequired();
 
             entity.Property(p => p.EmitirNF)

@@ -1,7 +1,5 @@
 -- Definição dos tipos ENUM
-CREATE TYPE tipo_pagamento AS ENUM ('debito', 'credito', 'pix');
 CREATE TYPE opcoes_servico AS ENUM ('pacote', 'reserva');
-CREATE TYPE status_evento AS ENUM ('em andamento', 'cancelado', 'concluido');
 CREATE TYPE status_pagamento AS ENUM ('pendente', 'confirmado', 'cancelado', 'concluida', 'atrasada', 'reembolsada');
 
 -- Tabela de Clientes
@@ -34,8 +32,8 @@ CREATE TABLE TB_PRECIFICACAO(
     id_precificacao UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     tipo_servico opcoes_servico NOT NULL,
     quantidade INT NOT NULL,
-    preco_unitario NUMERIC(10, 2) NOT NULL CHECK(preco_unitario > 0),
     status_precificacao status_pagamento NOT NULL,
+    total NUMERIC(10, 2) NOT NULL CHECK(total > 0), 
     emitir_nf BOOLEAN NOT NULL
 );
 

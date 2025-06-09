@@ -16,7 +16,7 @@ public class Precificacao
     public Guid Id { get; set; }
     public OpcoesServico TipoServico { get; set; }
     public int Quantidade { get; set; }
-    public decimal PrecoUnitario { get; set; }
+    public decimal Total { get; set; }
     public StatusPrecificacao Status { get; set; }
     public bool EmitirNF { get; set; }
 
