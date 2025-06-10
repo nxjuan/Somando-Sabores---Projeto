@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { ReservaService } from '../../services/reservas/reserva.service';
 import { RouterModule, Router} from '@angular/router';
-
+import { environment } from '../../../environments/environment'; 
+import { NgxMaskDirective } from 'ngx-mask';
 interface CustomerResponse {
   data: { id: string }[];
 }
@@ -16,7 +17,7 @@ interface CustomerResponse {
 @Component({
   standalone: true,
   selector: 'app-reservas',
-  imports: [HeaderBarComponent, CommonModule, FormsModule, MatIcon],
+  imports: [HeaderBarComponent, CommonModule, FormsModule, MatIcon, NgxMaskDirective],
   templateUrl: './reservas.component.html',
   styleUrls: ['./reservas.component.scss']
 })
@@ -43,8 +44,8 @@ export class ReservasComponent implements OnInit {
   nextSaturdayDateISO: string = ''; 
 
   private apiUrl = '/api/v3';
-  private accessToken = '$aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjllMGEyMjVjLTdkNjMtNDU4MC05Y2Y4LTQwOTJmMzYyYTk0ZDo6JGFhY2hfMDEzOTVlN2ItMGM3NS00OWVjLTg5NGMtNTcxYTJmMTQzMjFh';
-  private makeWebhookUrl = 'https://hook.make.com/<seu-webhook-id>';
+  private accessToken = environment.accessToken; 
+  private makeWebhookUrl = environment.urlWebhook;
 
   constructor(private http: HttpClient, private reservaService: ReservaService, private router: Router) {}
 
@@ -129,6 +130,7 @@ export class ReservasComponent implements OnInit {
         next: (response) => {
           alert(` Reserva cadastrada com sucesso! `);
           //this.router.navigate(['/pagamentos']);
+          this.iniciarProcessoDePagamento(); 
         },
         error: (msgErro) => {
           alert(`Erro no cadastro de aluno: ${msgErro}`);
@@ -142,94 +144,86 @@ export class ReservasComponent implements OnInit {
   // | ATENÇÃO: A seção abaixo foi comentada para que o cadastro pudesse ser testado, pois estava dando erro |
   // |                                                                                                       |
   // +-------------------------------------------------------------------------------------------------------+
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'accept': 'application/json',
+      'content-type': 'application/json',
+      'access_token': this.accessToken
+    });
+  }
 
-  // private getHeaders(): HttpHeaders {
-  //   return new HttpHeaders({
-  //     'accept': 'application/json',
-  //     'content-type': 'application/json',
-  //     'access_token': this.accessToken
-  //   });
-  // }
+ private iniciarProcessoDePagamento(): void {
+    console.log("3. Iniciando processo de pagamento no Asaas...");
 
-  // prosseguirPagamento(): void {
-  //   this.handleSubmit();
-  // }
+    const searchUrl = `${this.apiUrl}/customers?cpfCnpj=${this.cpfOuCnpj}`;
+    console.log('Buscando cliente no Asaas:', searchUrl);
 
-  // handleSubmit(): void {
-  //   if (!this.cpfOuCnpj || !this.nome || !this.email || !this.total || !this.dueDate) {
-  //     alert('Por favor, preencha todos os campos.');
-  //     return;
-  //   }
+    this.http.get<CustomerResponse>(searchUrl, { headers: this.getHeaders() }).subscribe({
+      next: (searchResponse) => {
+        if (searchResponse.data.length === 0) {
+          console.log("Cliente não encontrado, cadastrando novo cliente no Asaas...");
+          this.criarClienteEContinuarPagamento();
+        } else {
+          const customerId = searchResponse.data[0].id;
+          console.log("Cliente encontrado no Asaas com ID:", customerId);
+          this.criarCobrancaAsaas(customerId);
+        }
+      },
+      error: (err) => this.handleAsaasError('buscar cliente', err)
+    });
+  }
 
-  //   const searchUrl = `${this.apiUrl}/customers?cpfCnpj=${this.cpfOuCnpj}`;
-  //   console.log('Buscando cliente:', searchUrl);
+  private criarClienteEContinuarPagamento(): void {
+    const registerUrl = `${this.apiUrl}/customers`;
+    const customerPayload = { name: this.nome, cpfCnpj: this.cpfOuCnpj, email: this.email, notificationDisabled: true };
 
-  //   this.http.get<CustomerResponse>(searchUrl, { headers: this.getHeaders() }).subscribe({
-  //     next: (searchResponse) => {
-  //       let customerId: string;
+    this.http.post<any>(registerUrl, customerPayload, { headers: this.getHeaders() }).subscribe({
+      next: (customerResponse) => {
+        const customerId = customerResponse.id;
+        console.log("Novo cliente cadastrado no Asaas com ID:", customerId);
+        this.criarCobrancaAsaas(customerId);
+      },
+      error: (err) => this.handleAsaasError('cadastrar cliente', err)
+    });
+  }
 
-  //       if (searchResponse.data.length === 0) {
-  //         const registerUrl = `${this.apiUrl}/customers`;
-  //         const customerPayload = { name: this.nome, cpfCnpj: this.cpfOuCnpj, email: this.email, notificationDisabled: true};
+  // NOVO: Renomeado de createPayment para mais clareza
+  private criarCobrancaAsaas(customerId: string): void {
+    console.log("4. Criando cobrança no Asaas para o cliente ID:", customerId);
+    const paymentUrl = `${this.apiUrl}/payments`;
+    const paymentPayload = {
+      billingType: 'UNDEFINED',
+      customer: customerId,
+      value: this.total,
+      dueDate: this.dueDate,
+      description: 'Pagamento de reserva para buffet - ' + this.nextSaturdayDate,
+      // Se quiser que o Asaas notifique seu webhook
+      // webhookUrl: this.makeWebhookUrl 
+    };
 
-  //         this.http.post<any>(registerUrl, customerPayload, { headers: this.getHeaders() }).subscribe({
-  //           next: (customerResponse) => {
-  //             customerId = customerResponse.id;
-  //             this.createPayment(customerId);
-  //           },
-  //           error: (err) => {
-  //             console.error('Erro ao cadastrar cliente:', err);
-  //             alert('Erro ao cadastrar cliente: ' + err.message + ' - Detalhes: ' + JSON.stringify(err.error || err));
-  //           }
-  //         });
-  //       } else {
-  //         customerId = searchResponse.data[0].id;
-  //         this.createPayment(customerId);
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao buscar cliente:', err);
-  //       alert('Erro ao buscar cliente: ' + err.message + ' - Detalhes: ' + JSON.stringify(err.error || err));
-  //     }
-  //   });
-  // }
-
-  // private createPayment(customerId: string): void {
-  //   const paymentUrl = `${this.apiUrl}/payments`;
-  //   const paymentPayload = {
-  //     billingType: 'UNDEFINED',
-  //     customer: customerId,
-  //     value: this.total,
-  //     dueDate: this.dueDate,
-  //     description: 'Pagamento de reserva para buffet - ' + this.nextSaturdayDate,
-  //     successUrl: 'https://webhook.site/#!/<seu-id>'
-  //   };
-
-  //   this.http.post<any>(paymentUrl, paymentPayload, { headers: this.getHeaders() }).subscribe({
-  //     next: (paymentResponse) => {
-  //       console.log('Pagamento criado:', paymentResponse);
-  //       const invoiceUrl = paymentResponse.invoiceUrl;
-  //       if (invoiceUrl) {
-  //         const notificationPayload = {
-  //           customerId,
-  //           paymentId: paymentResponse.id,
-  //           wantInvoice: this.wantInvoice,
-  //           email: this.email,
-  //           total: this.total
-  //         };
-  //         this.http.post(this.makeWebhookUrl, notificationPayload).subscribe(
-  //           () => console.log('Notificação enviada para Make'),
-  //           err => console.error('Erro ao notificar Make:', err)
-  //         );
-  //         window.location.href = invoiceUrl;
-  //       } else {
-  //         alert('Erro: URL da fatura não encontrada.');
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao criar pagamento:', err);
-  //       alert('Erro ao criar pagamento: ' + err.message + ' - Detalhes: ' + JSON.stringify(err.error || err));
-  //     }
-  //   });
-  // }
+    this.http.post<any>(paymentUrl, paymentPayload, { headers: this.getHeaders() }).subscribe({
+      next: (paymentResponse) => {
+        console.log('5. Pagamento criado no Asaas:', paymentResponse);
+        const invoiceUrl = paymentResponse.invoiceUrl;
+        if (invoiceUrl) {
+          console.log("6. Redirecionando para:", invoiceUrl);
+          window.location.href = invoiceUrl; // <-- O REDIRECIONAMENTO FINAL!
+        } else {
+          alert('Erro: URL da fatura não foi retornada pelo Asaas.');
+        }
+      },
+      error: (err) => this.handleAsaasError('criar pagamento', err)
+    });
+  }
+  
+  // NOVO: Um método central para lidar com erros do Asaas e dar mais detalhes.
+  private handleAsaasError(action: string, error: HttpErrorResponse): void {
+      console.error(`Erro ao ${action} no Asaas:`, error);
+      let errorDetails = '';
+      if(error.error && typeof error.error === 'object') {
+          // A API do Asaas geralmente retorna um objeto 'errors'
+          errorDetails = JSON.stringify(error.error.errors || error.error);
+      }
+      alert(`Ocorreu um erro durante a etapa de '${action}'. Detalhes: ${errorDetails}. Por favor, verifique os dados e tente novamente.`);
+  }
 }
