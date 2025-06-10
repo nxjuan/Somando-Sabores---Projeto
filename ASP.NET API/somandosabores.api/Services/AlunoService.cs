@@ -168,7 +168,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
             {
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Aluno já cadastrado";
-                serviceResponse.Data = null;
+                serviceResponse.Data = alunoExists.Data;
                 return serviceResponse;
             }
 

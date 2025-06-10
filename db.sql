@@ -42,6 +42,8 @@ CREATE TABLE TB_PACOTES(
     id_pacote UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     aluno_id UUID NOT NULL,
     precificacao_id UUID NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_final DATE NOT NULL,
     FOREIGN KEY (aluno_id) REFERENCES TB_ALUNOS(id_aluno),
     FOREIGN KEY (precificacao_id) REFERENCES TB_PRECIFICACAO(id_precificacao)
 );

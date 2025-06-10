@@ -16,7 +16,7 @@ import { AlunosService } from '../../services/alunos/alunos.service';
 export class PacotesComponent {
   constructor(private router: Router, private alunosService: AlunosService) { }
 
-  id: number = 0;
+  id: string | undefined;
   nome: string = "";
   email: string = "";
   ra: string = "";
@@ -29,6 +29,9 @@ export class PacotesComponent {
       //console.log("Dados do aluno a serem enviados: ", dadosAluno);
       this.alunosService.create(dadosAluno).subscribe({
         next: (response) => {
+          
+          this.alunosService.setIdAluno(response.data?.id);
+
           if(response.message == "Aluno já cadastrado"){
             alert(`Bem-vindo(a) de volta, ${dadosAluno.nome}! `);
           } else {

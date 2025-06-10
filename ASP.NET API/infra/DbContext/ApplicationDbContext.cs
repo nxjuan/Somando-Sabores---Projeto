@@ -227,6 +227,14 @@ public class ApplicationDbContext(DbContextOptions options ) : DbContext(options
                 .HasColumnName("aluno_id")
                 .IsRequired();
 
+            entity.Property(p => p.DataInicio)
+                .HasColumnName("data_inicio")
+                .IsRequired();
+
+            entity.Property(p => p.DataFinal)
+                .HasColumnName("data_final")
+                .IsRequired();
+
             entity.HasOne(p => p.Aluno)
                 .WithMany()
                 .HasForeignKey(p => p.AlunoId)

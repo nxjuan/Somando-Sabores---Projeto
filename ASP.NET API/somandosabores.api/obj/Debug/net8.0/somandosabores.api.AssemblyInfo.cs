@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("somandosabores.api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c56b6b9821307614959b0878fba4baae2192b8d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+092e950c4189b13323cdefbafa547b02b5a3b937")]
 [assembly: System.Reflection.AssemblyProductAttribute("somandosabores.api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("somandosabores.api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

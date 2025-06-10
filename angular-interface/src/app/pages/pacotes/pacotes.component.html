@@ -17,7 +17,7 @@
       <input type="email" id="email" name="email" required [(ngModel)]="email" #emailRef="ngModel">
       <div *ngIf="emailRef.invalid && emailRef.touched" style="color:red;">E-mail é obrigatório.</div>
       <label for="ra">R.A.</label>
-      <input class="imput-ra" type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel">
+      <input class="imput-ra" type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel" />
       <div *ngIf="raRef.invalid && raRef.touched" style="color:red;">R.A. é obrigatório.</div>
       <hr>
       <button type="button" type="submit">Garanta já</button>
