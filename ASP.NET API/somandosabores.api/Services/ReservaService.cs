@@ -55,25 +55,46 @@ public class ReservaService(ApplicationDbContext context,
                 return serviceResponse;
             }
 
-            // Envio de dados do cliente
-            var cliente = new Cliente
-            {
-                Nome = reservaDTO.Nome,
-                Email = reservaDTO.Email
-            };
+            // Checa se o cliente já existe no BD
+            var clienteExiste = await clienteService.GetClienteByEmail(reservaDTO.Email);
+            Guid idDoCliente;
+            string nomeCliente;
+            string emailCliente;
 
-            var clienteResponse = await clienteService.CreateCliente(cliente);
-
-            if (!clienteResponse.Success)
+            if (clienteExiste.Success && clienteExiste.Data != null)
             {
-                serviceResponse.Data = null;
-                serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}`";
-                serviceResponse.Success = false;
-                return serviceResponse;
+                idDoCliente = clienteExiste.Data.Id;
+                nomeCliente = clienteExiste.Data.Nome;
+                emailCliente = clienteExiste.Data.Email;
+            }
+            else
+            {
+                // Envio de dados do cliente
+                var cliente = new Cliente
+                {
+                    Nome = reservaDTO.Nome,
+                    Email = reservaDTO.Email
+                };
+
+                var clienteResponse = await clienteService.CreateCliente(cliente);
+
+                if (clienteResponse.Success && clienteResponse.Data != null)
+                {
+                    idDoCliente = clienteResponse.Data.Id;
+                    nomeCliente = clienteResponse.Data.Nome;
+                    emailCliente = clienteResponse.Data.Email;
+                }
+                else
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}`";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
             }
 
             // Envio de dados da Precificacao
-            var precificacao = new Precificacao
+                var precificacao = new Precificacao
             {
                 TipoServico = OpcoesServico.Reserva,
                 Quantidade = reservaDTO.Quantidade,
@@ -98,7 +119,7 @@ public class ReservaService(ApplicationDbContext context,
             {
                 DataReserva = reservaDTO.DataReserva,
                 QtdConvidados = reservaDTO.QtdConvidados,
-                ClienteId = clienteResponse.Data.Id,
+                ClienteId = idDoCliente,
                 PrecificacaoId = precificacaoResponse.Data.Id,
             };
 
@@ -127,8 +148,8 @@ public class ReservaService(ApplicationDbContext context,
                 DataReserva = reservaResponse.Data.DataReserva,
                 QtdConvidados = reservaResponse.Data.QtdConvidados,
 
-                Nome = clienteResponse.Data.Nome,
-                Email = clienteResponse.Data.Email,
+                Nome = nomeCliente,
+                Email = emailCliente,
 
                 NomesConvidados = reservaDTO.NomesConvidados,
 
@@ -172,57 +193,6 @@ public class ReservaService(ApplicationDbContext context,
                                     .Include(r => r.Precificacao)
                                     .Include(r => r.Convidados)
                                     .FirstOrDefaultAsync(a => a.Id == id);
-
-            serviceResponse.Data = new ReservaDTO
-            {
-                Id = reserva.Id,
-                //CpfOuCnpj = reserva.CpfOuCnpj,
-                DataReserva = reserva.DataReserva,
-                QtdConvidados = reserva.QtdConvidados,
-
-                Nome = reserva.Cliente.Nome,
-                Email = reserva.Cliente.Email,
-
-                NomesConvidados = reserva.Convidados?.Select(c => c.Nome).ToList(),
-
-                Quantidade = reserva.Precificacao.Quantidade,
-                Total = reserva.Precificacao.Total,
-                Status = reserva.Precificacao.Status,
-                TipoServico = reserva.Precificacao.TipoServico,
-                EmitirNF = reserva.Precificacao.EmitirNF
-            };
-
-            serviceResponse.Message = "Reserva encontrada com sucesso";
-            serviceResponse.Success = true;
-            return serviceResponse;
-        }
-        catch (Exception e)
-        {
-            serviceResponse.Data = null;
-            serviceResponse.Message = "Erro na busca: " + e.Message;
-            serviceResponse.Success = false;
-            return serviceResponse;
-        }
-    }
-
-    public async Task<ServiceResponse<ReservaDTO>> GetReservaDTOByEmail(string email)
-    {
-        var serviceResponse = new ServiceResponse<ReservaDTO>();
-        try
-        {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                serviceResponse.Data = null;
-                serviceResponse.Message = "Email não cadastrado";
-                serviceResponse.Success = false;
-                return serviceResponse;
-            }
-
-            var reserva = await context.Reservas
-                                    .Include(r => r.Cliente)
-                                    .Include(r => r.Precificacao)
-                                    .Include(r => r.Convidados)
-                                    .FirstOrDefaultAsync(a => a.Cliente.Email == email);
 
             serviceResponse.Data = new ReservaDTO
             {

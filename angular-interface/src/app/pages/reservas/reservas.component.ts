@@ -123,10 +123,8 @@ export class ReservasComponent implements OnInit {
       this.guests.forEach(guest => {
         dadosReserva.nomesConvidados.push(guest.nome);
       });
-
-      // Fazer a verificação de se o cliente já foi cadastrado
-
-      console.log("Dados da reserva: ", dadosReserva);
+      
+      // console.log("Dados da reserva: ", dadosReserva);
       this.reservaService.create(dadosReserva).subscribe({
         next: (response) => {
           alert(` Reserva cadastrada com sucesso! `);

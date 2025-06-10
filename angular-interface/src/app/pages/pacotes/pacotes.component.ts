@@ -29,7 +29,12 @@ export class PacotesComponent {
       //console.log("Dados do aluno a serem enviados: ", dadosAluno);
       this.alunosService.create(dadosAluno).subscribe({
         next: (response) => {
-          alert(` Aluno(a) '${dadosAluno.nome}' cadastrado(a) com sucesso! `);
+          if(response.message == "Aluno já cadastrado"){
+            alert(`Bem-vindo(a) de volta, ${dadosAluno.nome}! `);
+          } else {
+            alert(` Aluno(a) '${dadosAluno.nome}' cadastrado(a) com sucesso! `);
+          }
+          //console.log(response);
           this.router.navigate(['/resumo-pacote']);
         },
         error: (msgErro) => {

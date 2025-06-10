@@ -34,6 +34,33 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
         }
     }
 
+    public async Task<ServiceResponse<Cliente>> GetClienteByEmail(string email)
+    {
+        var serviceResponse = new ServiceResponse<Cliente>();
+        try
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Email inválido";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            } 
+            
+            serviceResponse.Data = context.Clientes.FirstOrDefault(c => c.Email == email);
+            serviceResponse.Message = "Cliente Encontrado";
+            serviceResponse.Success = true;
+            return serviceResponse;
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Data = null;
+            serviceResponse.Message = "Erro ao buscar: " + e.Message;
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+    }
+
     public async Task<ServiceResponse<List<Cliente>>> GetClientes()
     {
         var serviceResponse = new ServiceResponse<List<Cliente>>();

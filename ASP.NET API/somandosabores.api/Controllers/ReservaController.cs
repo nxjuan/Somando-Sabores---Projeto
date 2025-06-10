@@ -23,20 +23,6 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
         }
     }
 
-    [HttpGet("/mail/{email}")]
-    public async Task<ActionResult<ServiceResponse<ReservaDTO>>> GetByEmail(string email)
-    {
-        var resposta = await reservaService.GetReservaDTOByEmail(email);
-        if (resposta.Success)
-        {
-            return Ok(resposta);
-        }
-        else
-        {
-            return BadRequest(resposta);
-        }
-    }
-
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<ReservaDTO>>> Post(ReservaDTO reservaDTO)
     {

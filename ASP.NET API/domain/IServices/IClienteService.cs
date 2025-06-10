@@ -5,6 +5,7 @@ namespace domain.IServices;
 public interface IClienteService
 {
     Task<ServiceResponse<Cliente>> GetCliente(Guid id);
+    Task<ServiceResponse<Cliente>> GetClienteByEmail(string email);
     Task<ServiceResponse<List<Cliente>>> GetClientes();
     Task<ServiceResponse<Cliente>> UpdateCliente(Cliente cliente);
     Task<ServiceResponse<string>> DeleteCliente(Guid id);

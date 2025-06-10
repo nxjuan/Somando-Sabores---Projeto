@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Aluno } from '../../models/AlunoModel';
+import { ServiceResponse } from '../../models/ServiceResponseModel';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,7 +12,7 @@ export class AlunosService {
 
   constructor(private http: HttpClient) { }
 
-  create(aluno: Aluno): Observable<Aluno>{
-    return this.http.post<Aluno>(this.urlApi, aluno);
+  create(aluno: Aluno): Observable<ServiceResponse<Aluno>>{
+    return this.http.post<ServiceResponse<Aluno>>(this.urlApi, aluno);
   }
 }

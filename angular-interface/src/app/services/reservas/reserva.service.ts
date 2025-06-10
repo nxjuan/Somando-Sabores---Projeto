@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ReservaService {
 
   private urlApi = 'http://localhost:5000/api/Reserva';
-  private urlGetByEmail = this.urlApi + "/mail/";
+  // private urlGetByEmail = this.urlApi + "/mail/";
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +17,10 @@ export class ReservaService {
     return this.http.post<Reserva>(this.urlApi, reserva);
   }
 
-  checkIfExistsByEmail(email: string): Observable<Reserva>{
-    let params = new HttpParams();
+  // checkIfExistsByEmail(email: string): Observable<Reserva>{
+  //   let params = new HttpParams();
 
-    params = params.set('email', email);
-    return this.http.get<Reserva>(this.urlGetByEmail, {params: params});
-  }
+  //   params = params.set('email', email);
+  //   return this.http.get<Reserva>(this.urlGetByEmail, {params: params});
+  // }
 }
