@@ -2321,11 +2321,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/infra/infra.csproj",
+      "projectUniqueName": "/home/kali/bruno/Somando-Sabores---Projeto/ASP.NET API/infra/infra.csproj",
       "projectName": "infra",
-      "projectPath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/infra/infra.csproj",
+      "projectPath": "/home/kali/bruno/Somando-Sabores---Projeto/ASP.NET API/infra/infra.csproj",
       "packagesPath": "/home/kali/.nuget/packages/",
-      "outputPath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/infra/obj/",
+      "outputPath": "/home/kali/bruno/Somando-Sabores---Projeto/ASP.NET API/infra/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/kali/.nuget/NuGet/NuGet.Config"
@@ -2340,8 +2340,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {
-              "projectPath": "/home/kali/Projeto_Integrador/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj"
+            "/home/kali/bruno/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj": {
+              "projectPath": "/home/kali/bruno/Somando-Sabores---Projeto/ASP.NET API/domain/domain.csproj"
             }
           }
         }

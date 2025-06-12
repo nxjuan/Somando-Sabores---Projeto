@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AlunosService {
-  private urlApi = 'http://localhost:5000/api/Aluno';
+  private urlApi = 'https://somando-sabores-pi.onrender.com/api/Aluno';
 
   private idAluno = new BehaviorSubject<string | undefined>(undefined);
   currentIdAluno: Observable<string | undefined> = this.idAluno.asObservable();

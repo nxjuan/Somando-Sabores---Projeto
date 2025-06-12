@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ReservaService {
 
-  private urlApi = 'http://localhost:5000/api/Reserva';
+  private urlApi = 'https://somando-sabores-pi.onrender.com/api/Reserva';
   // private urlGetByEmail = this.urlApi + "/mail/";
 
   constructor(private http: HttpClient) { }

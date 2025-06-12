@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class PacoteService {
 
-  private urlApi = 'http://localhost:5000/api/Pacote';
+  private urlApi = 'https://somando-sabores-pi.onrender.com/api/Pacote';
 
   constructor(private http: HttpClient) { }
 
