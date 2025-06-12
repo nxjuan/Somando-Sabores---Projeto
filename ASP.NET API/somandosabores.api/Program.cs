@@ -25,6 +25,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         });
 });
 
+Console.WriteLine($"DEBUG: Connection string being used: '{connectionString}'");
+
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowSpecificOrigin", 
     builder => {
