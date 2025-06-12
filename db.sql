@@ -15,7 +15,6 @@ CREATE TABLE TB_EVENTOS(
     cliente_id UUID NOT NULL,
     data_evento DATE NOT NULL,
     detalhes VARCHAR(1000) NOT NULL,
-    evento_status status_evento NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES TB_CLIENTES(id_cliente)
 );
 
@@ -73,7 +72,7 @@ CREATE TABLE TB_PAGAMENTOS(
     cliente_id UUID NOT NULL,
     reserva_id UUID,
     pacote_id UUID,
-    forma_pagamento tipo_pagamento NOT NULL,
+    forma_pagamento VARCHAR(35) NOT NULL,
     valor_total NUMERIC(10, 2) NOT NULL CHECK(valor_total > 0), 
     data_pagamento DATE NOT NULL,
     asaas_id VARCHAR(40) NOT NULL UNIQUE,

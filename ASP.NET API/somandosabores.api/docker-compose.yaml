@@ -4,9 +4,9 @@
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: restaurantuser
-      POSTGRES_PASSWORD: "s0M@ND0"
-      POSTGRES_DB: ssdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - '5432:5432'
     volumes:
@@ -16,8 +16,8 @@
     image: dpage/pgadmin4
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - '15432:80'
     depends_on:
@@ -32,6 +32,6 @@
       - '5000:8080'
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=ssdb;Username=restaurantuser;Password=s0M@ND0
+      - ${CONNECTION_STRING}
     depends_on:
       - db
