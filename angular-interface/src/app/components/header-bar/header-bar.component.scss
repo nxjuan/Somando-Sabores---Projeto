@@ -1,30 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica:ital,wght@0,400;1,400&display=swap');
 
-button{
-  font-family: 'IM Fell Double Pica', serif; 
+button {
+  font-family: 'IM Fell Double Pica', serif;
 }
 
 .custom-toolbar {
-    background: linear-gradient(135deg, #1C4D26, #0B6623);
-    color: white;
-    padding: 0 20px; /* Espaçamento interno */
-    display: flex;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    height: 60px; /* Altura maior para um visual mais robusto */
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Garante que o toolbar fique acima de outros elementos */
-}  
-  
-.logo {
-  margin-right: auto;
-  cursor: pointer;  
+  background: linear-gradient(135deg, #1C4D26, #0B6623);
+  color: white;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.buttons-nav{
-  color: white;
-  margin-left: auto;
+.logo-content {
+  cursor: pointer;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.buttons-nav {
   display: flex;
   gap: 15px;
 }
@@ -32,38 +34,35 @@ button{
 .toolbar-button {
   color: white;
   font-size: 16px;
-  font-weight: 500; 
-  margin: 03px 10px; 
-  padding: 05px 10px; 
-  border-radius: 25px; 
-  transition: all 0.3s ease; 
+  font-weight: 500;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
 }
-  
+
 .toolbar-button mat-icon {
-  margin-right: 8px; /* Espaçamento entre ícone e texto */
+  margin-right: 8px;
   color: white;
 }
 
 ::ng-deep .toolbar-button {
-  color: white !important; /* Garante que o texto dos botões seja branco */
-}
-  
-.toolbar-button:hover {
-  color: #F3EAAF;
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente ao passar o mouse */
-  transform: translateY(-2px); /* Efeito de levantar o botão */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
-}
-  
-.toolbar-button:active {
-  transform: translateY(0); /* Efeito de pressionar o botão */
+  color: white !important;
 }
 
-  
-  
-/* Efeito de sublinhado ao passar o mouse */
+.toolbar-button:hover {
+  color: #F3EAAF;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar-button:active {
+  transform: translateY(0);
+}
+
 .toolbar-button::after {
   content: '';
   display: block;
@@ -71,22 +70,53 @@ button{
   height: 2px;
   background: white;
   transition: width 0.3s;
-} 
-  
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-  .custom-toolbar {
-    height: 60px; /* Altura menor para telas pequenas */
-    padding: 0 10px;
+}
+
+// Botão do menu hambúrguer: por padrão escondido em telas grandes
+.menu-toggle {
+  display: none;
+  color: white;
+}
+
+@media (max-width: 860px) {
+
+  .buttons-nav {
+    display: none;
   }
 
-  .logo {
-    font-size: 20px; /* Tamanho menor para o logo */
+  //Mostra o botão do menu hambúrguer
+  .menu-toggle {
+    display: flex;
+  }
+
+  //Container do menu mobile
+  .buttons-nav-container {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: linear-gradient(135deg, rgba(28, 77, 38, 0.95), rgba(11, 102, 35, 0.95));
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    transition: left 0.3s ease-in-out;
+
+    .buttons-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+    }
+  }
+
+  .buttons-nav-container.is-open {
+    left: 0;
   }
 
   .toolbar-button {
-    font-size: 14px; /* Tamanho menor para os botões */
-    padding: 8px 15px;
-    margin: 0 5px;
+    font-size: 1.2rem;
+    padding: 10px 25px;
   }
 }
