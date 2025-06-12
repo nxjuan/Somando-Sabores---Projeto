@@ -93,7 +93,6 @@ body {
 
 #guest-count{
   outline: none;
-  
 }
 
 /* Lado direito: Formulário */
@@ -197,7 +196,6 @@ body {
 .reserva-form button:hover {
   color: #F3EAAF;
   background-color: #1C4D26;
-  
 }
 
 /* Botões de controle */
@@ -311,4 +309,40 @@ body {
 .error-message {
   color: red;
   font-size: 12px;
+}
+
+
+/* --- INÍCIO DAS REGRAS DE RESPONSIVIDADE --- */
+
+/* Para telas com largura de 992px ou menos (tablets e celulares) */
+@media (max-width: 992px) {
+
+  .reserva-container {
+    /* 1. Mudar a direção do flex para empilhar os itens verticalmente */
+    flex-direction: column-reverse; /* 'column-reverse' coloca o segundo item (form) no topo */
+    
+    /* 2. Ajustar margens para telas menores */
+    margin: 20px auto; 
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .reserva-form, .reserva-lateral {
+    /* 3. Fazer ambos os containers ocuparem a largura total */
+    width: 100%;
+  }
+  
+  .reserva-lateral {
+    /* 4. Ajustar a altura para se adaptar ao conteúdo */
+    height: auto;
+  }
+
+  .reserva-item {
+    padding-block: 20px; /* Reduz o espaçamento interno vertical */
+  }
+
+  .reserva-item img {
+    /* 5. Esconder a imagem como combinado */
+    display: none;
+  }
 }
