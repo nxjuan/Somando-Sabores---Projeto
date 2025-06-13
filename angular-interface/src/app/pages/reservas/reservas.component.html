@@ -31,7 +31,7 @@
             required 
             placeholder="Digite o CPF ou CNPJ"
             mask="000.000.000-00||00.000.000/0000-00"
-            
+            [validation]="true"
           >
           <span *ngIf="!cpfOuCnpj && submitted" class="error-message">Por favor, preencha este campo.</span>
         </div>
