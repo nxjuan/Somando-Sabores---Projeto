@@ -1,27 +1,35 @@
 <mat-toolbar class="custom-toolbar">
-  <div class="logo-content" routerLink="/home">
-    <img src="assets/Logo-3.png" alt="Logo" class="logo" >
+  <div class="logo-content" (click)="closeMenuAndNavigate('home')">
+    <img src="assets/Logo-3.png" alt="Logo" class="logo">
   </div>
-  <div class="buttons-nav">
-    <button mat-button class="toolbar-button" routerLink="/home">
-      <mat-icon>home</mat-icon> Home
-    </button>
 
-    <button mat-button class="toolbar-button" routerLink="/reservas">
-      <mat-icon>list_alt_check</mat-icon> Reservas
-    </button>
+  <!-- Botão do menu hambúrguer, visível apenas em telas pequenas -->
+  <button mat-icon-button class="menu-toggle" (click)="toggleMenu()">
+    <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+  </button>
 
-    <button mat-button class="toolbar-button" routerLink="/pacotes">
-      <mat-icon>inventory</mat-icon> Pacotes
-    </button>
+  <!-- Container dos links de navegação.  -->
+  <div class="buttons-nav-container" [ngClass]="{ 'is-open': isMenuOpen }">
+    <div class="buttons-nav">
+      <button mat-button class="toolbar-button" (click)="closeMenuAndNavigate('home')">
+        <mat-icon>home</mat-icon> Home
+      </button>
 
-    <button mat-button class="toolbar-button" routerLink="/cardapio">
-      <mat-icon>assignment</mat-icon> Cardápio
-    </button>
+      <button mat-button class="toolbar-button" (click)="closeMenuAndNavigate('reservas')">
+        <mat-icon>list_alt_check</mat-icon> Reservas
+      </button>
 
-    <button mat-button class="toolbar-button"  routerLink="/eventos">
-      <mat-icon>confirmation_number</mat-icon> Eventos
-    </button>
+      <button mat-button class="toolbar-button" (click)="closeMenuAndNavigate('pacotes')">
+        <mat-icon>inventory</mat-icon> Pacotes
+      </button>
 
+      <button mat-button class="toolbar-button" (click)="closeMenuAndNavigate('cardapio')">
+        <mat-icon>assignment</mat-icon> Cardápio
+      </button>
+
+      <button mat-button class="toolbar-button" (click)="closeMenuAndNavigate('eventos')">
+        <mat-icon>confirmation_number</mat-icon> Eventos
+      </button>
+    </div>
   </div>
 </mat-toolbar>
