@@ -7,7 +7,7 @@ Esta documentação orienta como configurar e rodar a API utilizando o Docker.
   
 ## 2. Rodar a API
 - Abra o terminal no diretório 'ASP.NET API/somandosabores.api'
-- Cole o seguinte comando no terminal: `docker-compose up --build`
+- Cole o seguinte comando no terminal: `docker-compose --env-file ../.env.somando-sabores up --build `
 
 ## 3. Acessar a API via Swagger
 - Após o container estar em execução, você pode acessar a interface Swagger da API no seguinte endereço:
@@ -23,11 +23,11 @@ Esta documentação orienta como configurar e rodar a API utilizando o Docker.
 - Abra a seguinte URL no navegador: http://localhost:15432/
 - Em "Email Address / Username" digite:
 ```
-admin@admin.com
+somando-sabores-pi@email.com
 ```
 - Em "Password", digite:
 ```
-admin
+191K(>A.dS?on1n_(:v+'Kn}7%Dx3~J2
 ```
 
 ## 2. Registrando o BD
@@ -52,7 +52,7 @@ restaurantuser
 
 - Em "Password", digite:
 ```
-s0M@ND0
+j-a6v^6690Q@W!&u
 ```
 
 - Clique em "Save"
