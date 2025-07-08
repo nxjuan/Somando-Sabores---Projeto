@@ -2,6 +2,7 @@
 using domain.IServices;
 using domain.Models;
 using domain.Models.DTO;
+using domain.Models.Common;
 using infra.DbContext;
 
 namespace somandosabores.api.Services;
@@ -128,10 +129,10 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            
+
             await context.Alunos.AddAsync(aluno);
             await context.SaveChangesAsync();
-            
+
             serviceResponse.Data = aluno;
             serviceResponse.Message = "Aluno criado com sucesso";
             serviceResponse.Success = true;
@@ -140,7 +141,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao salvar: "  + e.Message;
+            serviceResponse.Message = "Erro ao salvar: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }
@@ -149,18 +150,21 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
     public async Task<ServiceResponse<AlunoDTO>> CreateAlunoDTO(AlunoDTO alunoDTO)
     {
         var serviceResponse = new ServiceResponse<AlunoDTO>();
+        var emailValido = ValidaEmailEstudantil(alunoDTO.Email);
         try
         {
             if (
                 string.IsNullOrWhiteSpace(alunoDTO.Nome) ||
                 string.IsNullOrWhiteSpace(alunoDTO.Email) ||
+                !emailValido ||
                 string.IsNullOrWhiteSpace(alunoDTO.RA))
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Informe os dados do aluno";
                 serviceResponse.Data = null;
                 return serviceResponse;
-            };
+            }
+            ;
 
             // Checa se o aluno já existe
             var alunoExists = await GetAlunoByRA(alunoDTO.RA);
@@ -187,12 +191,12 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
             else
             {
                 var cliente = new Cliente
-            {
-                Nome = alunoDTO.Nome,
-                Email = alunoDTO.Email
-            };
+                {
+                    Nome = alunoDTO.Nome,
+                    Email = alunoDTO.Email
+                };
 
-            var clienteServiceResponse = await clienteService.CreateCliente(cliente);
+                var clienteServiceResponse = await clienteService.CreateCliente(cliente);
 
                 if (clienteServiceResponse.Success && clienteServiceResponse.Data != null)
                 {
@@ -206,7 +210,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                     serviceResponse.Success = false;
                     serviceResponse.Message = $"Falha ao criar o cliente: {clienteServiceResponse.Message}";
                     return serviceResponse;
-                }           
+                }
             }
 
             var aluno = new Aluno
