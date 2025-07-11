@@ -8,6 +8,7 @@ namespace somandosabores.api.Services;
 
 public class ClienteService(ApplicationDbContext context) : IClienteService
 {
+    private readonly Validations _validations = new Validations();
     public async Task<ServiceResponse<Cliente>> GetCliente(Guid id)
     {
         var serviceResponse = new ServiceResponse<Cliente>();
@@ -19,8 +20,8 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
                 serviceResponse.Message = "Id invalido";
                 serviceResponse.Success = false;
                 return serviceResponse;
-            } 
-            
+            }
+
             serviceResponse.Data = context.Clientes.FirstOrDefault(x => x.Id == id);
             serviceResponse.Message = "Cliente Encontrado";
             serviceResponse.Success = true;
@@ -83,10 +84,10 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
 
     public async Task<ServiceResponse<Cliente>> UpdateCliente(Cliente cliente)
     {
-        var  serviceResponse = new ServiceResponse<Cliente>();
+        var serviceResponse = new ServiceResponse<Cliente>();
         try
         {
-            bool emailValido = VerificaEmail(cliente.Email);
+            bool emailValido = _validations.ValidaEmail(cliente.Email);
             var clienteExiste = await context.Clientes.FindAsync(cliente.Id);
             if (clienteExiste == null)
             {
@@ -156,7 +157,7 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
     public async Task<ServiceResponse<Cliente>> CreateCliente(Cliente cliente)
     {
         var serviceResponse = new ServiceResponse<Cliente>();
-        bool emailValido = VerificaEmail(cliente.Email);
+        bool emailValido = _validations.ValidaEmail(cliente.Email);
         try
         {
             if (cliente == null || !emailValido)

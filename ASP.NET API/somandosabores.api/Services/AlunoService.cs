@@ -7,8 +7,10 @@ using infra.DbContext;
 
 namespace somandosabores.api.Services;
 
-public class AlunoService(ApplicationDbContext context, IClienteService clienteService) : IAlunoService
+public class AlunoService (ApplicationDbContext context, IClienteService clienteService) : IAlunoService
 {
+    private readonly Validations _validations = new Validations();
+ 
     public async Task<ServiceResponse<AlunoDTO>> GetAlunoById(Guid id)
     {
         var serviceResponse = new ServiceResponse<AlunoDTO>();
@@ -21,13 +23,13 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
-            
+
             var aluno = await context.Alunos
                                     .Include(a => a.Cliente)
                                     .FirstOrDefaultAsync(a => a.Id == id);
             serviceResponse.Success = true;
             serviceResponse.Message = "Aluno encontrado";
-            
+
             serviceResponse.Data = new AlunoDTO
             {
                 Id = aluno.Id,
@@ -42,7 +44,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
         catch (Exception e)
         {
             serviceResponse.Success = false;
-            serviceResponse.Message = "Erro ao buscar: " +  e.Message;
+            serviceResponse.Message = "Erro ao buscar: " + e.Message;
             serviceResponse.Data = null;
             return serviceResponse;
         }
@@ -150,7 +152,7 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
     public async Task<ServiceResponse<AlunoDTO>> CreateAlunoDTO(AlunoDTO alunoDTO)
     {
         var serviceResponse = new ServiceResponse<AlunoDTO>();
-        var emailValido = ValidaEmailEstudantil(alunoDTO.Email);
+        var emailValido = _validations.ValidaEmailEstudantil(alunoDTO.Email);
         try
         {
             if (
@@ -160,11 +162,10 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
                 string.IsNullOrWhiteSpace(alunoDTO.RA))
             {
                 serviceResponse.Success = false;
-                serviceResponse.Message = "Informe os dados do aluno";
+                serviceResponse.Message = "Dados inválidos! Utilize o email estudantil";
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
-            ;
 
             // Checa se o aluno já existe
             var alunoExists = await GetAlunoByRA(alunoDTO.RA);
@@ -258,35 +259,42 @@ public class AlunoService(ApplicationDbContext context, IClienteService clienteS
             };
             
             alunoExists.RA = alunoDTO.RA ?? alunoExists.RA;
+            var hasValidEmail = _validations.ValidaEmailEstudantil(alunoDTO.Email);
 
-            var clienteAtualizado = new Cliente
+            if (hasValidEmail)
             {
-                Id = alunoExists.ClienteId,
-                Nome = alunoDTO.Nome,
-                Email = alunoDTO.Email
-            };
 
-            var clienteServiceResponse = await clienteService.UpdateCliente(clienteAtualizado);
-            if (!clienteServiceResponse.Success || clienteServiceResponse.Data == null)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = "Cliente não encontrado";
-                serviceResponse.Data = null;
-                return serviceResponse;
-            };
+                var clienteAtualizado = new Cliente
+                {
+                    Id = alunoExists.ClienteId,
+                    Nome = alunoDTO.Nome,
+                    Email = alunoDTO.Email
+                };
 
-            //await context.SaveChangesAsync();
-            
-            serviceResponse.Data = new AlunoDTO
-            {
-                Id = alunoExists.Id,
-                RA = alunoExists.RA,
-                Nome = clienteServiceResponse.Data.Nome,
-                Email = clienteServiceResponse.Data.Email
-            };
-            serviceResponse.Success = true;
-            serviceResponse.Message = "Aluno atualizado com sucesso";
-            
+                var clienteServiceResponse = await clienteService.UpdateCliente(clienteAtualizado);
+                if (!clienteServiceResponse.Success || clienteServiceResponse.Data == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Cliente não encontrado";
+                    serviceResponse.Data = null;
+                    return serviceResponse;
+                }
+                ;
+
+                //await context.SaveChangesAsync();
+
+                serviceResponse.Data = new AlunoDTO
+                {
+                    Id = alunoExists.Id,
+                    RA = alunoExists.RA,
+                    Nome = clienteServiceResponse.Data.Nome,
+                    Email = clienteServiceResponse.Data.Email
+                };
+                serviceResponse.Success = true;
+                serviceResponse.Message = "Aluno atualizado com sucesso";
+            }
+            serviceResponse.Success = false;
+            serviceResponse.Message = "Email inválido! Verifique o formato";
             return serviceResponse;
         }
         catch (Exception e)

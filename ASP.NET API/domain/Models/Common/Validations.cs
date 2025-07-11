@@ -5,7 +5,7 @@ namespace domain.Models.Common;
 
 public class Validations
 {
-    bool ValidaCPF(string CPF)
+    public bool ValidaCPF(string CPF)
     {
         try
         {
@@ -57,7 +57,7 @@ public class Validations
         }
     }
 
-    bool ValidaEmail(string email)
+    public bool ValidaEmail(string email)
     {
         try
         {
@@ -71,7 +71,7 @@ public class Validations
         }
     }
 
-    bool ValidaEmailEstudantil(string email)
+    public bool ValidaEmailEstudantil(string email)
     {
         try
         {

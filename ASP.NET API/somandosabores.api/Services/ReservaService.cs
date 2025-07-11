@@ -87,7 +87,7 @@ public class ReservaService(ApplicationDbContext context,
                 else
                 {
                     serviceResponse.Data = null;
-                    serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}`";
+                    serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}";
                     serviceResponse.Success = false;
                     return serviceResponse;
                 }
@@ -168,7 +168,7 @@ public class ReservaService(ApplicationDbContext context,
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao cadastrar reserva: " + e.Message;
+            serviceResponse.Message = $"Erro ao cadastrar reserva: {e.Message}";
             serviceResponse.Success = false;
 
             return serviceResponse;
@@ -268,8 +268,16 @@ public class ReservaService(ApplicationDbContext context,
 
             var precificacaoUpdate = await precificacaoService.UpdatePrecificacao(reservaExistente.Precificacao);
 
+            if (!clienteUpdate.Success || !precificacaoUpdate.Success)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Erro na atualização dos dados. Verifique as informações novamente.";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+
             // Reserva
-            reservaExistente.DataReserva = reservaDTO.DataReserva;
+                reservaExistente.DataReserva = reservaDTO.DataReserva;
             reservaExistente.QtdConvidados = reservaDTO.QtdConvidados;
 
             if (reservaDTO.QtdConvidados > 0)
