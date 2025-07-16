@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
     env:
-      SEMGREP_APP_TOKEN: ${{SEMGREP_APP_TOKEN}}
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
       image: semgrep/semgrep
     if: (github.actor != 'dependabot[bot]')
