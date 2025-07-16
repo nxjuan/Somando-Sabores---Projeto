@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Reserva } from '../../models/ReservaModel';
+import { ServiceResponse } from '../../models/ServiceResponseModel';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +10,6 @@ import { Observable } from 'rxjs';
 export class ReservaService {
 
   private urlApi = 'http://localhost:5000/api/Reserva';
-  // private urlGetByEmail = this.urlApi + "/mail/";
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +17,19 @@ export class ReservaService {
     return this.http.post<Reserva>(this.urlApi, reserva);
   }
 
-  // checkIfExistsByEmail(email: string): Observable<Reserva>{
-  //   let params = new HttpParams();
+  getAll(): Observable<ServiceResponse<Reserva[]>> {
+    return this.http.get<ServiceResponse<Reserva[]>>(this.urlApi);
+  }
 
-  //   params = params.set('email', email);
-  //   return this.http.get<Reserva>(this.urlGetByEmail, {params: params});
-  // }
+  getById(id: string): Observable<ServiceResponse<Reserva>> {
+    return this.http.get<ServiceResponse<Reserva>>(`${this.urlApi}/${id}`);
+  }
+
+  update(reserva: Reserva): Observable<ServiceResponse<Reserva>> {
+    return this.http.put<ServiceResponse<Reserva>>(this.urlApi, reserva);
+  }
+
+  delete(id: string): Observable<ServiceResponse<string>> {
+    return this.http.delete<ServiceResponse<string>>(`${this.urlApi}/${id}`);
+  }
 }

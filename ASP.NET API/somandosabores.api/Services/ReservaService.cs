@@ -49,7 +49,6 @@ public class ReservaService(ApplicationDbContext context,
         try
         {
             if (reservaDTO == null ||
-                string.IsNullOrWhiteSpace(reservaDTO.CpfOuCnpj) ||
                 string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
                 string.IsNullOrWhiteSpace(reservaDTO.Email)
                 )
@@ -247,7 +246,6 @@ public class ReservaService(ApplicationDbContext context,
         {
             if (reservaDTO == null ||
                 reservaDTO.Id == Guid.Empty ||
-                string.IsNullOrWhiteSpace(reservaDTO.CpfOuCnpj) ||
                 string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
                 string.IsNullOrWhiteSpace(reservaDTO.Email))
             {
@@ -295,60 +293,47 @@ public class ReservaService(ApplicationDbContext context,
             }
 
             // Reserva
-                reservaExistente.DataReserva = reservaDTO.DataReserva;
+            reservaExistente.DataReserva = reservaDTO.DataReserva;
             reservaExistente.QtdConvidados = reservaDTO.QtdConvidados;
 
-            if (reservaDTO.QtdConvidados > 0)
+            if (reservaDTO.QtdConvidados > 0 && reservaDTO.NomesConvidados?.Any() == true)
             {
-                var nomesNoDto = reservaDTO.NomesConvidados ?? new List<string>();
-                var convidadosParaRemover = reservaExistente.Convidados
-                                                        .Where(c => !nomesNoDto.Contains(c.Nome))
-                                                        .ToList();
-
-                foreach (var convidado in convidadosParaRemover)
+                var convidadosAtualizados = reservaDTO.NomesConvidados.Select(nome => new Convidado
                 {
-                    await convidadoService.DeleteConvidado(convidado.Id);
-                }
+                    Nome = nome,
+                    ReservaId = reservaExistente.Id
+                }).ToList();
 
-                var nomesAtualmenteNoBanco = reservaExistente.Convidados.Select(c => c.Nome).ToList();
-                var nomesParaAdicionar = nomesNoDto.Where(nome => !nomesAtualmenteNoBanco.Contains(nome)).ToList();
+                var updateResult = await convidadoService.UpdateConvidados(convidadosAtualizados);
 
-                foreach (var nomeNovo in nomesParaAdicionar)
+                if (!updateResult.Success)
                 {
-                    var novoConvidado = new Convidado
-                    {
-                        Nome = nomeNovo,
-                        ReservaId = reservaExistente.Id
-                    };
-                    await convidadoService.CreateConvidado(novoConvidado);
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Erro ao atualizar convidados: " + updateResult.Message;
+                    serviceResponse.Success = false;
+                    return serviceResponse;
                 }
             }
 
             context.Update(reservaExistente);
-            await context.SaveChangesAsync();
-
-            var reservaAtualizada = await context.Reservas
-                                                .Include(r => r.Cliente)
-                                                .Include(r => r.Precificacao)
-                                                .Include(r => r.Convidados)
-                                                .FirstOrDefaultAsync(r => r.Id == reservaDTO.Id);
+            // await context.SaveChangesAsync();
 
             serviceResponse.Data = new ReservaDTO
             {
-                Id = reservaAtualizada.Id,
-                DataReserva = reservaAtualizada.DataReserva,
-                QtdConvidados = reservaAtualizada.QtdConvidados,
+                Id = reservaExistente.Id,
+                DataReserva = reservaExistente.DataReserva,
+                QtdConvidados = reservaExistente.QtdConvidados,
 
-                Nome = reservaAtualizada.Cliente?.Nome,
-                Email = reservaAtualizada.Cliente?.Email,
+                Nome = reservaExistente.Cliente?.Nome,
+                Email = reservaExistente.Cliente?.Email,
 
-                NomesConvidados = reservaAtualizada.Convidados?.Select(c => c.Nome).ToList(),
+                NomesConvidados = reservaExistente.Convidados?.Select(c => c.Nome).ToList(),
 
-                Quantidade = reservaAtualizada.Precificacao.Quantidade,
-                Total = reservaAtualizada.Precificacao.Total,
-                Status = reservaAtualizada.Precificacao.Status,
-                TipoServico = reservaAtualizada.Precificacao.TipoServico,
-                EmitirNF = reservaAtualizada.Precificacao.EmitirNF
+                Quantidade = reservaExistente.Precificacao.Quantidade,
+                Total = reservaExistente.Precificacao.Total,
+                Status = reservaExistente.Precificacao.Status,
+                TipoServico = reservaExistente.Precificacao.TipoServico,
+                EmitirNF = reservaExistente.Precificacao.EmitirNF
             };
 
             serviceResponse.Message = "Reserva atualizada com sucesso";

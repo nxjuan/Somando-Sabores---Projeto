@@ -84,6 +84,42 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
         }
     }
 
+    public async Task<ServiceResponse<List<Convidado>>> UpdateConvidados(IEnumerable<Convidado> convidados)
+    {
+        var serviceResponse = new ServiceResponse<List<Convidado>>();
+
+        try
+        {
+            var convidadosList = convidados.ToList();
+
+            foreach (var convidado in convidadosList)
+            {
+                var convidadoExistente = await context.Convidados.FindAsync(convidado.Id);
+
+                if (convidadoExistente != null)
+                {
+                    convidadoExistente.Nome = convidado.Nome;
+                    convidadoExistente.ReservaId = convidado.ReservaId;
+                }
+            }
+
+            await context.SaveChangesAsync();
+
+            serviceResponse.Data = convidadosList;
+            serviceResponse.Success = true;
+            serviceResponse.Message = "Convidados atualizados com sucesso";
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Data = null;
+            serviceResponse.Success = false;
+            serviceResponse.Message = $"Erro ao atualizar convidados: {ex.Message}";
+        }
+
+        return serviceResponse;
+    }
+
+
     public async Task<ServiceResponse<string>> DeleteConvidado(Guid id)
     {
         var serviceResponse = new ServiceResponse<string>();

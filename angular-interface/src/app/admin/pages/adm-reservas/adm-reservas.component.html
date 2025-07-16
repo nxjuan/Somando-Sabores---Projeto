@@ -9,7 +9,25 @@
             <hr/>
         </header>
         <app-filter-results></app-filter-results>
-        <app-registro-reserva-v2></app-registro-reserva-v2>
+        <div *ngIf="reservas.length === 0">
+            <p>Nenhuma reserva cadastrada ainda.</p>
+        </div>
+        <div *ngFor="let reserva of reservas; trackBy: trackByReservaId">
+            <app-registro-reserva-v2 
+              [reserva]="reserva"
+              (atualizarReserva)="onReservaAtualizada($event)"
+              (deletarReserva)="onSolicitarExclusao($event)">
+            </app-registro-reserva-v2>
+        </div>
     </div>
+</div>
+<div *ngIf="mostrarConfirmacaoExclusao" class="confirmacao-modal">
+  <div class="conteudo-modal">
+    <p>Tem certeza que deseja excluir esta reserva?</p>
+    <div class="btn-section">
+      <button (click)="confirmarExclusao()" class="btn danger">Sim</button>
+      <button (click)="fecharConfirmacao()" class="btn normal">Não</button>
+    </div>
+  </div>
 </div>
 
