@@ -30,7 +30,6 @@ export class PacoteService {
   }
 
   delete(id: string): Observable<ServiceResponse<string>> {
-    console.log('Chamando delete com ID:', id);
     return this.http.delete<ServiceResponse<string>>(`${this.urlApi}/${id}`);
   }
 }

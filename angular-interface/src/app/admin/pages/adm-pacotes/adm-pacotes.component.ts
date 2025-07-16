@@ -71,13 +71,9 @@ export class AdmPacotesComponent implements OnInit{
 
     this.pacoteService.delete(this.pacoteParaExcluirId).subscribe(
       response => {
-        console.log(response)
-        if (response.success) {
-          this.pacotes = this.pacotes.filter(p => p.idPacote !== this.pacoteParaExcluirId);
-        } else {
-          console.error(`Erro ao excluir pacote: ${response.message}`);
-        }
+        this.pacotes = this.pacotes.filter(p => p.idPacote !== this.pacoteParaExcluirId);
         this.fecharConfirmacao();
+        console.log('Pacote excluído com sucesso!')
       },
       error => {
         console.error(`Falha ao excluir pacote: ${error}`);

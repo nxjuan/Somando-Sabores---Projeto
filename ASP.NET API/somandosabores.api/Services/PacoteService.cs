@@ -157,8 +157,8 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
             var pacote = new Pacote
             {
                 AlunoId = pacoteDTO.IdAluno,
-                DataInicio = pacoteDTO.DataInicio,
-                DataFinal = pacoteDTO.DataFinal,
+                DataInicio = pacoteDTO.DataInicio.ToUniversalTime(),
+                DataFinal = pacoteDTO.DataFinal.ToUniversalTime(),
                 PrecificacaoId = precificacaoResponse.Data.Id  
             };
 
