@@ -32,7 +32,7 @@ builder.Services.AddCors(options => {
         // builder.WithOrigins("https://somando-sabores-projeto.vercel.app")
         .WithHeaders("Content-Type", "Authorization")
         // CORS header ‘Access-Control-Allow-Origin’
-        .WithMethods("GET", "POST");});
+        .WithMethods("GET", "POST", "PUT", "DELETE");});
 });
 
 //builder.Services.AddScoped<IEventoService, EventoService>();

@@ -6,7 +6,26 @@
             <hr/>
         </header>
         <app-filter-results></app-filter-results>
-        <app-registro-pacote></app-registro-pacote>
+        <div *ngIf="pacotes.length === 0">
+            <p>Nenhum aluno cadastrado ainda.</p>
+        </div>
+        <div *ngFor="let pacote of pacotes; trackBy: trackByPacoteId">
+            <app-registro-pacote 
+              [pacote]="pacote"
+              (atualizarPacote)="onPacoteAtualizado($event)"
+              (deletarPacote)="onSolicitarExclusao($event)">
+            </app-registro-pacote>
+        </div>
     </div>
 </div>
+<div *ngIf="mostrarConfirmacaoExclusao" class="confirmacao-modal">
+  <div class="conteudo-modal">
+    <p>Tem certeza que deseja excluir este pacote?</p>
+    <div class="btn-section">
+      <button (click)="confirmarExclusao()" class="btn danger">Sim</button>
+      <button (click)="fecharConfirmacao()" class="btn normal">Não</button>
+    </div>
+  </div>
+</div>
+
 

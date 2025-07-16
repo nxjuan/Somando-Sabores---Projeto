@@ -18,8 +18,8 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
                 serviceResponse.Message = "Id invalido";
                 serviceResponse.Success = false;
                 return serviceResponse;
-            } 
-            
+            }
+
             serviceResponse.Data = context.Convidados.FirstOrDefault(x => x.Id == id);
             serviceResponse.Message = "Convidado Encontrado";
             serviceResponse.Success = true;
@@ -55,7 +55,7 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
 
     public async Task<ServiceResponse<Convidado>> UpdateConvidado(Convidado convidado)
     {
-        var  serviceResponse = new ServiceResponse<Convidado>();
+        var serviceResponse = new ServiceResponse<Convidado>();
         try
         {
             var convidadoExiste = await context.Convidados.FindAsync(convidado.Id);
@@ -77,7 +77,7 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
         }
         catch (Exception e)
         {
-            serviceResponse.Message = "Erro ao atualizar: "  + e.Message;
+            serviceResponse.Message = "Erro ao atualizar: " + e.Message;
             serviceResponse.Success = false;
             serviceResponse.Data = null;
             return serviceResponse;
@@ -97,10 +97,10 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            
+
             context.Convidados.Remove(convidadoExiste);
             context.SaveChanges();
-            
+
             serviceResponse.Data = null;
             serviceResponse.Message = "Convidado Deletado com sucesso";
             serviceResponse.Success = true;
@@ -109,7 +109,7 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao deletar: "  + e.Message;
+            serviceResponse.Message = "Erro ao deletar: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }
@@ -127,10 +127,10 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            
+
             await context.Convidados.AddAsync(convidado);
             await context.SaveChangesAsync();
-            
+
             serviceResponse.Data = convidado;
             serviceResponse.Message = "Convidado criado com sucesso";
             serviceResponse.Success = true;
@@ -139,9 +139,31 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao salvar: "  + e.Message;
+            serviceResponse.Message = "Erro ao salvar: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }
+    }
+
+    public async Task<ServiceResponse<List<Convidado>>> CreateConvidados(IEnumerable<Convidado> convidados)
+    {
+        var serviceResponse = new ServiceResponse<List<Convidado>>();
+
+        try
+        {
+            context.Convidados.AddRange(convidados);
+            await context.SaveChangesAsync();
+
+            serviceResponse.Data = convidados.ToList();
+            serviceResponse.Success = true;
+            serviceResponse.Message = "Convidados cadastrados com sucesso";
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Message = $"Erro ao cadastrar convidados: {ex.Message}";
+            serviceResponse.Success = false;
+            serviceResponse.Data = null;
+        }
+        return serviceResponse;
     }
 }

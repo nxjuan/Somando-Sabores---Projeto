@@ -6,17 +6,19 @@
             <span>Nome do Aluno</span>
             <span>E-mail</span>
             <span>Registro do Aluno</span>
-            <span>Qtd.Pacotes</span>
+            <span>Data de Referência</span>
         </div>
         <div class="data">
-            <span [innerText]="aluno">[ALUNO]</span>
-            <span [innerText]="email">[E-MAIL]</span>
-            <span [innerText]="ra">[RA]</span>
-            <span [innerText]="qtd_pacotes">[QTD. PACOTES]</span>
+            <!-- <input id="id" [(ngModel)]="localPacote.id" type="hidden" readonly/> -->
+            <input id="aluno" [(ngModel)]="localPacote.nome" [readonly]="!modoEdicao"/>
+            <input id="email" [(ngModel)]="localPacote.email" [readonly]="!modoEdicao"/>
+            <input id="ra" [(ngModel)]="localPacote.ra" [readonly]="!modoEdicao"/>
+            <input id="dataInicio" [(ngModel)]="localPacote.dataInicio" [readonly]="!modoEdicao"/>
         </div>
     </section>
     <div class="icons">
-        <mat-icon>edit</mat-icon>
-        <mat-icon id="delete">delete_outline</mat-icon>
+        <mat-icon *ngIf="!modoEdicao" (click)="onEditarClick()">edit</mat-icon>
+        <mat-icon *ngIf="modoEdicao" (click)="onSalvarClick()">check</mat-icon>
+        <mat-icon id="delete" (click)="onDeletarClick()">delete_outline</mat-icon>
     </div>
 </div>

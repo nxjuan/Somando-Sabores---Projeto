@@ -80,3 +80,6 @@ CREATE TABLE TB_PAGAMENTOS(
     FOREIGN KEY (reserva_id) REFERENCES TB_RESERVAS(id_reserva),
     FOREIGN KEY (pacote_id) REFERENCES TB_PACOTES(id_pacote)
 );
+
+-- Definição dos índices
+CREATE INDEX idx_convidados_reserva_id ON tb_convidados (reserva_id);

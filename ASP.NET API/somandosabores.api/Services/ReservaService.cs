@@ -45,9 +45,14 @@ public class ReservaService(ApplicationDbContext context,
     public async Task<ServiceResponse<ReservaDTO>> CreateReservaDTO(ReservaDTO reservaDTO)
     {
         var serviceResponse = new ServiceResponse<ReservaDTO>();
+        
         try
         {
-            if (reservaDTO == null)
+            if (reservaDTO == null ||
+                string.IsNullOrWhiteSpace(reservaDTO.CpfOuCnpj) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Email)
+                )
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Informar Dados da reserva";
@@ -94,7 +99,7 @@ public class ReservaService(ApplicationDbContext context,
             }
 
             // Envio de dados da Precificacao
-                var precificacao = new Precificacao
+            var precificacao = new Precificacao
             {
                 TipoServico = OpcoesServico.Reserva,
                 Quantidade = reservaDTO.Quantidade,
@@ -113,7 +118,6 @@ public class ReservaService(ApplicationDbContext context,
                 return serviceResponse;
             }
 
-
             // Envia Dados de Reserva
             var reserva = new Reserva
             {
@@ -125,19 +129,29 @@ public class ReservaService(ApplicationDbContext context,
 
             var reservaResponse = await CreateReserva(reserva);
 
+            var convidadosParaInserir = new List<Convidado>();
+
             if (reservaDTO.QtdConvidados > 0)
             {
-                int convidados = 0;
-                while (convidados < reservaDTO.QtdConvidados)
+                for (int i = 0; i < reservaDTO.QtdConvidados; i++)
                 {
                     var convidado = new Convidado
                     {
-                        Nome = reservaDTO.NomesConvidados[convidados],
+                        Nome = reservaDTO.NomesConvidados[i],
                         ReservaId = reservaResponse.Data.Id
                     };
+                    convidadosParaInserir.Add(convidado);
+                }
 
-                    await convidadoService.CreateConvidado(convidado);
-                    convidados++;
+                // Inserção em Lote
+                var convidadosResponse = await convidadoService.CreateConvidados(convidadosParaInserir);
+
+                if (!convidadosResponse.Success)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = $"Erro no cadastro dos convidados: {convidadosResponse.Message}";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
                 }
             }
 
@@ -231,7 +245,11 @@ public class ReservaService(ApplicationDbContext context,
         var serviceResponse = new ServiceResponse<ReservaDTO>();
         try
         {
-            if (reservaDTO == null || reservaDTO.Id == Guid.Empty)
+            if (reservaDTO == null ||
+                reservaDTO.Id == Guid.Empty ||
+                string.IsNullOrWhiteSpace(reservaDTO.CpfOuCnpj) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Email))
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Informar Dados da reserva";

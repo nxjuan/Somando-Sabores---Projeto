@@ -9,4 +9,5 @@ public interface IConvidadoService
     Task<ServiceResponse<Convidado>> CreateConvidado(Convidado convidado);
     Task<ServiceResponse<Convidado>> UpdateConvidado(Convidado convidado);
     Task<ServiceResponse<string>> DeleteConvidado(Guid id);
+    Task<ServiceResponse<List<Convidado>>> CreateConvidados(IEnumerable<Convidado> convidados);
 }
