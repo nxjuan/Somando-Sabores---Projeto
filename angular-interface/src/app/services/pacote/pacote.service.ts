@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Pacote } from '../../models/PacoteModel';
+import { ServiceResponse } from '../../models/ServiceResponseModel';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,4 +17,19 @@ export class PacoteService {
     return this.http.post<Pacote>(this.urlApi, pacote);
   }
 
+  getAll(): Observable<ServiceResponse<Pacote[]>> {
+    return this.http.get<ServiceResponse<Pacote[]>>(this.urlApi);
+  }
+
+  getById(id: string): Observable<ServiceResponse<Pacote>> {
+    return this.http.get<ServiceResponse<Pacote>>(`${this.urlApi}/${id}`);
+  }
+
+  update(pacote: Pacote): Observable<ServiceResponse<Pacote>> {
+    return this.http.put<ServiceResponse<Pacote>>(this.urlApi, pacote);
+  }
+
+  delete(id: string): Observable<ServiceResponse<string>> {
+    return this.http.delete<ServiceResponse<string>>(`${this.urlApi}/${id}`);
+  }
 }

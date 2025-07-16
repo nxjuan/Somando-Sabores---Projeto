@@ -8,7 +8,7 @@ using Microsoft.VisualBasic;
 
 namespace somandosabores.api.Services;
 
-public class PacoteService(ApplicationDbContext context, IPrecificacaoService precificacaoService) : IPacoteService
+public class PacoteService(ApplicationDbContext context, IPrecificacaoService precificacaoService, IAlunoService alunoService) : IPacoteService
 {
     public async Task<ServiceResponse<PacoteDTO>> GetPacoteById(Guid id)
     {
@@ -25,6 +25,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
 
             var pacoteDTO = await context.Pacotes
                             .Include(p => p.Aluno)
+                                .ThenInclude(a => a.Cliente)
                             .Include(p => p.Precificacao)
                             .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -34,10 +35,13 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 DataInicio = pacoteDTO.DataInicio,
                 DataFinal = pacoteDTO.DataFinal,
                 IdAluno = pacoteDTO.AlunoId,
+                Nome = pacoteDTO.Aluno.Cliente.Nome,
+                Email = pacoteDTO.Aluno.Cliente.Email,
+                RA = pacoteDTO.Aluno.RA,
                 Quantidade = pacoteDTO.Precificacao.Quantidade,
                 Total = pacoteDTO.Precificacao.Total,
                 Status = pacoteDTO.Precificacao.Status
-            };       
+            };
 
             serviceResponse.Success = true;
             serviceResponse.Message = "Pacote encontrado com sucesso";
@@ -45,7 +49,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         }
         catch (Exception e)
         {
-            serviceResponse.Message = "Erro ao busscar: " + e.Message;
+            serviceResponse.Message = "Erro ao buscar: " + e.Message;
             serviceResponse.Success = false;
             serviceResponse.Data = null;
             return serviceResponse;
@@ -59,6 +63,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         {
             var pacotesDTO = await context.Pacotes
                                     .Include(p => p.Aluno)
+                                        .ThenInclude(a => a.Cliente)
                                     .Include(p => p.Precificacao)
                                     .ToListAsync();
 
@@ -68,6 +73,9 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 DataInicio = pacoteDTO.DataInicio,
                 DataFinal = pacoteDTO.DataFinal,
                 IdAluno = pacoteDTO.AlunoId,
+                Nome = pacoteDTO.Aluno.Cliente.Nome,
+                Email = pacoteDTO.Aluno.Cliente.Email,
+                RA = pacoteDTO.Aluno.RA,
                 Quantidade = pacoteDTO.Precificacao.Quantidade,
                 Total = pacoteDTO.Precificacao.Total,
                 Status = pacoteDTO.Precificacao.Status
@@ -121,7 +129,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         var serviceResponse = new ServiceResponse<PacoteDTO>();
         try
         {
-            if (pacoteDTO == null)
+            if (pacoteDTO == null || pacoteDTO.IdPacote == Guid.Empty)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Preencha os dados do pacote";
@@ -138,7 +146,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
             };
 
             var precificacaoResponse = await precificacaoService.CreatePrecificacao(precificacao);
-            if (!precificacaoResponse.Success)
+            if (precificacaoResponse.Data == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = $"Erro no cadastro de precificação: {precificacaoResponse.Message}";
@@ -149,16 +157,27 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
             var pacote = new Pacote
             {
                 AlunoId = pacoteDTO.IdAluno,
-                DataInicio = pacoteDTO.DataInicio,
-                DataFinal = pacoteDTO.DataFinal,
+                DataInicio = pacoteDTO.DataInicio.ToUniversalTime(),
+                DataFinal = pacoteDTO.DataFinal.ToUniversalTime(),
                 PrecificacaoId = precificacaoResponse.Data.Id  
             };
 
             var pacoteResponse = await CreatePacote(pacote);
-            if (!pacoteResponse.Success)
+            
+            if (!pacoteResponse.Success || pacoteResponse.Data == null)
             {
                 serviceResponse.Data = null;
-                serviceResponse.Message = "Erro no cadastro do pacote";
+                serviceResponse.Message = $"Erro no cadastro de pacote: {pacoteResponse.Message}";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+
+            var alunoResponse = await alunoService.GetAlunoById(pacoteResponse.Data.AlunoId);
+
+            if (!alunoResponse.Success || alunoResponse.Data == null)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = $"Erro ao cadastrar o aluno associado.";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
@@ -169,6 +188,9 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 DataInicio = pacoteResponse.Data.DataInicio,
                 DataFinal = pacoteResponse.Data.DataFinal,
                 IdAluno = pacoteResponse.Data.AlunoId,
+                Nome = alunoResponse.Data.Nome,
+                Email = alunoResponse.Data.Email,
+                RA = alunoResponse.Data.RA,
                 Quantidade = precificacaoResponse.Data.Quantidade,
                 Total = precificacaoResponse.Data.Total
             };
@@ -191,9 +213,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         var serviceResponse = new ServiceResponse<string>();
         try
         {
-            var pacoteExiste = await context.Pacotes.FindAsync(id);
-
-            if (pacoteExiste == null)
+            if (id == Guid.Empty)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Pacote não encontrado";
@@ -201,6 +221,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 return serviceResponse;
             }
 
+            var pacoteExiste = await context.Pacotes.FindAsync(id);
             var precificacaoId = pacoteExiste.PrecificacaoId;
 
             context.Pacotes.Remove(pacoteExiste);
@@ -234,8 +255,13 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         var serviceResponse = new ServiceResponse<PacoteDTO>();
         try
         {
-            var pacoteExiste = await context.Pacotes.FindAsync(pacoteDTO.IdPacote);
-            if (pacoteExiste == null)
+            var pacoteExiste = await context.Pacotes
+                                            .Include(p => p.Aluno)
+                                                .ThenInclude(a => a.Cliente)
+                                            .Include(p => p.Precificacao)
+                                            .FirstOrDefaultAsync(p => p.Id == pacoteDTO.IdPacote);
+
+            if (pacoteDTO == null || pacoteDTO.IdPacote == Guid.Empty)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Pacote não encontrado";
@@ -243,17 +269,18 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 return serviceResponse;
             }
 
-            pacoteExiste.DataInicio = pacoteDTO.DataInicio;
-            pacoteExiste.DataFinal = pacoteDTO.DataFinal;
-            pacoteExiste.AlunoId = pacoteDTO.IdAluno;
+            pacoteExiste.DataInicio = pacoteDTO.DataInicio.ToUniversalTime();
+            pacoteExiste.DataFinal = pacoteDTO.DataFinal.ToUniversalTime();
+            pacoteExiste.Aluno.Cliente.Nome = pacoteDTO.Nome;
+            pacoteExiste.Aluno.Cliente.Email = pacoteDTO.Email;
+            pacoteExiste.Aluno.RA = pacoteDTO.RA;
             
-            var precificacaoAtualizada = new Precificacao
-            {
-                TipoServico = OpcoesServico.Pacote,
-                Quantidade = pacoteDTO.Quantidade,
-                Total = pacoteDTO.Total,
-                Status = pacoteDTO.Status
-            };
+            var precificacaoAtualizada = pacoteExiste.Precificacao;
+
+            precificacaoAtualizada.TipoServico = OpcoesServico.Pacote;
+            precificacaoAtualizada.Quantidade = pacoteDTO.Quantidade;
+            precificacaoAtualizada.Total = pacoteDTO.Total;
+            precificacaoAtualizada.Status = pacoteDTO.Status;
 
             var precificacaoResponse = await precificacaoService.UpdatePrecificacao(precificacaoAtualizada);
             if (!precificacaoResponse.Success || precificacaoResponse.Data == null)
@@ -263,13 +290,18 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
                 serviceResponse.Data = null;
                 return serviceResponse;
             };
-            
+
+            // await context.SaveChangesAsync();
+
             serviceResponse.Data = new PacoteDTO
             {
                 IdPacote = pacoteExiste.Id,
                 DataInicio = pacoteExiste.DataInicio,
                 DataFinal = pacoteExiste.DataFinal,
                 IdAluno = pacoteExiste.AlunoId,
+                Nome = pacoteExiste.Aluno.Cliente.Nome, 
+                Email = pacoteExiste.Aluno.Cliente.Email,
+                RA = pacoteExiste.Aluno.RA,
                 Quantidade = precificacaoResponse.Data.Quantidade,
                 Total = precificacaoResponse.Data.Total,
                 Status = precificacaoResponse.Data.Status
@@ -282,7 +314,7 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao atualizar: "  + e.Message;
+            serviceResponse.Message = $"Erro ao atualizar: {e.Message}\nInner Exception: {e.InnerException}";
             serviceResponse.Success = false;
             return serviceResponse;
         }

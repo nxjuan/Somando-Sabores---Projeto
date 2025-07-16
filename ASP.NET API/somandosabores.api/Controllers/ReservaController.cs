@@ -54,7 +54,7 @@ public class ReservaController(IReservaService reservaService) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<string>>> Delete(Guid id)
     {
-        var  resposta = await reservaService.DeleteReserva(id);
+        var resposta = await reservaService.DeleteReserva(id);
         if (resposta.Success)
         {
             return NoContent();

@@ -54,7 +54,7 @@ public class PacoteController(IPacoteService pacoteService) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<string>>> Delete(Guid id)
     {
-        var  resposta = await pacoteService.DeletePacote(id);
+        var resposta = await pacoteService.DeletePacote(id);
         if (resposta.Success)
         {
             return NoContent();

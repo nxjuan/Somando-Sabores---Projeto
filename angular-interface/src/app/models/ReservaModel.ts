@@ -1,4 +1,5 @@
 export interface Reserva {
+    id: string;
     cpfOuCnpj: string;
     dataReserva: string;
     qtdConvidados: number;

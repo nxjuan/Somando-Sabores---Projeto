@@ -11,7 +11,7 @@
     border-color:#1C4D26;
     height: 9.75vh;
     align-items: center;
-    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 .texto{
@@ -33,9 +33,27 @@
     padding-inline: 2.7vw;
 }
 
+input[readonly] {
+  font-family: "IM Fell English", "serif";
+  font-weight: 400;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: default;
+  width: fit-content;
+}
+
+input:not([readonly]) {
+  font-family: "IM Fell English", "serif";
+  font-weight: 400;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: text;
+  width: fit-content;
+}
+
 span{
-    font-family: "IM Fell English", "serif";
-    font-weight: 400;
+  font-family: "IM Fell English", "serif";
+  font-weight: 400;
 }
 
 .icons{

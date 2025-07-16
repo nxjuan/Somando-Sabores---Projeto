@@ -28,10 +28,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowSpecificOrigin", 
     builder => {
-        builder.WithOrigins("https://somando-sabores-projeto.vercel.app")
+        builder.WithOrigins("http://localhost:4200")
+        // builder.WithOrigins("https://somando-sabores-projeto.vercel.app")
         .WithHeaders("Content-Type", "Authorization")
         // CORS header ‘Access-Control-Allow-Origin’
-        .WithMethods("GET", "POST");});
+        .WithMethods("GET", "POST", "PUT", "DELETE");});
 });
 
 //builder.Services.AddScoped<IEventoService, EventoService>();

@@ -133,7 +133,7 @@ export class ReservasComponent implements OnInit {
           //this.iniciarProcessoDePagamento(); 
         },
         error: (msgErro) => {
-          alert(`Erro no cadastro de aluno: ${msgErro}`);
+          alert(msgErro.error.message);
         }
       });
     }

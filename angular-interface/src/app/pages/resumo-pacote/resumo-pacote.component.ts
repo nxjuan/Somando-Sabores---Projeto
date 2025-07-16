@@ -19,6 +19,10 @@ export class ResumoPacoteComponent{
 
   constructor(private alunosService: AlunosService, private pacotesService: PacoteService) { }
 
+  id: string | undefined = undefined;
+  nome: string | undefined = undefined;
+  email: string | undefined = undefined;
+  ra: string | undefined = undefined;
   precoFixo: number = 516.00;
   quantidade: number = 1;
   subtotal: number = this.precoFixo;
@@ -63,6 +67,7 @@ export class ResumoPacoteComponent{
    }
 
    this.data_fim = data.toISOString();
+
   }
 
   ngOnInit(): void {
@@ -89,6 +94,10 @@ export class ResumoPacoteComponent{
 
     if (this.idAluno){    
       const pacote: Pacote = {
+        idPacote: this.id,
+        nome: this.nome,
+        email: this.email,
+        ra: this.ra,
         dataInicio: this.data_inicio,
         dataFim: this.data_fim,
         idAluno: this.idAluno,

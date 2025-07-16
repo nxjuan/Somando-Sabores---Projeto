@@ -1,6 +1,6 @@
 <mat-accordion>
-    <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header class="registro">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header class="registro" hideToggle>
             <div class="circle-box">
                 <mat-icon class="circle">expand_more</mat-icon>
             </div>
@@ -12,21 +12,42 @@
                     <span>Data</span>
                 </div>
                 <div class="data">
-                    <span [innerText]="responsavel">[NOME]</span>
-                    <span [innerText]="email">[E-MAIL]</span>
-                    <span [innerText]="qtd_convidados">[QTD. CONVIDADOS]</span>
-                    <span [innerText]="data_reserva">[DATA]</span>
+                    <input id="responsavel" 
+                            [(ngModel)]="localReserva.nome" 
+                            [readonly]="!modoEdicao" 
+                            (click)="$event.stopPropagation()"
+                            (keydown.space)="$event.stopImmediatePropagation()"
+                            />
+                    <input id="email"
+                            [(ngModel)]="localReserva.email"
+                            [readonly]="!modoEdicao"
+                            (click)="$event.stopPropagation()"
+                            (keydown.space)="$event.stopImmediatePropagation()"
+                            />
+                    <input id="qtdConvidados"
+                            [(ngModel)]="localReserva.qtdConvidados"
+                            [readonly]="!modoEdicao"
+                            (click)="$event.stopPropagation()"
+                            (keydown.space)="$event.stopImmediatePropagation()"
+                            />
+                    <input id="dataReserva"
+                            [(ngModel)]="localReserva.dataReserva"
+                            [readonly]="!modoEdicao"
+                            (click)="$event.stopPropagation()"
+                            (keydown.space)="$event.stopImmediatePropagation()"
+                            />
                 </div>
             </section>
             <div class="icons">
-                <mat-icon>edit</mat-icon>
-                <mat-icon id="delete">delete_outline</mat-icon>
+                <mat-icon *ngIf="!modoEdicao" (click)="onEditarClick()">edit</mat-icon>
+                <mat-icon *ngIf="modoEdicao" (click)="onSalvarClick()">check</mat-icon>
+                <mat-icon id="delete" *ngIf="!modoEdicao" (click)="onDeletarClick()">delete_outline</mat-icon>
             </div>
         </mat-expansion-panel-header>
-    <div class="convidados-data">
+    <div class="convidados-data" *ngFor="let nome of localReserva.nomesConvidados">
         <mat-icon>person</mat-icon>
         <span>Convidado(a)</span>
-        <span [innerText]="nome_convidado">[NOME]</span>
+        <span>{{ nome }}</span>
     </div>
     </mat-expansion-panel>
 </mat-accordion>

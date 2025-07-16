@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using domain.IServices;
 using domain.Models;
+using domain.Models.Common;
 using infra.DbContext;
 
 namespace somandosabores.api.Services;
 
 public class ClienteService(ApplicationDbContext context) : IClienteService
 {
+    private readonly Validations _validations = new Validations();
     public async Task<ServiceResponse<Cliente>> GetCliente(Guid id)
     {
         var serviceResponse = new ServiceResponse<Cliente>();
@@ -18,8 +20,8 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
                 serviceResponse.Message = "Id invalido";
                 serviceResponse.Success = false;
                 return serviceResponse;
-            } 
-            
+            }
+
             serviceResponse.Data = context.Clientes.FirstOrDefault(x => x.Id == id);
             serviceResponse.Message = "Cliente Encontrado";
             serviceResponse.Success = true;
@@ -82,9 +84,10 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
 
     public async Task<ServiceResponse<Cliente>> UpdateCliente(Cliente cliente)
     {
-        var  serviceResponse = new ServiceResponse<Cliente>();
+        var serviceResponse = new ServiceResponse<Cliente>();
         try
         {
+            bool emailValido = _validations.ValidaEmail(cliente.Email);
             var clienteExiste = await context.Clientes.FindAsync(cliente.Id);
             if (clienteExiste == null)
             {
@@ -93,6 +96,14 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
+            if (!emailValido)
+            {
+                serviceResponse.Message = "Email inválido!";
+                serviceResponse.Success = false;
+                serviceResponse.Data = null;
+                return serviceResponse;
+            }
+
             clienteExiste.Nome = cliente.Nome ?? clienteExiste.Nome;
             clienteExiste.Email = cliente.Email ?? clienteExiste.Email;
 
@@ -146,19 +157,20 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
     public async Task<ServiceResponse<Cliente>> CreateCliente(Cliente cliente)
     {
         var serviceResponse = new ServiceResponse<Cliente>();
+        bool emailValido = _validations.ValidaEmail(cliente.Email);
         try
         {
-            if (cliente == null)
+            if (cliente == null || !emailValido)
             {
                 serviceResponse.Data = null;
-                serviceResponse.Message = "Campos obrigatorios não preenchidos!";
+                serviceResponse.Message = "Dados inválidos! Verifique novamente";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            
+
             await context.Clientes.AddAsync(cliente);
             await context.SaveChangesAsync();
-            
+
             serviceResponse.Data = cliente;
             serviceResponse.Message = "Cliente Criado com sucesso";
             serviceResponse.Success = true;
@@ -167,7 +179,7 @@ public class ClienteService(ApplicationDbContext context) : IClienteService
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao salvar: "  + e.Message;
+            serviceResponse.Message = "Erro ao salvar: " + e.Message;
             serviceResponse.Success = false;
             return serviceResponse;
         }

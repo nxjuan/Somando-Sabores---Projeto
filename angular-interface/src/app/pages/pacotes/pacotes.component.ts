@@ -41,7 +41,7 @@ export class PacotesComponent {
           this.router.navigate(['/resumo-pacote']);
         },
         error: (msgErro) => {
-          alert(`Erro no cadastro de aluno: ${msgErro}`)
+          alert(`Erro no cadastro de aluno: ${msgErro.error.message}`)
         }
       });
     }

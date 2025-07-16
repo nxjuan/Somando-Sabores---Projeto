@@ -45,9 +45,13 @@ public class ReservaService(ApplicationDbContext context,
     public async Task<ServiceResponse<ReservaDTO>> CreateReservaDTO(ReservaDTO reservaDTO)
     {
         var serviceResponse = new ServiceResponse<ReservaDTO>();
+        
         try
         {
-            if (reservaDTO == null)
+            if (reservaDTO == null ||
+                string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Email)
+                )
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Informar Dados da reserva";
@@ -87,14 +91,14 @@ public class ReservaService(ApplicationDbContext context,
                 else
                 {
                     serviceResponse.Data = null;
-                    serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}`";
+                    serviceResponse.Message = $"Erro no cadastro do cliente: {clienteResponse.Message}";
                     serviceResponse.Success = false;
                     return serviceResponse;
                 }
             }
 
             // Envio de dados da Precificacao
-                var precificacao = new Precificacao
+            var precificacao = new Precificacao
             {
                 TipoServico = OpcoesServico.Reserva,
                 Quantidade = reservaDTO.Quantidade,
@@ -113,7 +117,6 @@ public class ReservaService(ApplicationDbContext context,
                 return serviceResponse;
             }
 
-
             // Envia Dados de Reserva
             var reserva = new Reserva
             {
@@ -125,19 +128,29 @@ public class ReservaService(ApplicationDbContext context,
 
             var reservaResponse = await CreateReserva(reserva);
 
+            var convidadosParaInserir = new List<Convidado>();
+
             if (reservaDTO.QtdConvidados > 0)
             {
-                int convidados = 0;
-                while (convidados < reservaDTO.QtdConvidados)
+                for (int i = 0; i < reservaDTO.QtdConvidados; i++)
                 {
                     var convidado = new Convidado
                     {
-                        Nome = reservaDTO.NomesConvidados[convidados],
+                        Nome = reservaDTO.NomesConvidados[i],
                         ReservaId = reservaResponse.Data.Id
                     };
+                    convidadosParaInserir.Add(convidado);
+                }
 
-                    await convidadoService.CreateConvidado(convidado);
-                    convidados++;
+                // Inserção em Lote
+                var convidadosResponse = await convidadoService.CreateConvidados(convidadosParaInserir);
+
+                if (!convidadosResponse.Success)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = $"Erro no cadastro dos convidados: {convidadosResponse.Message}";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
                 }
             }
 
@@ -168,7 +181,7 @@ public class ReservaService(ApplicationDbContext context,
         catch (Exception e)
         {
             serviceResponse.Data = null;
-            serviceResponse.Message = "Erro ao cadastrar reserva: " + e.Message;
+            serviceResponse.Message = $"Erro ao cadastrar reserva: {e.Message}";
             serviceResponse.Success = false;
 
             return serviceResponse;
@@ -231,7 +244,10 @@ public class ReservaService(ApplicationDbContext context,
         var serviceResponse = new ServiceResponse<ReservaDTO>();
         try
         {
-            if (reservaDTO == null || reservaDTO.Id == Guid.Empty)
+            if (reservaDTO == null ||
+                reservaDTO.Id == Guid.Empty ||
+                string.IsNullOrWhiteSpace(reservaDTO.Nome) ||
+                string.IsNullOrWhiteSpace(reservaDTO.Email))
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Informar Dados da reserva";
@@ -268,61 +284,56 @@ public class ReservaService(ApplicationDbContext context,
 
             var precificacaoUpdate = await precificacaoService.UpdatePrecificacao(reservaExistente.Precificacao);
 
+            if (!clienteUpdate.Success || !precificacaoUpdate.Success)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Erro na atualização dos dados. Verifique as informações novamente.";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+
             // Reserva
             reservaExistente.DataReserva = reservaDTO.DataReserva;
             reservaExistente.QtdConvidados = reservaDTO.QtdConvidados;
 
-            if (reservaDTO.QtdConvidados > 0)
+            if (reservaDTO.QtdConvidados > 0 && reservaDTO.NomesConvidados?.Any() == true)
             {
-                var nomesNoDto = reservaDTO.NomesConvidados ?? new List<string>();
-                var convidadosParaRemover = reservaExistente.Convidados
-                                                        .Where(c => !nomesNoDto.Contains(c.Nome))
-                                                        .ToList();
-
-                foreach (var convidado in convidadosParaRemover)
+                var convidadosAtualizados = reservaDTO.NomesConvidados.Select(nome => new Convidado
                 {
-                    await convidadoService.DeleteConvidado(convidado.Id);
-                }
+                    Nome = nome,
+                    ReservaId = reservaExistente.Id
+                }).ToList();
 
-                var nomesAtualmenteNoBanco = reservaExistente.Convidados.Select(c => c.Nome).ToList();
-                var nomesParaAdicionar = nomesNoDto.Where(nome => !nomesAtualmenteNoBanco.Contains(nome)).ToList();
+                var updateResult = await convidadoService.UpdateConvidados(convidadosAtualizados);
 
-                foreach (var nomeNovo in nomesParaAdicionar)
+                if (!updateResult.Success)
                 {
-                    var novoConvidado = new Convidado
-                    {
-                        Nome = nomeNovo,
-                        ReservaId = reservaExistente.Id
-                    };
-                    await convidadoService.CreateConvidado(novoConvidado);
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Erro ao atualizar convidados: " + updateResult.Message;
+                    serviceResponse.Success = false;
+                    return serviceResponse;
                 }
             }
 
             context.Update(reservaExistente);
-            await context.SaveChangesAsync();
-
-            var reservaAtualizada = await context.Reservas
-                                                .Include(r => r.Cliente)
-                                                .Include(r => r.Precificacao)
-                                                .Include(r => r.Convidados)
-                                                .FirstOrDefaultAsync(r => r.Id == reservaDTO.Id);
+            // await context.SaveChangesAsync();
 
             serviceResponse.Data = new ReservaDTO
             {
-                Id = reservaAtualizada.Id,
-                DataReserva = reservaAtualizada.DataReserva,
-                QtdConvidados = reservaAtualizada.QtdConvidados,
+                Id = reservaExistente.Id,
+                DataReserva = reservaExistente.DataReserva,
+                QtdConvidados = reservaExistente.QtdConvidados,
 
-                Nome = reservaAtualizada.Cliente?.Nome,
-                Email = reservaAtualizada.Cliente?.Email,
+                Nome = reservaExistente.Cliente?.Nome,
+                Email = reservaExistente.Cliente?.Email,
 
-                NomesConvidados = reservaAtualizada.Convidados?.Select(c => c.Nome).ToList(),
+                NomesConvidados = reservaExistente.Convidados?.Select(c => c.Nome).ToList(),
 
-                Quantidade = reservaAtualizada.Precificacao.Quantidade,
-                Total = reservaAtualizada.Precificacao.Total,
-                Status = reservaAtualizada.Precificacao.Status,
-                TipoServico = reservaAtualizada.Precificacao.TipoServico,
-                EmitirNF = reservaAtualizada.Precificacao.EmitirNF
+                Quantidade = reservaExistente.Precificacao.Quantidade,
+                Total = reservaExistente.Precificacao.Total,
+                Status = reservaExistente.Precificacao.Status,
+                TipoServico = reservaExistente.Precificacao.TipoServico,
+                EmitirNF = reservaExistente.Precificacao.EmitirNF
             };
 
             serviceResponse.Message = "Reserva atualizada com sucesso";
