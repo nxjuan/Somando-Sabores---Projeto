@@ -1,3 +1,4 @@
+<!-- src/app/pages/pacotes/pacotes.component.html -->
 <app-header-bar />
 
 <section class="pacote-estudantes">
@@ -5,22 +6,55 @@
     <img src="assets/estudantes.png" alt="Imagem de estudantes">
   </div>
   <div class="form-container">
-    <h2>Pacote para estudantes</h2>
+    <h2>Pacote de Refeições para Estudantes</h2>
     <hr>
-    <p>Preencha o formulário abaixo e garanta refeições balanceadas nutritivas e saborosas de segunda a sábado com nosso pacote mensal de almoço.</p>
-    <p><strong>Apenas R$516 por mês</strong> (cada almoço sai por <strong>R$21,50</strong>!).</p>
+    <p>Preencha seus dados e selecione o período desejado para montar seu pacote personalizado.</p>
+    
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <!-- Campos de dados do aluno (mantidos) -->
       <label for="nome">Nome completo</label>
       <input type="text" id="nome" name="nome" required [(ngModel)]="nome" #nomeRef="ngModel">
-      <div *ngIf="nomeRef.invalid && nomeRef.touched" style="color:red;">Nome é obrigatório.</div>
+      <div *ngIf="nomeRef.invalid && nomeRef.touched" class="error-message">Nome é obrigatório.</div>
+      
       <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" required [(ngModel)]="email" #emailRef="ngModel">
-      <div *ngIf="emailRef.invalid && emailRef.touched" style="color:red;">E-mail é obrigatório.</div>
+      <input type="email" id="email" name="email" required email [(ngModel)]="email" #emailRef="ngModel">
+      <div *ngIf="emailRef.invalid && emailRef.touched" class="error-message">E-mail inválido.</div>
+      
       <label for="ra">R.A.</label>
-      <input class="imput-ra" type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel" />
-      <div *ngIf="raRef.invalid && raRef.touched" style="color:red;">R.A. é obrigatório.</div>
+      <input type="text" id="ra" name="ra" required [(ngModel)]="ra" #raRef="ngModel" />
+      <div *ngIf="raRef.invalid && raRef.touched" class="error-message">R.A. é obrigatório.</div>
+      
       <hr>
-      <button type="button" type="submit">Garanta já</button>
+      
+      <!-- NOVO: Seletor de Período -->
+      <mat-form-field class="date-range-picker">
+        <mat-label>Selecione o período do pacote</mat-label>
+        <mat-date-range-input 
+          [formGroup]="range"
+          [rangePicker]="picker" 
+          [dateFilter]="dateFilter">
+          <input matStartDate formControlName="start" placeholder="Data de início" (dateChange)="calcularPreco()">
+          <input matEndDate formControlName="end" placeholder="Data de fim" (dateChange)="calcularPreco()">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <!-- NOVO: Opção de Jantar -->
+      <mat-checkbox class="jantar-checkbox" [(ngModel)]="incluirJantar" name="incluirJantar" (change)="calcularPreco()">
+        Incluir marmita para o jantar? (+ R$ 18,90 por dia)
+      </mat-checkbox>
+
+      <!-- NOVO: Resumo do Cálculo -->
+      <div class="resumo-pacote" *ngIf="precoTotal > 0">
+        <h3>Resumo do Pacote</h3>
+        <p>Total de dias válidos no período: <strong>{{ diasUteisContados }}</strong></p>
+        <p class="preco-final">Preço Total: <strong>{{ precoTotal | currency:'BRL' }}</strong></p>
+      </div>
+      
+      <hr>
+      
+      <button type="submit" [disabled]="form.invalid || !range.valid || precoTotal === 0">Contratar e Pagar</button>
     </form>
   </div>
 </section>

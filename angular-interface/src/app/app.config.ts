@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideNgxMask } from 'ngx-mask';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom(FormsModule),
     importProvidersFrom(CommonModule),
-    provideNgxMask()
+    provideNgxMask(),
+    provideNativeDateAdapter()
   ]
 };
