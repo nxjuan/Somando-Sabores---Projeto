@@ -7,7 +7,7 @@
         </header>
         <app-filter-results></app-filter-results>
         <div *ngIf="pacotes.length === 0">
-            <p>Nenhum aluno cadastrado ainda.</p>
+            <p>Nenhum pacote cadastrado ainda.</p>
         </div>
         <div *ngFor="let pacote of pacotes; trackBy: trackByPacoteId">
             <app-registro-pacote 
