@@ -293,8 +293,11 @@ public class AlunoService (ApplicationDbContext context, IClienteService cliente
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Aluno atualizado com sucesso";
             }
-            serviceResponse.Success = false;
-            serviceResponse.Message = "Email inválido! Verifique o formato";
+            else
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Email inválido! Verifique o formato";
+            }
             return serviceResponse;
         }
         catch (Exception e)
