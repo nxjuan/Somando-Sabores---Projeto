@@ -1,6 +1,6 @@
 export interface Pacote {
-    idPacote: string | undefined;
     idAluno: string,
+    idPacote: string | undefined;
     nome: string | undefined;
     email: string | undefined;
     ra: string | undefined;

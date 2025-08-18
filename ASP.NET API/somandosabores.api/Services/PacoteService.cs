@@ -255,13 +255,21 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         var serviceResponse = new ServiceResponse<PacoteDTO>();
         try
         {
+            if (pacoteDTO == null || pacoteDTO.IdPacote == Guid.Empty)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Pacote não encontrado";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+
             var pacoteExiste = await context.Pacotes
                                             .Include(p => p.Aluno)
                                                 .ThenInclude(a => a.Cliente)
                                             .Include(p => p.Precificacao)
                                             .FirstOrDefaultAsync(p => p.Id == pacoteDTO.IdPacote);
 
-            if (pacoteDTO == null || pacoteDTO.IdPacote == Guid.Empty)
+            if (pacoteExiste == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Pacote não encontrado";
