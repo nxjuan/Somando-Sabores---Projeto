@@ -31,14 +31,17 @@ export class AdmReservasComponent implements OnInit{
       (response: ServiceResponse<Reserva[]>) => {
         if (response.success && response.data){
           this.reservas = response.data;
+          this.reservasFiltradas = this.reservas;
         } else {
           console.error(`Erro na resposta da API: ${response.message}`);
           this.reservas = [];
+          this.reservasFiltradas = this.reservas;
         }
       },
       error => {
         console.error(`Erro ao carregar reservas: ${error}`);
         this.reservas = [];
+        this.reservasFiltradas = this.reservas;
       }
     )
   }
@@ -88,4 +91,28 @@ export class AdmReservasComponent implements OnInit{
     this.mostrarConfirmacaoExclusao = false;
   }
   
+  reservasFiltradas: Reserva[] = this.reservas;
+
+  aplicarFiltro(filtro: { nome: string; data: string }) {
+    this.reservasFiltradas = this.reservas.filter(p =>
+      (!filtro.nome || p.nome?.toLowerCase().includes(filtro.nome.toLowerCase())) &&
+      (!filtro.data || p.dataReserva.includes(filtro.data))
+    );
+  }
+
+  foo(): void {
+    const data_csv = this.reservasFiltradas.map(r => [r.nome, r.dataReserva, r.quantidade, r.nomesConvidados.toString().replaceAll(',', '; ')]);
+    data_csv.splice(0, 0, ['Responsável', 'Data da Reserva', 'Quantidade', 'Nome dos Convidados']);
+    const csvContent = data_csv.map(e => e.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'reservas.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
 }

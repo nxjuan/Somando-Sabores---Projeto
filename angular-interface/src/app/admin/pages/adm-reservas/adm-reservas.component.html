@@ -4,15 +4,15 @@
         <header>
             <div class="title">
                 <h1>Reservas</h1>
-                <mat-icon>download</mat-icon>
+                <mat-icon (click)="foo()">download</mat-icon>
             </div>
             <hr/>
         </header>
-        <app-filter-results></app-filter-results>
+        <app-filter-results (filtroChange)="aplicarFiltro($event)"></app-filter-results>
         <div *ngIf="reservas.length === 0">
             <p>Nenhuma reserva cadastrada ainda.</p>
         </div>
-        <div *ngFor="let reserva of reservas; trackBy: trackByReservaId">
+        <div *ngFor="let reserva of reservasFiltradas; trackBy: trackByReservaId">
             <app-registro-reserva-v2 
               [reserva]="reserva"
               (atualizarReserva)="onReservaAtualizada($event)"

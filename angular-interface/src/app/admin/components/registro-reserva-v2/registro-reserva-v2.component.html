@@ -44,7 +44,7 @@
                 <mat-icon id="delete" *ngIf="!modoEdicao" (click)="onDeletarClick()">delete_outline</mat-icon>
             </div>
         </mat-expansion-panel-header>
-    <div class="convidados-data" *ngFor="let nome of localReserva.NomesConvidados">
+    <div class="convidados-data" *ngFor="let nome of localReserva.nomesConvidados">
         <mat-icon>person</mat-icon>
         <span>Convidado(a)</span>
         <span>{{ nome }}</span>

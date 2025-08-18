@@ -8,13 +8,13 @@
             <div class="label-input">
                 <span id="text-data">Data</span>
                 <label for="data_filtro">
-                    <input type="date" id="data_filtro" alt="filtro de data"/>
+                    <input type="date" id="data_filtro" alt="filtro de data" [(ngModel)]="data" (change)="emitirFiltro()"/>
                 </label>
             </div>
             <div class="label-input">
                 <span id="txt-resp">Responsável</span>
                 <label for="responsavel">
-                    <input type="text" id="responsavel" alt="responsavel"/>
+                    <input type="text" id="responsavel" alt="responsavel" [(ngModel)]="nome" (input)="emitirFiltro()"/>
                 </label>
                 <mat-icon>search</mat-icon>
             </div>
