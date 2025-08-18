@@ -152,6 +152,8 @@ public class ReservaService(ApplicationDbContext context,
                     serviceResponse.Success = false;
                     return serviceResponse;
                 }
+
+                reservaDTO.IdsConvidados = convidadosResponse.Data.Select(c => c.Id).ToList();
             }
 
             serviceResponse.Data = new ReservaDTO
@@ -164,6 +166,7 @@ public class ReservaService(ApplicationDbContext context,
                 Nome = nomeCliente,
                 Email = emailCliente,
 
+                IdsConvidados = reservaDTO.IdsConvidados,
                 NomesConvidados = reservaDTO.NomesConvidados,
 
                 Quantidade = precificacaoResponse.Data.Quantidade,
@@ -188,12 +191,12 @@ public class ReservaService(ApplicationDbContext context,
         }
     }
 
-    public async Task<ServiceResponse<ReservaDTO>> GetReservaDTO(Guid id)
+    public async Task<ServiceResponse<ReservaDTO>> GetReservaDTO(Guid? id)
     {
         var serviceResponse = new ServiceResponse<ReservaDTO>();
         try
         {
-            if (id == Guid.Empty)
+            if (id == Guid.Empty || id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Id invalido";
@@ -217,6 +220,7 @@ public class ReservaService(ApplicationDbContext context,
                 Nome = reserva.Cliente.Nome,
                 Email = reserva.Cliente.Email,
 
+                IdsConvidados = reserva.Convidados?.Select(c => c.Id).ToList(),
                 NomesConvidados = reserva.Convidados?.Select(c => c.Nome).ToList(),
 
                 Quantidade = reserva.Precificacao.Quantidade,
@@ -350,17 +354,30 @@ public class ReservaService(ApplicationDbContext context,
         }
     }
 
-    public async Task<ServiceResponse<string>> DeleteReserva(Guid id)
+    public async Task<ServiceResponse<string>> DeleteReserva(Guid? id)
     {
         var serviceRespose = new ServiceResponse<string>();
         try
         {
             var reserva = await context.Reservas.FindAsync(id);
-            if (id == Guid.Empty|| reserva == null)
+            var reservaDTO = await GetReservaDTO(id);
+
+            if (id == Guid.Empty || id == null || reservaDTO != null)
             {
                 serviceRespose.Data = null;
                 serviceRespose.Message = "Id invalido";
                 serviceRespose.Success = false;
+            }
+
+            var idsDosConvidados = reservaDTO.Data.IdsConvidados;
+            var convidadosResponse = await convidadoService.DeleteConvidados(idsDosConvidados);
+
+            if (!convidadosResponse.Success)
+            {
+                serviceRespose.Data = null;
+                serviceRespose.Message = $"Erro ao excluir convidados: {convidadosResponse.Message}";
+                serviceRespose.Success = false;
+                return serviceRespose;
             }
 
             context.Reservas.Remove(reserva);
@@ -374,7 +391,7 @@ public class ReservaService(ApplicationDbContext context,
         catch (Exception e)
         {
             serviceRespose.Data = null;
-            serviceRespose.Message = "Erro durante deleção: " + e.Message;
+            serviceRespose.Message = "Erro durante deleção: " + e.InnerException;
             serviceRespose.Success = false;
             return serviceRespose;
         }

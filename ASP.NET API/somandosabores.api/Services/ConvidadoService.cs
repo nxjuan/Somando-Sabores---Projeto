@@ -202,4 +202,37 @@ public class ConvidadoService(ApplicationDbContext context) : IConvidadoService
         }
         return serviceResponse;
     }
+
+    public async Task<ServiceResponse<string>> DeleteConvidados(List<Guid> ids)
+    {
+        var serviceResponse = new ServiceResponse<string>();
+        try
+        {
+            foreach (var id in ids)
+            {
+                var convidadoExiste = await context.Convidados.FindAsync(id);
+                if (convidadoExiste == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Erro ao remover convidado";
+                    serviceResponse.Success = false;
+                }
+                context.Convidados.Remove(convidadoExiste);
+            }
+
+            context.SaveChanges();
+
+            serviceResponse.Data = null;
+            serviceResponse.Message = "Convidados deletados com sucesso";
+            serviceResponse.Success = true;
+            return serviceResponse;
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Data = null;
+            serviceResponse.Message = "Erro ao deletar: " + e.Message;
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+    }
 }

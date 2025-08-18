@@ -12,7 +12,7 @@ public class Pacote
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public Guid AlunoId { get; set; }
     public DateTime DataInicio { get; set; }
     public DateTime DataFinal { get; set; }

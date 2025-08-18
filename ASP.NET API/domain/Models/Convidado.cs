@@ -13,7 +13,7 @@ public class Convidado
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
-    public Guid ReservaId { get; set; }
+    public Guid? ReservaId { get; set; }
     public Reserva Reserva { get; set; }
     public string Nome { get; set; }
 

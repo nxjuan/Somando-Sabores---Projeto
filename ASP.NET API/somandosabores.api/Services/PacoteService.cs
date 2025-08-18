@@ -10,12 +10,12 @@ namespace somandosabores.api.Services;
 
 public class PacoteService(ApplicationDbContext context, IPrecificacaoService precificacaoService, IAlunoService alunoService) : IPacoteService
 {
-    public async Task<ServiceResponse<PacoteDTO>> GetPacoteById(Guid id)
+    public async Task<ServiceResponse<PacoteDTO>> GetPacoteById(Guid? id)
     {
         var serviceResponse = new ServiceResponse<PacoteDTO>();
         try
         {
-            if (id == Guid.Empty)
+            if (id == Guid.Empty || id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Id inváido";
@@ -208,12 +208,12 @@ public class PacoteService(ApplicationDbContext context, IPrecificacaoService pr
         }
     }
 
-    public async Task<ServiceResponse<string>> DeletePacote(Guid id)
+    public async Task<ServiceResponse<string>> DeletePacote(Guid? id)
     {
         var serviceResponse = new ServiceResponse<string>();
         try
         {
-            if (id == Guid.Empty)
+            if (id == Guid.Empty || id == null)
             {
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Pacote não encontrado";

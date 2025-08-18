@@ -1,12 +1,13 @@
 ﻿using domain.Models;
+using domain.Models.DTO;
 
 namespace domain.IServices;
 
 public interface IPagamentoService
 {
-    Task<ServiceResponse<Pagamento>> GetPagamentosById(Guid id);
-    Task<ServiceResponse<List<Pagamento>>> GetPagamentos();
-    Task<ServiceResponse<Pagamento>> CreatePagamento(Pagamento pagamento);
-    Task<ServiceResponse<Pagamento>> UpdatePagamento(Pagamento pagamento);
+    Task<ServiceResponse<PagamentoDTO>> GetPagamentoById(Guid id);
+    Task<ServiceResponse<List<PagamentoDTO>>> GetPagamentos();
+    Task<ServiceResponse<PagamentoDTO>> CreatePagamento(PagamentoDTO pagamento);
+    Task<ServiceResponse<PagamentoDTO>> UpdatePagamento(PagamentoDTO pagamento);
     Task<ServiceResponse<string>> DeletePagamento(Guid id);
 }

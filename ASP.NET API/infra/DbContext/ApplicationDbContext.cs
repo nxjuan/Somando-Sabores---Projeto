@@ -62,14 +62,6 @@ public class ApplicationDbContext(DbContextOptions options ) : DbContext(options
                 .HasForeignKey(p => p.ClienteId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.Property(p => p.AlunoId)
-                .HasColumnName("aluno_id");
-
-            entity.HasOne(p => p.Aluno)
-                .WithMany()
-                .HasForeignKey(p => p.AlunoId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             entity.Property(p => p.PacoteId)
                 .HasColumnName("pacote_id");
 

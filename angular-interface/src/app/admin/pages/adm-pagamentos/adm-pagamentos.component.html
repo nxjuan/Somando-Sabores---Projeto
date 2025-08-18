@@ -13,7 +13,13 @@
             <hr/>
         </header>
         <app-filter-results></app-filter-results>
-        <app-registro-pagamento></app-registro-pagamento>
+        <div *ngIf="pagamentos.length === 0">
+            <p>Nenhum pagamento localizado ainda.</p>
+        </div>
+        <div *ngFor="let pagamento of pagamentos; trackBy: trackByPagamentoId">
+            <app-registro-pagamento [pagamento]="pagamento">
+            </app-registro-pagamento>
+        </div>
     </div>
 </div>
 

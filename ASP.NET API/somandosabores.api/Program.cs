@@ -41,7 +41,7 @@ builder.Services.AddScoped<IAlunoService, AlunoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IConvidadoService, ConvidadoService>();
 builder.Services.AddScoped<IPacoteService, PacoteService>();
-// builder.Services.AddScoped<IPagamentoService, PagamentoService>();
+builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 builder.Services.AddScoped<IPrecificacaoService, PrecificacaoService>();
 
 var app = builder.Build();
