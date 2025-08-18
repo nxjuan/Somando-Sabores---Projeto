@@ -5,11 +5,11 @@
             <h1>Pacotes</h1>
             <hr/>
         </header>
-        <app-filter-results></app-filter-results>
+        <app-filter-results (filtroChange)="aplicarFiltro($event)"></app-filter-results>
         <div *ngIf="pacotes.length === 0">
             <p>Nenhum pacote cadastrado ainda.</p>
         </div>
-        <div *ngFor="let pacote of pacotes; trackBy: trackByPacoteId">
+        <div *ngFor="let pacote of pacotesFiltrados; trackBy: trackByPacoteId">
             <app-registro-pacote 
               [pacote]="pacote"
               (atualizarPacote)="onPacoteAtualizado($event)"

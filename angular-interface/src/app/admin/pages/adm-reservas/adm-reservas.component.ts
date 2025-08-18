@@ -31,14 +31,17 @@ export class AdmReservasComponent implements OnInit{
       (response: ServiceResponse<Reserva[]>) => {
         if (response.success && response.data){
           this.reservas = response.data;
+          this.reservasFiltradas = this.reservas;
         } else {
           console.error(`Erro na resposta da API: ${response.message}`);
           this.reservas = [];
+          this.reservasFiltradas = this.reservas;
         }
       },
       error => {
         console.error(`Erro ao carregar reservas: ${error}`);
         this.reservas = [];
+        this.reservasFiltradas = this.reservas;
       }
     )
   }
@@ -88,4 +91,13 @@ export class AdmReservasComponent implements OnInit{
     this.mostrarConfirmacaoExclusao = false;
   }
   
+  reservasFiltradas: Reserva[] = this.reservas;
+
+  aplicarFiltro(filtro: { nome: string; data: string }) {
+    this.reservasFiltradas = this.reservas.filter(p =>
+      (!filtro.nome || p.nome?.toLowerCase().includes(filtro.nome.toLowerCase())) &&
+      (!filtro.data || p.dataReserva.includes(filtro.data))
+    );
+  }
+
 }

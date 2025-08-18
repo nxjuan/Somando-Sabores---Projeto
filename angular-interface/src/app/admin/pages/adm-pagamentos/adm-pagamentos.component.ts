@@ -27,19 +27,31 @@ export class AdmPagamentosComponent implements OnInit{
       (response: ServiceResponse<Pagamento[]>) => {
         if (response.success && response.data){
           this.pagamentos = response.data;
+          this.pagamentosFiltrados = this.pagamentos;
         } else {
           console.error(`Erro na resposta da API: ${response.message}`);
           this.pagamentos = [];
+          this.pagamentosFiltrados = this.pagamentos;
         }
       },
       error => {
         console.error(`Erro ao carregar pagamentos: ${error}`)
         this.pagamentos = [];
+        this.pagamentosFiltrados = this.pagamentos;
       }
     )
   }
 
   trackByPagamentoId(index: number, pagamento: Pagamento): string {
     return pagamento.id ?? index.toString(); 
+  }
+
+  pagamentosFiltrados: Pagamento[] = this.pagamentos;
+
+  aplicarFiltro(filtro: { nome: string; data: string }) {
+    this.pagamentosFiltrados = this.pagamentos.filter(p =>
+      (!filtro.nome || p.nome?.toLowerCase().includes(filtro.nome.toLowerCase())) &&
+      (!filtro.data || p.dataPagamento.includes(filtro.data))
+    );
   }
 }

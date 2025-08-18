@@ -30,14 +30,17 @@ export class AdmPacotesComponent implements OnInit{
       (response: ServiceResponse<Pacote[]>) => {
         if (response.success && response.data){
           this.pacotes = response.data;
+          this.pacotesFiltrados = this.pacotes;
         } else {
           console.error(`Erro na resposta da API: ${response.message}`);
           this.pacotes = [];
+          this.pacotesFiltrados = this.pacotes;
         }
       },
       error => {
         console.error(`Erro ao carregar pacotes: ${error}`);
         this.pacotes = [];
+        this.pacotesFiltrados = this.pacotes;
       }
     )
   }
@@ -85,6 +88,15 @@ export class AdmPacotesComponent implements OnInit{
   fecharConfirmacao(): void {
     this.pacoteParaExcluirId = null;
     this.mostrarConfirmacaoExclusao = false;
+  }
+
+  pacotesFiltrados: Pacote[] = this.pacotes;
+
+  aplicarFiltro(filtro: { nome: string; data: string }) {
+    this.pacotesFiltrados = this.pacotes.filter(p =>
+      (!filtro.nome || p.nome?.toLowerCase().includes(filtro.nome.toLowerCase())) &&
+      (!filtro.data || p.dataInicio.includes(filtro.data))
+    );
   }
 
 }
