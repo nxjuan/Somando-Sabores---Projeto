@@ -77,7 +77,7 @@ export class AdmReservasComponent implements OnInit{
         console.log('Reserva excluída com sucesso!')
       },
       error => {
-        console.error(`Falha ao excluir reserva: ${error}`);
+        console.error(error);
         this.fecharConfirmacao();
       }
     );

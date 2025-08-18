@@ -13,7 +13,7 @@ public class Reserva
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; init; }
+    public Guid? Id { get; init; }
     public DateTime DataReserva { get; set; }
     public int QtdConvidados { get; set; }
 

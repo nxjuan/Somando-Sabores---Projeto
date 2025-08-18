@@ -1,8 +1,8 @@
 <section class="box-pagamentos">
     <div class="registro-pagamento">
-        <span [innerText]="id_pagamento">[ID_PAGAMENTO]</span>
-        <span [innerText]="nome_pagamento">[NOME]</span>
-        <span [innerText]="valor_pagamento">[VALOR]</span>
-        <span [innerText]="data_pagamento">[DATA]</span>
+        <span id="id_pagamento">{{ localPagamento.id }}</span>
+        <span id="nome_pagamento">{{ localPagamento.nome }}</span>
+        <span id="valor_pagamento"> {{ localPagamento.valorTotal }} </span>
+        <span id="data_pagamento">{{ localPagamento.dataPagamento }}</span>
     </div>
 </section>

@@ -5,7 +5,7 @@ namespace domain.Models.DTO;
 
 public class PacoteDTO
 {
-    public Guid IdPacote { get; set; }
+    public Guid? IdPacote { get; set; }
     public DateTime DataInicio { get; set; }
     public DateTime DataFinal { get; set; }
     public Guid IdAluno { get; set; }

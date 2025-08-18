@@ -14,19 +14,16 @@ public class Pagamento
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public DateTime DataPagamento { get; set; } = DateTime.Now;
-    public Decimal ValorTotal { get; set; }
+    public decimal ValorTotal { get; set; }
     public string? FormaPagamento { get; set; }
     public string? AsaasId { get; set; }
     
-    public Guid ReservaId { get; set; } 
+    public Guid? ReservaId { get; set; } 
     public Reserva? Reserva { get; set; }
 
-    public Guid PacoteId { get; set; }
+    public Guid? PacoteId { get; set; } 
     public Pacote Pacote { get; set; }
 
     public Guid ClienteId { get; set; }
     public Cliente Cliente { get; set; } 
-
-    public Guid AlunoId { get; set; } 
-    public Aluno Aluno { get; set; } 
 }
