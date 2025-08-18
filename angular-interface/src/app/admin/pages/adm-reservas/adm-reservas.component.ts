@@ -100,4 +100,19 @@ export class AdmReservasComponent implements OnInit{
     );
   }
 
+  foo(): void {
+    const data_csv = this.reservasFiltradas.map(r => [r.nome, r.dataReserva, r.quantidade, r.nomesConvidados.toString().replaceAll(',', '; ')]);
+    data_csv.splice(0, 0, ['Responsável', 'Data da Reserva', 'Quantidade', 'Nome dos Convidados']);
+    const csvContent = data_csv.map(e => e.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'reservas.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
 }
